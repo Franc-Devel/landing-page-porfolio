@@ -1,0 +1,25 @@
+{
+  "alumnos": [
+    {
+      "nombre": "Agustin",
+      "apellido": "Delgado",
+      "edad": 32,
+      "email": "Agustin@gmail.com",
+      "comision": "1",
+      "activo": true,
+      "id": "USuRqite_pY",
+      "id_alumno": 1
+    },
+    {
+      "nombre": "Oriana",
+      "apellido": "Gordillo",
+      "edad": 19,
+      "email": "oriana@gmail.com",
+      "comision": "1",
+      "activo": true,
+      "id": "pX5F0c7QRtA",
+      "id_alumno": 2
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
