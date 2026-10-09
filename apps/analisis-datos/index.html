@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Simulador interactivo de parcial y plataforma de estudio activo para Introducción al Análisis de Datos (UTN FRT)" />
+    <meta name="theme-color" content="#09110f" />
+    <title>Modo Parcial - Introducción al Análisis de Datos</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="study-window" aria-label="Programa de estudio">
+        <header class="window-bar">
+          <div class="window-dots" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="brand-block">
+            <div class="brand-mark" aria-hidden="true"><span>AD</span></div>
+            <div>
+              <p class="eyebrow">Introducción al Análisis de Datos</p>
+              <h1>Modo Parcial</h1>
+            </div>
+          </div>
+          <button id="restartButton" class="icon-button" type="button" title="Reiniciar partida" aria-label="Reiniciar partida">
+            ↻
+          </button>
+        </header>
+
+        <section class="hud" aria-label="Estado de la partida">
+          <article data-stat="★">
+            <span>Puntos</span>
+            <strong id="scoreValue">0</strong>
+          </article>
+          <article data-stat="↗">
+            <span>Racha</span>
+            <strong id="streakValue">0</strong>
+          </article>
+          <article data-stat="◆">
+            <span>Nivel</span>
+            <strong id="levelValue">1</strong>
+          </article>
+          <article data-stat="#">
+            <span>Errores disponibles</span>
+            <strong id="livesValue">0</strong>
+          </article>
+        </section>
+
+        <section class="progress-wrap" aria-label="Progreso">
+          <div class="progress-info">
+            <span id="questionCounter">Pregunta 1 de 1</span>
+            <span id="bestScore">Mejor: 0</span>
+          </div>
+          <div class="progress-track">
+            <div id="progressBar" class="progress-bar"></div>
+          </div>
+        </section>
+
+        <!-- Pantalla de Inicio y Dashboard -->
+        <section id="startScreen" class="panel active">
+          <div class="study-dashboard">
+            <div class="study-lead">
+              <p class="kicker">Entrenamiento con memoria activa</p>
+              <h2>Resumen para estudiar y práctica para aprobar</h2>
+              <p>
+                Estudiá cada tema con sus ideas centrales y practicá con preguntas de Análisis de Datos.
+                Los errores aparecen primero en tu próxima ronda para que puedas reforzarlos.
+                Cada bloque calcula sus errores disponibles según su cantidad de preguntas para que puedas aprobar con un 6 (60%) al completarlo.
+                Los simulacros de parcial están pensados para desafiarte en tiempo y precisión.
+              </p>
+            </div>
+
+            <aside class="mode-box">
+              <div class="mode-icon" aria-hidden="true">▶</div>
+              <p class="mode-title">Prepará tu ronda</p>
+              <label for="modeSelect">Modo</label>
+              <select id="modeSelect">
+                <option value="normal">Normal: 20 preguntas variadas</option>
+                <option value="express">Express: 10 preguntas</option>
+                <option value="exam">Simulacro de parcial: 30 preguntas / 60 min</option>
+                <option value="full">Modo completo: las 56 preguntas</option>
+                <option value="mistakes">Repasar errores guardados</option>
+              </select>
+              <button id="startButton" class="primary-button" type="button">Empezar</button>
+            </aside>
+          </div>
+
+          <!-- Aventura por niveles -->
+          <section class="summary-section game-section" aria-labelledby="levelsTitle">
+            <div class="section-heading">
+              <p class="kicker">Ruta de progreso</p>
+              <h3 id="levelsTitle">Aventura por niveles</h3>
+            </div>
+            <p class="section-intro">Superá cada nivel con nota 6 para desbloquear el siguiente. Si no llegás, podés reintentar el mismo nivel.</p>
+            <div id="levelPlan" class="level-plan"></div>
+          </section>
+
+          <!-- Resumen general -->
+          <section class="summary-section" aria-labelledby="summaryTitle">
+            <div class="section-heading">
+              <p class="kicker">Resumen general</p>
+              <h3 id="summaryTitle">Los 8 temas de las Unidades 1 y 2</h3>
+            </div>
+            <div id="studyGuide" class="study-guide"></div>
+          </section>
+
+          <!-- Plan de práctica por unidad -->
+          <section class="summary-section" aria-labelledby="practiceTitle">
+            <div class="section-heading">
+              <p class="kicker">Plan de práctica</p>
+              <h3 id="practiceTitle">Práctica por unidad temática</h3>
+            </div>
+            <div id="modulePlan" class="module-plan"></div>
+          </section>
+        </section>
+
+        <!-- Pantalla de Preguntas / Quiz -->
+        <section id="quizScreen" class="panel" aria-live="polite">
+          <div class="question-meta">
+            <span id="unitBadge">Unidad</span>
+            <span id="difficultyBadge">Concepto clave</span>
+          </div>
+          <h2 id="questionText"></h2>
+          <div id="answersList" class="answers-list"></div>
+          <div id="feedbackBox" class="feedback-box" hidden></div>
+          <div class="actions-row">
+            <button id="nextButton" class="primary-button" type="button" disabled>Siguiente</button>
+          </div>
+        </section>
+
+        <!-- Pantalla de Resultados -->
+        <section id="endScreen" class="panel">
+          <div id="celebration" class="celebration" hidden aria-live="polite"></div>
+          <div class="result-layout">
+            <div>
+              <p class="kicker">Resultado</p>
+              <h2 id="resultTitle">Partida terminada</h2>
+              <p id="resultText"></p>
+            </div>
+            <div class="score-card">
+              <span>Puntaje final</span>
+              <strong id="finalScore">0</strong>
+              <small id="accuracyText">0% de aciertos</small>
+            </div>
+          </div>
+          <div id="mistakesBox" class="mistakes-box"></div>
+          <div class="actions-row">
+            <button id="retryButton" class="secondary-button" type="button" hidden>Reintentar nivel</button>
+            <button id="againButton" class="primary-button" type="button">Jugar de nuevo</button>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="assets/js/analysis-data.js"></script>
+    <script src="assets/js/app.js"></script>
+  </body>
+</html>
