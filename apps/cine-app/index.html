@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CineApp | Gestor de Películas y Catálogo</title>
+    <link rel="stylesheet" href="./src/style.css" />
+    <style>
+      .badge-genre {
+        background: rgba(0, 212, 255, 0.15);
+        color: var(--accent-color);
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 0.8rem;
+        border: 1px solid rgba(0, 212, 255, 0.3);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" class="bunker-container">
+      <header class="header-nav">
+        <div>
+          <h2 style="margin: 0; font-size: 1.5rem;">🎬 CineApp Pro</h2>
+          <small style="color: var(--accent-color);">Catálogo & Gestión de Películas</small>
+        </div>
+        <div class="user-info" style="display: flex; align-items: center; gap: 14px;">
+          <span id="user-display-name">Francisco Delgado (ADMIN)</span>
+          <button type="button" id="btn-seed" class="btn-primary" style="padding: 6px 12px; font-size: 0.85rem;">
+            ↻ Restaurar Catálogo
+          </button>
+        </div>
+      </header>
+
+      <section id="admin-panel" style="margin-bottom: 24px;">
+        <h3>🛡️ Registrar Nueva Película</h3>
+        <form id="movie-form" class="bunker-form">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <input type="text" id="movie-title" placeholder="Título de la película" required />
+            <input type="text" id="movie-director" placeholder="Director" required />
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;">
+            <input type="number" id="movie-year" placeholder="Año (ej. 2024)" required />
+            <input type="number" id="movie-duration" placeholder="Duración (minutos)" required />
+            <input type="text" id="movie-genre" placeholder="Género (ej. Ciencia Ficción)" required />
+          </div>
+          <textarea id="movie-synopsis" placeholder="Sinopsis..." rows="3" required></textarea>
+          <button type="submit" id="btn-movie" class="btn-primary">
+            ＋ Registrar Película
+          </button>
+        </form>
+      </section>
+
+      <section class="catalog-section">
+        <h3>🎬 Catálogo Disponible</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Título</th>
+              <th>Director</th>
+              <th>Año</th>
+              <th>Duración</th>
+              <th>Género</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="movies-tbody"></tbody>
+        </table>
+      </section>
+    </div>
+
+    <script>
+      const INITIAL_MOVIES = [
+        { id: 1, title: "Interstellar", director: "Christopher Nolan", year: 2014, duration: 169, genre: "Ciencia Ficción", synopsis: "Un grupo de científicos viaja a través de un agujero de gusano para salvar la humanidad." },
+        { id: 2, title: "Inception", director: "Christopher Nolan", year: 2010, duration: 148, genre: "Acción / Sci-Fi", synopsis: "Un ladrón de secretos corporativos utiliza tecnología para infiltrarse en los sueños." },
+        { id: 3, title: "Blade Runner 2049", director: "Denis Villeneuve", year: 2017, duration: 164, genre: "Cyberpunk", synopsis: "Un blade runner descubre un secreto largamente enterrado." },
+        { id: 4, title: "Matrix", director: "Lana y Lilly Wachowski", year: 1999, duration: 136, genre: "Acción", synopsis: "Un hacker descubre la verdadera naturaleza de su realidad y su rol en la guerra." },
+        { id: 5, title: "Oppenheimer", director: "Christopher Nolan", year: 2023, duration: 180, genre: "Drama Histórico", synopsis: "La historia del científico estadounidense J. Robert Oppenheimer y su rol en el Proyecto Manhattan." }
+      ];
+
+      function getMovies() {
+        const data = localStorage.getItem("cineapp_movies");
+        if (!data) {
+          localStorage.setItem("cineapp_movies", JSON.stringify(INITIAL_MOVIES));
+          return [...INITIAL_MOVIES];
+        }
+        return JSON.parse(data);
+      }
+
+      function saveMovies(movies) {
+        localStorage.setItem("cineapp_movies", JSON.stringify(movies));
+      }
+
+      function renderMovies() {
+        const movies = getMovies();
+        const tbody = document.getElementById("movies-tbody");
+        if (movies.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #888; padding: 20px;">No hay películas registradas en el catálogo.</td></tr>';
+          return;
+        }
+
+        tbody.innerHTML = movies.map(m => `
+          <tr>
+            <td><strong>${m.title}</strong><br><small style="color:#aaa;">${m.synopsis || ""}</small></td>
+            <td>${m.director}</td>
+            <td>${m.year}</td>
+            <td>${m.duration} min</td>
+            <td><span class="badge-genre">${m.genre}</span></td>
+            <td>
+              <button class="btn-danger" onclick="deleteMovie(${m.id})">Eliminar</button>
+            </td>
+          </tr>
+        `).join("");
+      }
+
+      window.deleteMovie = function(id) {
+        let movies = getMovies();
+        movies = movies.filter(m => m.id !== id);
+        saveMovies(movies);
+        renderMovies();
+      };
+
+      document.getElementById("movie-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const title = document.getElementById("movie-title").value.trim();
+        const director = document.getElementById("movie-director").value.trim();
+        const year = parseInt(document.getElementById("movie-year").value, 10);
+        const duration = parseInt(document.getElementById("movie-duration").value, 10);
+        const genre = document.getElementById("movie-genre").value.trim();
+        const synopsis = document.getElementById("movie-synopsis").value.trim();
+
+        const movies = getMovies();
+        const newMovie = { id: Date.now(), title, director, year, duration, genre, synopsis };
+        movies.unshift(newMovie);
+        saveMovies(movies);
+        e.target.reset();
+        renderMovies();
+      });
+
+      document.getElementById("btn-seed").addEventListener("click", () => {
+        localStorage.removeItem("cineapp_movies");
+        renderMovies();
+      });
+
+      renderMovies();
+    </script>
+  </body>
+</html>
