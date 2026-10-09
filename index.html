@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Francisco Agustín Delgado | Fullstack Developer & Software Architect</title>
+    <meta
+      name="description"
+      content="Portafolio profesional y catálogo interactivo de Francisco Agustín Delgado. Desarrollo Fullstack, arquitectura de software, ciberseguridad, React 19, Next.js, Node.js y Python."
+    />
+    <meta
+      name="keywords"
+      content="Francisco Delgado, Francisco Agustín Delgado, Fullstack Developer, Software Architect, React, Vite, Next.js, Node.js, Python, Ciberseguridad, Portfolio, Tucuman"
+    />
+    <meta name="author" content="Francisco Agustín Delgado" />
+    <meta name="theme-color" content="#070a12" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="./css/styles.css" />
+  </head>
+  <body>
+    <!-- Ambient Background Light Effects -->
+    <div class="ambient-glow-1" aria-hidden="true"></div>
+    <div class="ambient-glow-2" aria-hidden="true"></div>
+
+    <!-- Header & Navigation -->
+    <header class="site-header" id="siteHeader">
+      <div class="container">
+        <a href="#inicio" class="brand-wrapper" aria-label="Ir al inicio">
+          <div class="brand-badge">FD</div>
+          <div class="brand-info">
+            <span class="brand-name">Francisco Delgado</span>
+            <span class="brand-title">Fullstack & Software Architect</span>
+          </div>
+        </a>
+
+        <nav aria-label="Navegación principal">
+          <ul class="nav-links">
+            <li><a href="#inicio" class="nav-link active">Inicio</a></li>
+            <li><a href="#sobre-mi" class="nav-link">Sobre Mí</a></li>
+            <li><a href="#evolucion" class="nav-link">Evolución</a></li>
+            <li><a href="#pilares" class="nav-link">Pilares</a></li>
+            <li><a href="#proyectos" class="nav-link">Proyectos</a></li>
+            <li><a href="#arquitectura" class="nav-link">Arquitectura</a></li>
+            <li><a href="#seguridad" class="nav-link">Seguridad</a></li>
+            <li><a href="#contacto" class="nav-link">Contacto</a></li>
+          </ul>
+        </nav>
+
+        <a href="#proyectos" class="nav-cta">Explorar Apps ↗</a>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero Section -->
+      <section class="hero-section" id="inicio">
+        <div class="container">
+          <div class="hero-content">
+            <div class="hero-pill">
+              <span class="hero-pill-dot"></span>
+              <span>Ingeniería de Software · Ciberseguridad · Arquitectura Fullstack</span>
+            </div>
+
+            <h1 class="hero-title">
+              Construyendo sistemas <br />
+              <span class="gradient-text">resilientes, seguros</span> <br />
+              y de alto impacto.
+            </h1>
+
+            <p class="hero-subtitle">
+              Soy <strong>Francisco Agustín Delgado</strong>. Diseño y desarrollo soluciones tecnológicas de punta a punta: desde la lógica algorítmica fundamental y Single Page Applications de alto rendimiento, hasta plataformas fullstack empresariales, automatización con Python y riguroso blindaje de ciberseguridad.
+            </p>
+
+            <div class="hero-actions">
+              <a href="#proyectos" class="btn btn-primary" id="btnHeroProyectos">
+                <span>Explorar Catálogo de Proyectos</span>
+                <span>↘</span>
+              </a>
+              <a href="#evolucion" class="btn btn-secondary" id="btnHeroEvolucion">
+                <span>Mi Evolución Técnica</span>
+                <span>↓</span>
+              </a>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="hero-stats" role="region" aria-label="Métricas de trayectoria">
+              <div class="stat-card">
+                <span class="stat-number" data-target="14" data-suffix="+">14+</span>
+                <span class="stat-label">Proyectos en Catálogo</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-number" data-target="100" data-suffix="%">100%</span>
+                <span class="stat-label">Políticas Zero-Leak</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-number" data-target="4" data-suffix=" Apps">4 Apps</span>
+                <span class="stat-label">Desplegadas en Vercel</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-number" data-target="6" data-suffix=" Fases">6 Fases</span>
+                <span class="stat-label">Evolución de Aprendizaje</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sobre Mí & Filosofía de Ingeniería -->
+      <section class="section" id="sobre-mi">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-kicker">Perfil Profesional</span>
+            <h2 class="section-title">El error detrás del error y la mentalidad de ingeniería</h2>
+            <p class="section-description">
+              No concibo el software como una acumulación de scripts aislados. Entiendo cada aplicación como un ecosistema donde las personas, los procesos y la seguridad deben operar en armonía.
+            </p>
+          </div>
+
+          <div class="about-grid">
+            <div class="about-card">
+              <h3>Mi Propuesta de Valor</h3>
+              <p>
+                A lo largo de mi formación y trayectoria práctica, he transformado el aprendizaje en un proceso continuo de documentación, iteración y refinamiento empírico. Desde resolver problemas matemáticos de bajo nivel hasta orquestar sistemas de punto de venta (POS) y puentes de mensajería con modelos locales.
+              </p>
+              <p>
+                Mi filosofía de trabajo prioriza la <strong>seguridad por diseño</strong>: el código más elegante es aquel que además es seguro, auditable y previene fugas accidentales de datos o credenciales.
+              </p>
+              <div class="about-badges">
+                <span class="about-badge">Fullstack End-to-End</span>
+                <span class="about-badge">Clean Code & Inmutabilidad</span>
+                <span class="about-badge">Zero Secret Exposure</span>
+                <span class="about-badge">Local-First Architecture</span>
+              </div>
+            </div>
+
+            <div class="about-highlights">
+              <div class="highlight-item">
+                <div class="highlight-icon">⚡</div>
+                <div class="highlight-content">
+                  <h4>Lógica & Pensamiento Algorítmico</h4>
+                  <p>Resolución de problemas desde las bases matemáticas y algorítmicas, garantizando flujos predecibles, inmutabilidad y bajo consumo de recursos.</p>
+                </div>
+              </div>
+
+              <div class="highlight-item">
+                <div class="highlight-icon">🎨</div>
+                <div class="highlight-content">
+                  <h4>Frontend Reactivo & Experiencia de Usuario</h4>
+                  <p>Construcción de interfaces con React 19, Next.js y CSS Vanilla moderno. Fluidez a 60 FPS, microanimaciones y adaptación responsiva absoluta.</p>
+                </div>
+              </div>
+
+              <div class="highlight-item">
+                <div class="highlight-icon">🛡️</div>
+                <div class="highlight-content">
+                  <h4>Ciberseguridad Defensiva & Privacidad</h4>
+                  <p>Segregación estricta de variables de entorno, sanitización XSS, control transaccional en SQLite y almacenamiento confidencial en infraestructura NAS.</p>
+                </div>
+              </div>
+
+              <div class="highlight-item">
+                <div class="highlight-icon">🔄</div>
+                <div class="highlight-content">
+                  <h4>Arquitectura de Datos & Automatización</h4>
+                  <p>Modelado de bases de datos relacionales, scripts en Python para procesamiento de información y pipelines de réplicas distribuidas.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Evolución & Trayectoria Técnica -->
+      <section class="section" id="evolucion" style="background: rgba(255, 255, 255, 0.01);">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-kicker">Metodología "Learn in Public"</span>
+            <h2 class="section-title">Evolución técnica paso a paso</h2>
+            <p class="section-description">
+              Un recorrido cronológico y metodológico por los hitos que forjaron mi criterio en desarrollo de software, arquitectura de sistemas y ciberseguridad.
+            </p>
+          </div>
+
+          <div class="timeline" role="region" aria-label="Línea de tiempo de evolución técnica">
+            <!-- Fase 1 -->
+            <div class="timeline-step phase-1">
+              <div class="timeline-marker" aria-hidden="true"></div>
+              <article class="timeline-card">
+                <div class="timeline-meta">
+                  <span class="timeline-phase">Fase 1 · v1.0.0</span>
+                  <span class="timeline-badge">Fundamentos & Pensamiento Algorítmico</span>
+                </div>
+                <h3 class="timeline-title">Estructuras de Control, Validaciones y Lógica Pura</h3>
+                <p class="timeline-body">
+                  Inicio en el pensamiento computacional. Dominio de condicionales anidados, bucles iterativos, validación matemática de tipos y manejo seguro de división por cero. Desarrollo de motores de cálculo y consolas interactivas.
+                </p>
+                <div class="timeline-tags">
+                  <span class="timeline-tag">JavaScript ES6</span>
+                  <span class="timeline-tag">Calculadora Científica Pro</span>
+                  <span class="timeline-tag">Laboratorio de Lógica & Bucles</span>
+                  <span class="timeline-tag">Terminal Emulada</span>
+                </div>
+              </article>
+            </div>
+
+            <!-- Fase 2 -->
+            <div class="timeline-step phase-2">
+              <div class="timeline-marker" aria-hidden="true"></div>
+              <article class="timeline-card">
+                <div class="timeline-meta">
+                  <span class="timeline-phase">Fase 2 · v1.5.0</span>
+                  <span class="timeline-badge">DOM Dinámico & Consumo Asíncrono de APIs</span>
+                </div>
+                <h3 class="timeline-title">Manipulación del DOM, Formularios Reactivos y Persistencia Local</h3>
+                <p class="timeline-body">
+                  Transición hacia aplicaciones web interactivas. Integración asíncrona mediante Fetch API, geocodificación de coordenadas y consumo de pronósticos satelitales sin comprometer claves privadas de API (Open-Meteo). Sincronización inmutable con LocalStorage.
+                </p>
+                <div class="timeline-tags">
+                  <span class="timeline-tag">Async / Await</span>
+                  <span class="timeline-tag">MeteoTrack Satelital</span>
+                  <span class="timeline-tag">Task Flow Pro</span>
+                  <span class="timeline-tag">React Hook Form</span>
+                </div>
+              </article>
+            </div>
+
+            <!-- Fase 3 -->
+            <div class="timeline-step phase-3">
+              <div class="timeline-marker" aria-hidden="true"></div>
+              <article class="timeline-card">
+                <div class="timeline-meta">
+                  <span class="timeline-phase">Fase 3 · v2.0.0</span>
+                  <span class="timeline-badge">Componentes & Single Page Applications</span>
+                </div>
+                <h3 class="timeline-title">Arquitectura de Componentes, E-Commerce y Streaming</h3>
+                <p class="timeline-body">
+                  Construcción de Single Page Applications con Vite y React 19. Implementación de catálogos masivos con filtros en tiempo real, gestión de listas de deseos (Wishlist), motores de audio streaming con cola dinámica y transiciones suaves con Framer Motion.
+                </p>
+                <div class="timeline-tags">
+                  <span class="timeline-tag">React 19</span>
+                  <span class="timeline-tag">Francis Gamer</span>
+                  <span class="timeline-tag">Francis Music Streamer</span>
+                  <span class="timeline-tag">Francis Store</span>
+                  <span class="timeline-tag">Framer Motion</span>
+                </div>
+              </article>
+            </div>
+
+            <!-- Fase 4 -->
+            <div class="timeline-step phase-4">
+              <div class="timeline-marker" aria-hidden="true"></div>
+              <article class="timeline-card">
+                <div class="timeline-meta">
+                  <span class="timeline-phase">Fase 4 · v2.5.0</span>
+                  <span class="timeline-badge">Simuladores Académicos & Análisis de Datos</span>
+                </div>
+                <h3 class="timeline-title">Ingeniería de Software, Defensa de Metodologías y Métricas UTN</h3>
+                <p class="timeline-body">
+                  Creación de plataformas de evaluación y estudio activo para la universidad (UTN FRT). Simuladores de exámenes con algoritmos de barajado sin repetición, cronómetros regresivos, módulos de defensa metodológica (Scrum, Kanban, GitFlow) y conceptos de ciencia de datos.
+                </p>
+                <div class="timeline-tags">
+                  <span class="timeline-tag">Modo Parcial Prog IV (Vercel)</span>
+                  <span class="timeline-tag">Modo Defensa Software (Vercel)</span>
+                  <span class="timeline-tag">Introducción Análisis Datos</span>
+                  <span class="timeline-tag">Edge Hosting</span>
+                </div>
+              </article>
+            </div>
+
+            <!-- Fase 5 -->
+            <div class="timeline-step phase-5">
+              <div class="timeline-marker" aria-hidden="true"></div>
+              <article class="timeline-card">
+                <div class="timeline-meta">
+                  <span class="timeline-phase">Fase 5 · v3.0.0</span>
+                  <span class="timeline-badge">Fullstack Enterprise & Bases de Datos</span>
+                </div>
+                <h3 class="timeline-title">Sistemas ERP, Control Transaccional y Persistencia SQLite</h3>
+                <p class="timeline-body">
+                  Diseño de soluciones operativas reales de gestión de negocios. Desarrollo del ERP Lubricentro DyM y CRM Abatech con backend en Express / Python, control transaccional de órdenes de trabajo, cálculo de inventario e historiales de clientes.
+                </p>
+                <div class="timeline-tags">
+                  <span class="timeline-tag">Node.js / Express</span>
+                  <span class="timeline-tag">Better-SQLite3</span>
+                  <span class="timeline-tag">Lubricentro DyM</span>
+                  <span class="timeline-tag">CRM Abatech</span>
+                  <span class="timeline-tag">Bcrypt & JWT</span>
+                </div>
+              </article>
+            </div>
+
+            <!-- Fase 6 -->
+            <div class="timeline-step phase-6">
+              <div class="timeline-marker" aria-hidden="true"></div>
+              <article class="timeline-card">
+                <div class="timeline-meta">
+                  <span class="timeline-phase">Fase 6 · v3.5.0 (Actual)</span>
+                  <span class="timeline-badge">Ciberseguridad Defensiva & Asistentes Inteligentes</span>
+                </div>
+                <h3 class="timeline-title">Zero Data Leak, Almacenamiento Local en NAS e IA Contextual</h3>
+                <p class="timeline-body">
+                  El estándar de hoy: blindaje riguroso de secretos y variables de entorno, arquitectura Zero-Trust, análisis forense de mensajería con modelos locales para resguardar la privacidad, y sincronización resiliente de copias de seguridad en almacenamiento en red (NAS).
+                </p>
+                <div class="timeline-tags">
+                  <span class="timeline-tag">Talamasca Nexo</span>
+                  <span class="timeline-tag">Al Día Asistente NAS</span>
+                  <span class="timeline-tag">Zero Leak Policy</span>
+                  <span class="timeline-tag">Next.js Corporate</span>
+                  <span class="timeline-tag">Defensive Engineering</span>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Los 4 Pilares de Ingeniería -->
+      <section class="section" id="pilares">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-kicker">Fundamentos & Doctrina</span>
+            <h2 class="section-title">Los 4 Pilares de mi Enfoque de Software</h2>
+            <p class="section-description">
+              Criterios no negociables aplicados en cada línea de código, arquitectura de datos y despliegue a producción.
+            </p>
+          </div>
+
+          <div class="pillars-grid">
+            <!-- Pilar 1 -->
+            <article class="pillar-card">
+              <div class="pillar-icon-box">🧠</div>
+              <h3 class="pillar-title">1. Lógica de Programación</h3>
+              <p class="pillar-text">
+                Construcción de código predecible y modular. Priorización de la inmutabilidad de datos, funciones puras, tratamiento exhaustivo de casos límite y desacoplamiento estructural.
+              </p>
+              <ul class="pillar-list">
+                <li>Inmutabilidad con spread y métodos funcionales</li>
+                <li>Validación estricta de esquemas de entrada</li>
+                <li>Manejo preventivo de fallos y fallbacks</li>
+              </ul>
+            </article>
+
+            <!-- Pilar 2 -->
+            <article class="pillar-card">
+              <div class="pillar-icon-box">💻</div>
+              <h3 class="pillar-title">2. Frontend Engineering</h3>
+              <p class="pillar-text">
+                Experiencias de usuario inmersivas con rendimiento sub-segundo. Arquitectura de componentes en React y Next.js, diseño responsivo universal y accesibilidad WCAG.
+              </p>
+              <ul class="pillar-list">
+                <li>Diseño con Vanilla CSS y Glassmorphism</li>
+                <li>Optimización de bundle sizes con Vite & Rollup</li>
+                <li>Microinteracciones y feedback de estado inmediato</li>
+              </ul>
+            </article>
+
+            <!-- Pilar 3 -->
+            <article class="pillar-card">
+              <div class="pillar-icon-box">🗄️</div>
+              <h3 class="pillar-title">3. Backend & Persistencia</h3>
+              <p class="pillar-text">
+                APIs RESTful seguras, modelos de datos relacionales bien normalizados y transacciones ACID. Enfoque Local-First con SQLite para máxima velocidad y autonomía de red.
+              </p>
+              <ul class="pillar-list">
+                <li>Control transaccional y WAL en SQLite</li>
+                <li>Contratos de API consistentes y tipados</li>
+                <li>Respaldos automatizados y réplicas programadas</li>
+              </ul>
+            </article>
+
+            <!-- Pilar 4 -->
+            <article class="pillar-card">
+              <div class="pillar-icon-box">🛡️</div>
+              <h3 class="pillar-title">4. Ciberseguridad Defensiva</h3>
+              <p class="pillar-text">
+                Blindaje activo en todas las capas. Eliminación de credenciales en código público, sanitización contra inyecciones y XSS, y aislamiento de tokens sensibles en entornos cifrados.
+              </p>
+              <ul class="pillar-list">
+                <li>Políticas Zero-Leak en repositorios y clientes</li>
+                <li>Apertura segura de enlaces externos con noopener</li>
+                <li>Procesamiento de datos sensibles en red local</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Catálogo de Proyectos & Hub Interactivo -->
+      <section class="section" id="proyectos">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-kicker">Portfolio Interactivo</span>
+            <h2 class="section-title">Catálogo Completo de Proyectos</h2>
+            <p class="section-description">
+              Explora todas las aplicaciones desarrolladas. Puedes ejecutarlas directamente en el sandbox integrado o abrirlas en una nueva pestaña sin perder tu posición en la página.
+            </p>
+          </div>
+
+          <!-- Toolbar con Búsqueda y Filtros -->
+          <div class="projects-toolbar">
+            <div class="search-wrapper">
+              <span class="search-icon" aria-hidden="true">🔍</span>
+              <input
+                type="text"
+                id="projectSearch"
+                class="search-input"
+                placeholder="Buscar por título, tecnología o descripción..."
+                aria-label="Buscar proyectos"
+              />
+            </div>
+
+            <div class="filter-pills" role="toolbar" aria-label="Filtros de categoría de proyectos">
+              <button class="filter-btn active" data-category="all" id="filterAll">Todos (14)</button>
+              <button class="filter-btn" data-category="ecommerce" id="filterEcommerce">E-Commerce & Gaming</button>
+              <button class="filter-btn" data-category="streaming" id="filterStreaming">Streaming & Audio</button>
+              <button class="filter-btn" data-category="estudio" id="filterEstudio">Simuladores & Estudio</button>
+              <button class="filter-btn" data-category="fullstack" id="filterFullstack">Fullstack & ERP</button>
+              <button class="filter-btn" data-category="tools" id="filterTools">Herramientas & Lógica</button>
+              <button class="filter-btn" data-category="automation" id="filterAutomation">Automatización & IA</button>
+            </div>
+          </div>
+
+          <!-- Bento Grid de Proyectos -->
+          <div class="projects-grid" id="projectsGrid" role="region" aria-live="polite">
+            <!-- Renderizado dinámico vía main.js y projects-data.js -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Arquitectura de Sistemas, Python & Automatización -->
+      <section class="section" id="arquitectura" style="background: rgba(255, 255, 255, 0.01);">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-kicker">Backend & Infraestructura</span>
+            <h2 class="section-title">Sistemas de Automatización, Python & Datos</h2>
+            <p class="section-description">
+              Esquemas visuales y flujos de arquitectura de proyectos orientados a backend, procesamiento de información y servicios en red local.
+            </p>
+          </div>
+
+          <div class="arch-grid">
+            <!-- Arquitectura 1 -->
+            <article class="arch-card">
+              <div class="arch-card-header">
+                <div class="arch-icon">🏢</div>
+                <div>
+                  <h3>CRM Comercial Abatech</h3>
+                  <small style="color: var(--accent-cyan);">Python 3 · SQLite · Automatización PDF</small>
+                </div>
+              </div>
+              <p>
+                Gestor comercial de escritorio con control de cartera de clientes, emisión de presupuestos automáticos y sincronización con base de datos SQLite relacional.
+              </p>
+              <div class="arch-blueprint">
+                [UI Operativa] ──► [Controlador Negocio] ──► [SQLite Transaccional]<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└──► [Generador Comprobantes PDF]
+              </div>
+            </article>
+
+            <!-- Arquitectura 2 -->
+            <article class="arch-card">
+              <div class="arch-card-header">
+                <div class="arch-icon">💬</div>
+                <div>
+                  <h3>Al Día · WhatsApp Intelligence</h3>
+                  <small style="color: var(--accent-cyan);">Baileys Bridge · IA Local · NAS Vault</small>
+                </div>
+              </div>
+              <p>
+                Conector de mensajería para auditoría de tareas y pendientes. Los mensajes de chats autorizados se extraen localmente, se sintetizan mediante modelos de lenguaje y se archivan en el NAS privado.
+              </p>
+              <div class="arch-blueprint">
+                [WhatsApp Web] ──► [Bridge Baileys] ──► [Filtro de Chats Seguros]<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└──► [Extracción de Tareas] ──► [Bóveda NAS]
+              </div>
+            </article>
+
+            <!-- Arquitectura 3 -->
+            <article class="arch-card">
+              <div class="arch-card-header">
+                <div class="arch-icon">🌐</div>
+                <div>
+                  <h3>Talamasca · Consultora Nexo</h3>
+                  <small style="color: var(--accent-cyan);">Next.js · Server Components · Diagnóstico</small>
+                </div>
+              </div>
+              <p>
+                Arquitectura corporativa orientada a la evaluación en cinco capas: personas, tecnología, hábitos, procesos y gobernanza de datos para organizaciones complejas.
+              </p>
+              <div class="arch-blueprint">
+                [Diagnóstico 5 Capas] ──► [Detección Causa Raíz]<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└──► [Planes de Adopción & Blindaje]
+              </div>
+            </article>
+
+            <!-- Arquitectura 4 -->
+            <article class="arch-card">
+              <div class="arch-card-header">
+                <div class="arch-icon">💾</div>
+                <div>
+                  <h3>Copia al NAS con Prioridades</h3>
+                  <small style="color: var(--accent-cyan);">PowerShell / Bash · Checksums · Rclone</small>
+                </div>
+              </div>
+              <p>
+                Pipeline de sincronización estratificada hacia almacenamiento en red con comprobación de integridad mediante hash SHA256 y política de respaldo escalonada.
+              </p>
+              <div class="arch-blueprint">
+                [Directorios Críticos] ──► [Cálculo Checksums] ──► [Prioridad Alta]<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└──► [Ruta Cifrada NAS] ──► [Logs de Auditoría]
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Auditoría de Ciberseguridad & Principio Zero-Leak -->
+      <section class="section" id="seguridad">
+        <div class="container">
+          <div class="security-banner">
+            <div class="security-banner-top">
+              <div>
+                <span class="security-badge">
+                  <span>🛡️</span>
+                  <span>Protocolo de Ciberseguridad Defensiva</span>
+                </span>
+                <h3 style="font-family: var(--font-heading); font-size: 1.8rem; color: #fff; margin-top: 12px; margin-bottom: 8px;">
+                  Blindaje Riguroso & Cero Fuga de Credenciales (Zero-Leak)
+                </h3>
+                <p style="color: var(--text-secondary); max-width: 650px; font-size: 0.95rem;">
+                  Cada proyecto presentado en este portafolio ha sido sometido a una auditoría de seguridad para garantizar que ninguna variable de entorno con credenciales productivas, claves de API privadas o contraseñas reales sea expuesta.
+                </p>
+              </div>
+
+              <button class="btn btn-secondary" id="btnRunSecurityAudit">
+                <span>Ejecutar Verificación de Seguridad</span>
+                <span>⚡</span>
+              </button>
+            </div>
+
+            <div class="security-checklist">
+              <div class="check-item">
+                <div class="check-icon">✓</div>
+                <div class="check-text">
+                  <h4>Variables de Entorno Segregadas</h4>
+                  <p>Archivos <code>.env</code> reales aislados fuera del código fuente con plantillas genéricas <code>.env.example</code>.</p>
+                </div>
+              </div>
+
+              <div class="check-item">
+                <div class="check-icon">✓</div>
+                <div class="check-text">
+                  <h4>Sanitización de Inputs & XSS</h4>
+                  <p>Validación tipográfica y sanitización de cadenas antes de renderizar o persistir datos en almacenamiento local.</p>
+                </div>
+              </div>
+
+              <div class="check-item">
+                <div class="check-icon">✓</div>
+                <div class="check-text">
+                  <h4>Enlaces Seguros (target="_blank")</h4>
+                  <p>Uso estricto de <code>rel="noopener noreferrer"</code> en todos los enlaces externos para mitigar ataques de tabnabbing.</p>
+                </div>
+              </div>
+
+              <div class="check-item">
+                <div class="check-icon">✓</div>
+                <div class="check-text">
+                  <h4>Exclusión de Bots de Trading</h4>
+                  <p>Filtrado total de bots financieros o especulativos para focalizar el portafolio en ingeniería de software legítima.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Terminal de Auditoría Interactiva -->
+            <div
+              id="securityAuditOutput"
+              style="background: rgba(4, 7, 14, 0.9); border: 1px solid var(--bg-glass-border); border-radius: 12px; padding: 14px 20px; font-family: var(--font-mono); font-size: 0.82rem; color: var(--text-muted);"
+            >
+              > Estado del sistema: Listo para verificar parámetros de seguridad...
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contacto -->
+      <section class="section" id="contacto">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-kicker">Conectar & Colaborar</span>
+            <h2 class="section-title">Hablemos de Ingeniería</h2>
+            <p class="section-description">
+              ¿Tienes un proyecto desafiante, una vacante para desarrollador Fullstack o deseas discutir arquitecturas de software y ciberseguridad?
+            </p>
+          </div>
+
+          <div style="display: flex; justify-content: center; gap: 18px; flex-wrap: wrap;">
+            <a
+              href="mailto:Franc-Devel@users.noreply.github.com"
+              class="btn btn-primary"
+              id="btnContactoMail"
+            >
+              <span>Enviar Correo Electrónico</span>
+              <span>✉️</span>
+            </a>
+            <a
+              href="https://github.com/Franc-Devel"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-secondary"
+              id="btnContactoGitHub"
+            >
+              <span>Ver GitHub (@Franc-Devel)</span>
+              <span>↗</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Modal Sandbox Runner -->
+    <div class="modal-overlay" id="sandboxModal" role="dialog" aria-modal="true" aria-labelledby="sandboxModalTitle">
+      <div class="modal-window">
+        <header class="modal-header">
+          <div class="modal-title-wrap">
+            <span style="color: var(--accent-cyan); font-size: 1.1rem;">⚡</span>
+            <span class="modal-app-name" id="sandboxModalTitle">Aplicación en Vivo</span>
+          </div>
+
+          <!-- Selector de Dispositivos -->
+          <div class="device-toggles" role="toolbar" aria-label="Cambiar vista de dispositivo">
+            <button class="device-btn active" data-device="desktop" title="Vista de Escritorio">🖥️ Desktop</button>
+            <button class="device-btn" data-device="tablet" title="Vista de Tablet">📱 Tablet</button>
+            <button class="device-btn" data-device="mobile" title="Vista Móvil">📱 Mobile</button>
+          </div>
+
+          <!-- Acciones de Modal -->
+          <div class="modal-actions">
+            <button class="modal-btn" id="sandboxReloadBtn" title="Recargar App">↻ Recargar</button>
+            <a href="#" target="_blank" rel="noopener noreferrer" class="modal-btn" id="sandboxExternalLink" title="Abrir en pestaña nueva">
+              <span>↗ Pestaña Nueva</span>
+            </a>
+            <button class="modal-close" id="sandboxCloseBtn" aria-label="Cerrar modal">✕</button>
+          </div>
+        </header>
+
+        <div class="modal-body">
+          <div class="modal-iframe-container desktop">
+            <iframe
+              id="sandboxIframe"
+              class="modal-iframe"
+              src="about:blank"
+              title="Visor interactivo de aplicación"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Caso de Estudio Técnico -->
+    <div class="modal-overlay" id="caseStudyModal" role="dialog" aria-modal="true" aria-label="Caso de estudio técnico">
+      <div class="modal-window" style="max-width: 820px; height: auto; max-height: 88vh;">
+        <header class="modal-header">
+          <div class="modal-title-wrap">
+            <span style="color: var(--accent-cyan);">📋</span>
+            <span class="modal-app-name">Caso de Estudio Técnico</span>
+          </div>
+          <button class="modal-close" id="caseStudyCloseBtn" aria-label="Cerrar modal">✕</button>
+        </header>
+
+        <div class="arch-modal-content" id="caseStudyContent">
+          <!-- Inyectado vía JavaScript -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="brand-wrapper">
+            <div class="brand-badge">FD</div>
+            <div class="brand-info">
+              <span class="brand-name">Francisco Agustín Delgado</span>
+              <span class="brand-title">Fullstack Developer & System Architect</span>
+            </div>
+          </div>
+
+          <div class="footer-links">
+            <a href="#inicio">Inicio</a>
+            <a href="#evolucion">Evolución</a>
+            <a href="#proyectos">Proyectos</a>
+            <a href="#seguridad">Seguridad</a>
+            <a href="https://github.com/Franc-Devel" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; border-top: 1px solid var(--bg-glass-border); padding-top: 24px;">
+          <p class="footer-copy">
+            &copy; 2026 Francisco Agustín Delgado. Todos los derechos reservados.
+          </p>
+          <small style="color: var(--text-muted); font-family: var(--font-mono); font-size: 0.75rem;">
+            Desarrollado con JavaScript Vanilla &middot; Rendimiento de Alto Nivel &middot; Cero Fuga de Credenciales
+          </small>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="./js/projects-data.js"></script>
+    <script src="./js/main.js"></script>
+  </body>
+</html>
