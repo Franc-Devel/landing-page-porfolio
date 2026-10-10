@@ -21,32 +21,56 @@ function initNavigation() {
   const navLinks = document.querySelectorAll(".nav-link");
   const sections = document.querySelectorAll("section[id]");
 
-  window.addEventListener("scroll", () => {
-    // Header shadow on scroll
-    if (window.scrollY > 40) {
-      header.style.boxShadow = "0 10px 30px rgba(0, 0, 0, 0.6)";
-      header.style.background = "rgba(7, 10, 18, 0.92)";
-    } else {
-      header.style.boxShadow = "none";
-      header.style.background = "rgba(7, 10, 18, 0.82)";
-    }
+  // RAF-throttled passive scroll listener for header elevation: 60+ FPS, Zero Layout Thrashing
+  let isScrolled = false;
+  let ticking = false;
 
-    // Active link highlighting
-    let current = "";
-    sections.forEach((section) => {
-      const sectionTop = section.offsetTop - 120;
-      if (window.scrollY >= sectionTop) {
-        current = section.getAttribute("id");
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrolled = window.scrollY > 40;
+          if (scrolled !== isScrolled) {
+            isScrolled = scrolled;
+            if (header) {
+              header.classList.toggle("scrolled", isScrolled);
+            }
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
-    });
+    },
+    { passive: true }
+  );
 
-    navLinks.forEach((link) => {
-      link.classList.remove("active");
-      if (link.getAttribute("href") === `#${current}`) {
-        link.classList.add("active");
+  // Modern IntersectionObserver for active link highlighting without DOM reading/reflow
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute("id");
+            navLinks.forEach((link) => {
+              const href = link.getAttribute("href");
+              if (href === `#${id}`) {
+                link.classList.add("active");
+              } else if (href && href.startsWith("#")) {
+                link.classList.remove("active");
+              }
+            });
+          }
+        });
+      },
+      {
+        rootMargin: "-25% 0px -65% 0px",
+        threshold: 0
       }
-    });
-  });
+    );
+
+    sections.forEach((sec) => observer.observe(sec));
+  }
 }
 
 /* ==========================================================================
@@ -95,8 +119,14 @@ let activeCategory = "all";
 let searchQuery = "";
 
 function getProjectPresentation(project) {
-  if (project.liveUrl) {
+  if (project.id === "finanzas-personales") {
+    return { label: "Pipeline IA Activo", icon: "🤖", className: "deployed", proof: "Visión Multimodal & Bot Telegram" };
+  }
+  if (project.liveUrl && !project.liveUrl.includes("github.com")) {
     return { label: "Demo publicada", icon: "●", className: "deployed", proof: "Acceso público disponible" };
+  }
+  if (project.liveUrl && project.liveUrl.includes("github.com")) {
+    return { label: "Código & Sandbox", icon: "●", className: "production", proof: "Repo GitHub & Demo Sandbox" };
   }
   if (!project.localAppUrl) {
     return { label: "Caso de arquitectura", icon: "◇", className: "concept", proof: "Documentación técnica disponible" };
@@ -184,14 +214,20 @@ function initProjectGrid() {
               📋 Ver Arquitectura
             </button>`;
 
-        // Enlace para abrir directamente en nueva pestaña como pidió el usuario
+        // Enlace para abrir directamente en nueva pestaña o ver repositorio
         const openTabAction = proj.localAppUrl
           ? `<a href="${proj.localAppUrl}" target="_blank" rel="noopener noreferrer" class="btn-card btn-card-secondary" title="Abrir en pestaña completa">
               ↗ Nueva Pestaña
             </a>`
           : proj.liveUrl
-          ? `<a href="${proj.liveUrl}" target="_blank" rel="noopener noreferrer" class="btn-card btn-card-secondary" title="Abrir en pestaña completa">
-              ↗ Vercel
+          ? `<a href="${proj.liveUrl}" target="_blank" rel="noopener noreferrer" class="btn-card btn-card-secondary" title="Abrir enlace externo">
+              ↗ Abrir
+            </a>`
+          : "";
+
+        const repoAction = (proj.liveUrl && proj.liveUrl.includes("github.com"))
+          ? `<a href="${proj.liveUrl}" target="_blank" rel="noopener noreferrer" class="btn-card btn-card-secondary" title="Ver código fuente en GitHub">
+              🐙 GitHub Repo
             </a>`
           : "";
 
@@ -221,6 +257,7 @@ function initProjectGrid() {
             <div class="project-actions">
               ${primaryAction}
               ${openTabAction}
+              ${repoAction}
               ${caseStudyAction}
             </div>
           </article>
@@ -242,11 +279,15 @@ function initProjectGrid() {
     });
   });
 
-  // Search Input
+  // Search Input with micro-debounce for fluid typing
   if (searchInput) {
+    let debounceTimer;
     searchInput.addEventListener("input", (e) => {
-      searchQuery = e.target.value;
-      render();
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        searchQuery = e.target.value;
+        render();
+      }, 90);
     });
   }
 
