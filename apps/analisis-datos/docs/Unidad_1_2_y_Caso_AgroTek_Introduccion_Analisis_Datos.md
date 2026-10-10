@@ -2,8 +2,8 @@
 ## Informe completo — Unidad 1, Unidad 2, Caso AgroTek y Trabajo Práctico N.º 1
 
 **Materia:** Introducción al Análisis de Datos  
-**Fuente:** Dossier de Cátedra 2026 — UTN FRT  
-**Alumno:** Francisco Delgado  
+**Fuente:** Dossier Técnico 2026 — Ingeniería de Datos  
+**Autor:** Francisco Delgado  
 
 ---
 

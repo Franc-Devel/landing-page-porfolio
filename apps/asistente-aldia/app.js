@@ -20,7 +20,7 @@ function getDemoState() {
     chats: [
       { jid: "dev_team@g.us", name: "Equipo de Desarrollo & QA", category: "Proyectos", enabled: true },
       { jid: "consultoria@g.us", name: "Consultoría Nexo Directores", category: "Clientes", enabled: true },
-      { jid: "utn_alumnos@g.us", name: "Comisión Prog IV - UTN", category: "Universidad", enabled: true }
+      { jid: "arquitectura_core@g.us", name: "Comité de Arquitectura & Core", category: "Ingeniería", enabled: true }
     ],
     reports: []
   };
