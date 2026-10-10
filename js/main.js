@@ -119,8 +119,14 @@ let activeCategory = "all";
 let searchQuery = "";
 
 function getProjectPresentation(project) {
-  if (project.liveUrl) {
+  if (project.id === "finanzas-personales") {
+    return { label: "Pipeline IA Activo", icon: "🤖", className: "deployed", proof: "Visión Multimodal & Bot Telegram" };
+  }
+  if (project.liveUrl && !project.liveUrl.includes("github.com")) {
     return { label: "Demo publicada", icon: "●", className: "deployed", proof: "Acceso público disponible" };
+  }
+  if (project.liveUrl && project.liveUrl.includes("github.com")) {
+    return { label: "Código & Sandbox", icon: "●", className: "production", proof: "Repo GitHub & Demo Sandbox" };
   }
   if (!project.localAppUrl) {
     return { label: "Caso de arquitectura", icon: "◇", className: "concept", proof: "Documentación técnica disponible" };
@@ -208,14 +214,20 @@ function initProjectGrid() {
               📋 Ver Arquitectura
             </button>`;
 
-        // Enlace para abrir directamente en nueva pestaña como pidió el usuario
+        // Enlace para abrir directamente en nueva pestaña o ver repositorio
         const openTabAction = proj.localAppUrl
           ? `<a href="${proj.localAppUrl}" target="_blank" rel="noopener noreferrer" class="btn-card btn-card-secondary" title="Abrir en pestaña completa">
               ↗ Nueva Pestaña
             </a>`
           : proj.liveUrl
-          ? `<a href="${proj.liveUrl}" target="_blank" rel="noopener noreferrer" class="btn-card btn-card-secondary" title="Abrir en pestaña completa">
-              ↗ Vercel
+          ? `<a href="${proj.liveUrl}" target="_blank" rel="noopener noreferrer" class="btn-card btn-card-secondary" title="Abrir enlace externo">
+              ↗ Abrir
+            </a>`
+          : "";
+
+        const repoAction = (proj.liveUrl && proj.liveUrl.includes("github.com"))
+          ? `<a href="${proj.liveUrl}" target="_blank" rel="noopener noreferrer" class="btn-card btn-card-secondary" title="Ver código fuente en GitHub">
+              🐙 GitHub Repo
             </a>`
           : "";
 
@@ -245,6 +257,7 @@ function initProjectGrid() {
             <div class="project-actions">
               ${primaryAction}
               ${openTabAction}
+              ${repoAction}
               ${caseStudyAction}
             </div>
           </article>

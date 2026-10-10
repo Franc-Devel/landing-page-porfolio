@@ -7,6 +7,32 @@
 
 const PROJECTS_DATA = [
   {
+    id: "finanzas-personales",
+    title: "Finanzas Personales con IA & Telegram Bot",
+    subtitle: "Pipeline Autónomo con GPT-4.1 Vision, Razonamiento Estructurado & Edge Workers",
+    category: "automation",
+    categoryLabel: "Automatización & IA",
+    tags: ["OpenAI Vision", "GPT-4.1 Mini", "LLM Structured Outputs", "Telegram Bot AI", "Drizzle ORM", "Cloudflare Workers", "SQLite"],
+    status: "production",
+    statusLabel: "App Interactiva & Repo",
+    liveUrl: "https://github.com/Franc-Devel/finanzas-personales-fran-agus",
+    localAppUrl: "apps/finanzas-personales/index.html",
+    description: "Sistema de gestión financiera impulsado por Inteligencia Artificial multimodal y agentes edge. Ingiere comprobantes bancarios, facturas y tickets manuscritos mediante visión por computadora, categoriza gastos mediante razonamiento LLM estricto y permite el registro conversacional en tiempo real a través de Telegram.",
+    highlights: [
+      "Extracción multimodal con OpenAI GPT-4.1 Vision para procesar fotos de tickets, capturas de transferencias bancarias y comprobantes en PDF",
+      "Pipeline de validación y categorización en dos etapas (GPT-6 Luna + GPT-5.4 Nano) garantizando cero alucinaciones con JSON Schema estricto",
+      "Bot de Telegram bidireccional desplegado en Cloudflare Workers para registrar compras por voz o texto en segundos",
+      "Arquitectura tipada de extremo a extremo con Drizzle ORM, SQLite/D1, reportes analíticos de ahorro y control de vencimientos"
+    ],
+    architecture: {
+      frontend: "Single Page Application reactiva y ergonómica con motor de reportes offline y visor de comprobantes",
+      aiPipeline: "OpenAI GPT-4.1 Vision (Multimodal OCR) + Decision Engine (GPT-6 Luna) + Extraction Engine (GPT-5.4 Nano)",
+      backend: "Cloudflare Edge Workers + Drizzle ORM + Cloudflare D1 / SQLite transaccional",
+      security: "Defensa contra prompt injection en comprobantes (datos tratados estrictamente como inputs no confiables) y Zero-Leak de tokens",
+      repository: "https://github.com/Franc-Devel/finanzas-personales-fran-agus"
+    }
+  },
+  {
     id: "francis-gamer",
     title: "Francis Gamer",
     subtitle: "Plataforma & Catálogo de Videojuegos de PC",
@@ -29,31 +55,6 @@ const PROJECTS_DATA = [
       stateManagement: "Custom React Context para Wishlist y Carrito",
       security: "Sanitización de entradas de texto y simulación de transacciones sin almacenamiento de datos bancarios reales",
       performance: "Optimización de assets y carga diferida de imágenes"
-    }
-  },
-  {
-    id: "finanzas-personales",
-    title: "En Orden · Finanzas Personales",
-    subtitle: "Gestión de Gastos, Vencimientos & Sincronización Telegram",
-    category: "fullstack",
-    categoryLabel: "Fullstack & ERP",
-    tags: ["JavaScript", "Drizzle ORM", "SQLite", "Telegram Bot", "Privacidad"],
-    status: "production",
-    statusLabel: "App Interactiva",
-    liveUrl: null,
-    localAppUrl: "apps/finanzas-personales/index.html",
-    description: "Sistema personal de finanzas para control de vencimientos, registro asistido de gastos y presupuestos mensuales. Cuenta con integración para capturar gastos vía bot de Telegram y visor de comprobantes.",
-    highlights: [
-      "Dashboard analítico con distribución proporcional de gastos por rubro",
-      "Alertas automáticas de próximos vencimientos a 7 y 1 día de anticipación",
-      "Almacenamiento privado local con opción de respaldo descargable en JSON y CSV",
-      "Diseño ergonómico y optimizado para visualización rápida en móvil y escritorio"
-    ],
-    architecture: {
-      frontend: "Vanilla JS SPA reactiva con sistema de pestañas instantáneas",
-      backend: "Node.js con Drizzle ORM y base de datos SQLite segura",
-      security: "Tokens de sesión cifrados y variables de entorno estrictamente aisladas",
-      integrations: "Webhook local para captura de transacciones vía Telegram"
     }
   },
   {
