@@ -94,6 +94,41 @@ function initStatsCounter() {
 let activeCategory = "all";
 let searchQuery = "";
 
+function getProjectPresentation(project) {
+  if (project.liveUrl) {
+    return { label: "Demo publicada", icon: "●", className: "deployed", proof: "Acceso público disponible" };
+  }
+  if (!project.localAppUrl) {
+    return { label: "Caso de arquitectura", icon: "◇", className: "concept", proof: "Documentación técnica disponible" };
+  }
+  return { label: "Demo local", icon: "◌", className: "production", proof: "Explorable dentro del portfolio" };
+}
+
+function projectVisual(project) {
+  const categoryLabels = {
+    ecommerce: "Commerce system",
+    streaming: "Media experience",
+    fullstack: "Operations hub",
+    automation: "AI workflow",
+    estudio: "Learning system",
+    tools: "Interactive tool"
+  };
+  const metric = project.highlights[0]
+    .replace(/[.。]$/, "")
+    .split(" ")
+    .slice(0, 7)
+    .join(" ");
+
+  return `
+    <div class="project-visual" aria-hidden="true">
+      <div class="visual-topline"><span>${categoryLabels[project.category] || "Digital product"}</span><span>01 / 01</span></div>
+      <div class="visual-brand">${project.title}</div>
+      <div class="visual-metric">${metric}…</div>
+      <div class="visual-ui"><span></span><span></span><span></span><span></span><span></span></div>
+    </div>
+  `;
+}
+
 function initProjectGrid() {
   const gridContainer = document.getElementById("projectsGrid");
   const filterButtons = document.querySelectorAll(".filter-btn");
@@ -128,9 +163,7 @@ function initProjectGrid() {
 
     gridContainer.innerHTML = filtered
       .map((proj) => {
-        const isDeployed = proj.status === "deployed";
-        const statusClass = isDeployed ? "deployed" : "production";
-        const statusIcon = isDeployed ? "●" : "⚡";
+        const presentation = getProjectPresentation(proj);
 
         // Rutas y botones con target="_blank"
         const primaryAction = proj.localAppUrl
@@ -161,16 +194,18 @@ function initProjectGrid() {
           </button>`;
 
         return `
-          <article class="project-card" data-id="${proj.id}" data-category="${proj.category}">
+          <article class="project-card ${presentation.className === "concept" ? "is-concept" : ""}" data-id="${proj.id}" data-category="${proj.category}">
+            ${projectVisual(proj)}
             <div class="project-card-header">
-              <span class="project-status ${statusClass}">
-                <i>${statusIcon}</i> ${proj.statusLabel}
+              <span class="project-status ${presentation.className}">
+                <i>${presentation.icon}</i> ${presentation.label}
               </span>
               <span class="project-category-badge">${proj.categoryLabel}</span>
             </div>
 
             <h3 class="project-title">${proj.title}</h3>
             <div class="project-subtitle">${proj.subtitle}</div>
+            <div class="project-proof">${presentation.proof}</div>
             <p class="project-description">${proj.description}</p>
 
             <div class="project-tags">

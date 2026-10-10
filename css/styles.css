@@ -486,7 +486,7 @@ body {
   bottom: 0;
   left: 28px;
   width: 2px;
-  background: linear-gradient(180deg, var(--accent-cyan), var(--accent-purple), var(--accent-emerald));
+  background: linear-gradient(180deg, var(--accent-cyan), var(--accent-purple), var(--accent-emerald), var(--accent-rose));
 }
 
 .timeline-step {
@@ -517,6 +517,7 @@ body {
 .timeline-step.phase-4 .timeline-marker { border-color: #a855f7; box-shadow: 0 0 14px #a855f7; }
 .timeline-step.phase-5 .timeline-marker { border-color: #10b981; box-shadow: 0 0 14px #10b981; }
 .timeline-step.phase-6 .timeline-marker { border-color: #f59e0b; box-shadow: 0 0 14px #f59e0b; }
+.timeline-step.phase-7 .timeline-marker { border-color: #f43f5e; box-shadow: 0 0 14px #f43f5e; }
 
 .timeline-card {
   background: var(--bg-card);
@@ -773,6 +774,7 @@ body {
   flex-direction: column;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
+  overflow: hidden;
 }
 
 .project-card:hover {
@@ -780,6 +782,59 @@ body {
   transform: translateY(-4px);
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
 }
+
+/* Project snapshots are deliberately code-native: they stay crisp at any size,
+   load instantly, and let each card express its product domain without relying
+   on low-resolution screenshots. */
+.project-visual {
+  min-height: 154px;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(135deg, #111b37, #080d1b);
+  margin: -8px -8px 22px;
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.project-visual::before,
+.project-visual::after {
+  content: '';
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(2px);
+  opacity: .78;
+  z-index: -1;
+}
+
+.project-visual::before { width: 160px; height: 160px; right: -62px; top: -80px; background: #38bdf8; }
+.project-visual::after { width: 110px; height: 110px; left: -55px; bottom: -70px; background: #818cf8; }
+.project-card[data-category="ecommerce"] .project-visual { background: linear-gradient(135deg, #242047, #12101f); }
+.project-card[data-category="ecommerce"] .project-visual::before { background: #ec4899; }
+.project-card[data-category="streaming"] .project-visual { background: linear-gradient(135deg, #102c35, #07131a); }
+.project-card[data-category="streaming"] .project-visual::before { background: #2dd4bf; }
+.project-card[data-category="fullstack"] .project-visual { background: linear-gradient(135deg, #123225, #091712); }
+.project-card[data-category="fullstack"] .project-visual::before { background: #34d399; }
+.project-card[data-category="automation"] .project-visual { background: linear-gradient(135deg, #3a1d42, #170d23); }
+.project-card[data-category="automation"] .project-visual::before { background: #f472b6; }
+.project-card[data-category="estudio"] .project-visual { background: linear-gradient(135deg, #392913, #171109); }
+.project-card[data-category="estudio"] .project-visual::before { background: #fbbf24; }
+
+.visual-topline { display: flex; justify-content: space-between; align-items: center; color: rgba(255,255,255,.72); font: 700 .65rem var(--font-mono); letter-spacing: .08em; text-transform: uppercase; }
+.visual-brand { color: #fff; font: 700 1.02rem var(--font-heading); margin-top: 18px; max-width: 72%; line-height: 1.05; }
+.visual-metric { color: rgba(255,255,255,.74); font-size: .73rem; margin-top: 5px; }
+.visual-ui { position: absolute; right: 15px; bottom: 14px; width: 48%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; transform: rotate(-5deg); }
+.visual-ui span { height: 32px; border-radius: 6px; background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.16); box-shadow: inset 0 1px rgba(255,255,255,.12); }
+.visual-ui span:first-child { grid-column: span 2; height: 48px; background: rgba(255,255,255,.22); }
+.visual-ui span:last-child { background: rgba(56,189,248,.62); }
+.project-card[data-category="fullstack"] .visual-ui span:last-child { background: rgba(52,211,153,.65); }
+.project-card[data-category="automation"] .visual-ui span:last-child { background: rgba(244,114,182,.7); }
+.project-card[data-category="estudio"] .visual-ui span:last-child { background: rgba(251,191,36,.75); }
+
+.project-proof { display: flex; gap: 8px; align-items: center; margin: -4px 0 14px; color: var(--text-muted); font-size: .76rem; }
+.project-proof::before { content: '◆'; color: var(--accent-cyan); font-size: .58rem; }
+.project-card.is-concept .project-status { background: rgba(168,85,247,.12); color: #c4b5fd; border-color: rgba(168,85,247,.3); }
 
 .project-card-header {
   display: flex;
@@ -1276,4 +1331,5 @@ body {
     height: 96vh;
     padding: 0;
   }
+  .project-visual { min-height: 138px; }
 }
