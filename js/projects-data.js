@@ -131,26 +131,26 @@ const PROJECTS_DATA = [
   },
   {
     id: "francis-bank",
-    title: "Francis Bank · Home Banking",
-    subtitle: "Plataforma Bancaria & Simulador de Transacciones",
+    title: "Francis Bank · Neo-Banking 3D",
+    subtitle: "HomeBanking Cuántico, Tarjeta Holográfica & Analítica",
     category: "fullstack",
-    categoryLabel: "Fullstack & ERP",
-    tags: ["JavaScript", "Bootstrap 5", "Simulación Bancaria", "Diseño Seguro"],
+    categoryLabel: "Fullstack & Fintech",
+    tags: ["JavaScript", "Holographic 3D Card", "Fintech Dashboard", "Biometrics", "Canvas"],
     status: "production",
     statusLabel: "App Interactiva",
     liveUrl: null,
-    localAppUrl: "apps/francis-bank/index.html",
-    description: "Portal de banca digital y home banking interactivo. Incluye pantalla de acceso, panel de control de cuentas de ahorro, transferencias simuladas, pago de servicios y gestión de tarjetas.",
+    localAppUrl: "apps/francis-bank/dashboard.html",
+    description: "Plataforma de Neo-Banking futurista y HomeBanking interactivo. Incluye tarjeta de crédito holográfica 3D con giro interactivo y CVV dinámico de seguridad (60s), simulador de transferencias con autenticación biométrica, analítica de gastos en Canvas y cotizaciones de divisas y criptomonedas en tiempo real.",
     highlights: [
-      "Interfaz bancaria profesional con navegación responsive",
-      "Portal de inicio de sesión con validación de credenciales simuladas",
-      "Pantallas de cuentas, transferencias y comprobantes digitales",
-      "Rebranding total alineado a la identidad personal de Francisco Delgado"
+      "Tarjeta holográfica 3D interactiva con efecto tilt y CVV dinámico con temporizador de 60s",
+      "Simulador de transferencias inmediatas con escaneo biométrico y comprobante descargable",
+      "Flujo patrimonial en vivo y analítica de gastos semestrales en Canvas",
+      "Simulador de rendimientos compuestos diarios y cotizaciones en vivo (MEP/Cripto)"
     ],
     architecture: {
-      frontend: "HTML5 semántico, Bootstrap 5 y estilos CSS personalizados",
-      ux: "Flujo de usuario bancario estándar con confirmación previa de transferencias",
-      security: "Entorno sandbox para pruebas financieras seguras"
+      frontend: "HTML5 semántico, CSS 3D Transforms, Canvas API y JavaScript Vanilla desacoplado",
+      ux: "Experiencia fintech de alta fidelidad inspirada en Revolut y Apple Card con modo privacidad",
+      security: "Protocolo de CVV rotativo de un solo uso y simulación biométrica de autorización"
     }
   },
   {
@@ -352,73 +352,74 @@ const PROJECTS_DATA = [
   },
   {
     id: "calculadora-pro",
-    title: "Calculadora Científica & Pro JS",
-    subtitle: "Motor Matemático & Herramienta Interactiva",
+    title: "Quantum Calc Pro · Workstation",
+    subtitle: "Supercalculadora Científica, Graficadora 2D & Suite de Ingeniería",
     category: "tools",
     categoryLabel: "Herramientas & Lógica",
-    tags: ["JavaScript", "CSS Glassmorphism", "Teclado", "Historial"],
+    tags: ["JavaScript", "Graficadora 2D", "Inspector 32-Bit", "Ecuaciones", "Estadística"],
     status: "production",
     statusLabel: "App Interactiva",
     liveUrl: null,
     localAppUrl: "apps/calculadora/index.html",
-    description: "Calculadora web moderna desarrollada con JavaScript Vanilla. Evolucionó desde funciones básicas de consola hacia una interfaz glassmórfica completa con registro de historial, atajos de teclado y validación matemática.",
+    description: "Estación de cálculo científico y matemático avanzado. Integra trazador cartesiano de funciones 2D en Canvas en tiempo real, modo programador con inspector interactivo de 32 bits (DEC/HEX/BIN/OCT), resolutor de ecuaciones cuadráticas con discriminante, analítica estadística muestral y audio-feedback háptico.",
     highlights: [
-      "Manejo seguro de división por cero y redondeo de punto flotante IEEE 754",
-      "Historial interactivo que permite copiar resultados con un clic",
-      "Soporte nativo para eventos de teclado (0-9, operadores, Enter, Esc)",
-      "Diseño oscuro con acentos luminosos y micro-animaciones al pulsar"
+      "Trazador cartesiano 2D interactivo en Canvas con zoom y evaluación de curvas en vivo",
+      "Modo Programador con inspector interactivo de 32 bits en tiempo real (DEC, HEX, BIN, OCT)",
+      "Resolutor de ecuaciones cuadráticas con discriminante y raíces reales o complejas",
+      "Analítica estadística muestral (Media, Mediana, Desvío Estándar σ y Varianza) y audio háptico"
     ],
     architecture: {
-      logic: "Módulo JS desacoplado con funciones puras para operaciones aritméticas",
-      ui: "CSS Vanilla con variables personalizadas y efectos de desenfoque de fondo",
-      performance: "Carga en menos de 50ms sin librerías externas"
+      logic: "Motor de evaluación de expresiones matemáticas puras con soporte DEG/RAD y funciones trascendentes",
+      grapher: "Motor de renderizado 2D continuo sobre HTML5 Canvas adaptado a DPI retina",
+      performance: "Cálculo en menos de 5ms sin librerías externas pesadas"
     }
   },
   {
     id: "laboratorio-logica",
-    title: "Laboratorio de Lógica & Condicionales",
-    subtitle: "Consola de Algorítmica & Bucles JS",
+    title: "Quantum Logic & Sorting Studio",
+    subtitle: "Visualizador de Algoritmos en Vivo & Consola de 35 Retos JS",
     category: "tools",
     categoryLabel: "Herramientas & Lógica",
-    tags: ["JavaScript", "Algoritmos", "Terminal Emulada", "Bootstrap"],
+    tags: ["JavaScript", "Sorting Visualizer", "Algoritmos O(n²)", "Audio Tonal"],
     status: "production",
     statusLabel: "App Interactiva",
     liveUrl: null,
     localAppUrl: "apps/laboratorio-logica/index.html",
-    description: "Entorno interactivo para la ejecución y visualización de algoritmos en tres fases progresivas: condicionales simples, condicionales anidados y bucles iterativos, con salida en terminal simulada.",
+    description: "Laboratorio interactivo de algorítmica y estructuras de control. Incluye visualizador animado de algoritmos de ordenamiento (Bubble Sort y Selection Sort) con barras de colores, métricas de comparaciones e intercambios en vivo, síntesis sonora de frecuencia por elemento y 35 ejercicios prácticos.",
     highlights: [
-      "Navegación por niveles: Básicos, Intermedios y Bucles",
-      "Selector dinámico de ejercicios con explicaciones conceptuales",
-      "Terminal interactiva con impresión de resultados paso a paso",
-      "Estructura diseñada para consolidar la base de la lógica de programación"
+      "Visualizador interactivo de algoritmos de ordenamiento con barras animadas en tiempo real",
+      "Contador en tiempo real de comparaciones, intercambios y velocidad ajustable con tonos acústicos",
+      "Banco completo de 35 desafíos algorítmicos en tres fases con emulación de consola",
+      "Arquitectura de ejecución segura sin eval ni fugas de memoria"
     ],
     architecture: {
-      execution: "Patrón Factory / Constructor para registrar y ejecutar módulos de código",
-      ui: "Tema Bunker Dark con consola de alto contraste",
-      security: "Ejecución aislada y sanitizada sin uso de eval inseguro"
+      visualizer: "Motor asíncrono con Promise timing loops para animación fluida a 60 FPS",
+      audio: "Web Audio API sintetizando frecuencias sinusoidales proporcionales al valor del elemento",
+      security: "Ejecución aislada y sanitizada de algoritmos"
     }
   },
   {
     id: "meteo-clima",
-    title: "MeteoTrack Satelital",
-    subtitle: "Dashboard Meteorológico con Open-Meteo",
+    title: "MeteoTrack Pro 2.0 · Cyber Climate HUD",
+    subtitle: "Estación Atmosférica, Radar Doppler & Centro de Preguntas",
     category: "tools",
     categoryLabel: "Herramientas & Lógica",
-    tags: ["React", "Vite", "Open-Meteo API", "Geocodificación"],
+    tags: ["JavaScript", "Simulador de Partículas", "Radar Doppler", "Curvas Bézier", "Audio Ambiental"],
     status: "production",
     statusLabel: "App Interactiva",
     liveUrl: null,
     localAppUrl: "apps/meteo-clima/index.html",
-    description: "Aplicación meteorológica en tiempo real que combina geocodificación automática y pronóstico satelital sin requerir claves de API privadas de terceros (Zero API Key Leak).",
+    description: "Estación meteorológica interactiva de alta fidelidad. Cuenta con simulador de partículas de clima en vivo (lluvia, relámpagos, nieve, sol, aurora polar), radar Doppler táctico con reflectividad dBZ, curva térmica horaria con interpolación Bézier, instrumental científico (rosa de los vientos, UV, AQI) y centro de desafíos climáticos gráficos.",
     highlights: [
-      "Búsqueda universal de ciudades con detección de coordenadas geográficas",
-      "Mapeo de códigos WMO a estados climáticos reales (lluvia, nieve, niebla)",
-      "Monitoreo de temperaturas máximas y mínimas proyectadas",
-      "Manejo robusto de estados de carga y fallas de conectividad"
+      "Simulador de partículas atmosféricas en vivo: lluvia, tormenta con relámpagos, nieve, sol y aurora boreal",
+      "Radar Doppler táctico animado con barrido azimutal 360° y niveles de reflectividad dBZ",
+      "Curva térmica y probabilidad de precipitación en 24h con interpolación Bézier y pronóstico de 7 días",
+      "Centro de preguntas y desafíos climáticos interactivos con diagramas SVG y sintetizador acústico de lluvia"
     ],
     architecture: {
-      frontend: "React con Vite + React Bootstrap",
-      apiIntegration: "Consumo de API pública Open-Meteo sin cuotas restrictivas ni secretos expuestos",
+      canvasEngine: "Canvas 2D optimizado con física de partículas vectoriales y relámpagos aleatorios",
+      radar: "Simulación polar de barrido con gradiente de intensidad dBZ y anillos de alcance",
+      soundSynth: "Sintetizador procedural de ruido blanco y filtros resonantes para emular lluvia y viento",
       security: "Arquitectura sin claves de API duras (Zero Secret Exposure)"
     }
   },

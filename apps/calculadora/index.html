@@ -3,304 +3,240 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Calculadora Pro | Francis Delgado</title>
+    <title>Super Calculadora Científica Cuántica | Workstation · Francisco Delgado</title>
+    <meta name="description" content="Calculadora científica y estación de ingeniería cuántica: cálculo avanzado, graficadora 2D en tiempo real, modo programador de 32 bits, resolutor de ecuaciones y analítica estadística." />
+    <meta name="author" content="Francisco Agustín Delgado" />
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap"
       rel="stylesheet"
     />
-    <style>
-      :root {
-        --bg-primary: #0a0e17;
-        --bg-card: rgba(18, 26, 43, 0.85);
-        --accent: #38bdf8;
-        --accent-gradient: linear-gradient(135deg, #38bdf8, #818cf8);
-        --op-color: #f59e0b;
-        --eq-color: #10b981;
-        --danger: #ef4444;
-        --text: #f1f5f9;
-        --text-muted: #94a3b8;
-        --border: rgba(255, 255, 255, 0.1);
-      }
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
 
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-
-      body {
-        font-family: 'Outfit', sans-serif;
-        background: radial-gradient(circle at 50% 20%, #152238 0%, #080c14 100%);
-        color: var(--text);
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-      }
-
-      .calculator-container {
-        width: 100%;
-        max-width: 440px;
-        background: var(--bg-card);
-        backdrop-filter: blur(20px);
-        border: 1px solid var(--border);
-        border-radius: 28px;
-        padding: 28px;
-        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      }
-
-      .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-      }
-
-      .brand {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-weight: 700;
-        font-size: 1.1rem;
-        letter-spacing: -0.5px;
-      }
-
-      .brand-dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: var(--accent);
-        box-shadow: 0 0 10px var(--accent);
-      }
-
-      .mode-badge {
-        font-size: 0.75rem;
-        background: rgba(56, 189, 248, 0.15);
-        color: var(--accent);
-        padding: 4px 10px;
-        border-radius: 20px;
-        font-weight: 600;
-        border: 1px solid rgba(56, 189, 248, 0.3);
-      }
-
-      .display-screen {
-        background: rgba(10, 15, 25, 0.75);
-        border: 1px solid var(--border);
-        border-radius: 20px;
-        padding: 20px;
-        text-align: right;
-        margin-bottom: 24px;
-        min-height: 110px;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        overflow: hidden;
-      }
-
-      .expression {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 1rem;
-        color: var(--text-muted);
-        min-height: 24px;
-        word-break: break-all;
-        margin-bottom: 6px;
-      }
-
-      .main-value {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 2.4rem;
-        font-weight: 700;
-        color: #ffffff;
-        word-break: break-all;
-        line-height: 1.1;
-      }
-
-      .keypad {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 12px;
-      }
-
-      button {
-        font-family: 'Outfit', sans-serif;
-        font-size: 1.25rem;
-        font-weight: 600;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 16px;
-        padding: 16px 0;
-        background: rgba(255, 255, 255, 0.04);
-        color: var(--text);
-        cursor: pointer;
-        transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        user-select: none;
-      }
-
-      button:hover {
-        background: rgba(255, 255, 255, 0.1);
-        transform: translateY(-2px);
-      }
-
-      button:active {
-        transform: translateY(1px);
-      }
-
-      button.fn {
-        color: var(--text-muted);
-        background: rgba(255, 255, 255, 0.02);
-      }
-
-      button.op {
-        color: var(--op-color);
-        background: rgba(245, 158, 11, 0.08);
-        border-color: rgba(245, 158, 11, 0.2);
-      }
-
-      button.op:hover {
-        background: rgba(245, 158, 11, 0.2);
-      }
-
-      button.danger {
-        color: var(--danger);
-        background: rgba(239, 68, 68, 0.08);
-        border-color: rgba(239, 68, 68, 0.2);
-      }
-
-      button.danger:hover {
-        background: rgba(239, 68, 68, 0.2);
-      }
-
-      button.equal {
-        background: var(--accent-gradient);
-        color: #ffffff;
-        border: none;
-        box-shadow: 0 4px 18px rgba(56, 189, 248, 0.35);
-      }
-
-      button.equal:hover {
-        opacity: 0.95;
-        box-shadow: 0 6px 22px rgba(56, 189, 248, 0.5);
-      }
-
-      .history-section {
-        margin-top: 20px;
-        border-top: 1px solid var(--border);
-        padding-top: 16px;
-      }
-
-      .history-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 0.85rem;
-        color: var(--text-muted);
-        margin-bottom: 10px;
-      }
-
-      .history-list {
-        max-height: 80px;
-        overflow-y: auto;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.8rem;
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-      }
-
-      .history-item {
-        display: flex;
-        justify-content: space-between;
-        color: var(--text-muted);
-        padding: 4px 8px;
-        border-radius: 8px;
-        cursor: pointer;
-      }
-
-      .history-item:hover {
-        background: rgba(255, 255, 255, 0.05);
-        color: var(--text);
-      }
-
-      .history-clear {
-        background: none;
-        border: none;
-        color: var(--text-muted);
-        font-size: 0.75rem;
-        padding: 2px 6px;
-        cursor: pointer;
-      }
-
-      .footer-credit {
-        margin-top: 24px;
-        font-size: 0.85rem;
-        color: var(--text-muted);
-        text-align: center;
-      }
-    </style>
+    <!-- Custom Workstation CSS -->
+    <link rel="stylesheet" href="./css/calc.css" />
   </head>
   <body>
-    <main class="calculator-container" role="region" aria-label="Calculadora Digital Pro">
-      <div class="header">
-        <div class="brand">
-          <div class="brand-dot"></div>
-          <span>Francis Calc</span>
+    <div class="calc-app-wrap">
+      <!-- HUD Header -->
+      <header class="calc-header">
+        <div class="brand-title">
+          <i class="bi bi-cpu-fill" style="color: var(--accent-cyan);"></i>
+          <span>Quantum Calc Pro</span>
+          <span class="brand-badge">v3.5 Quantum HUD</span>
         </div>
-        <span class="mode-badge">JS Engine v2.0</span>
-      </div>
 
-      <div class="display-screen" aria-live="polite">
-        <div class="expression" id="expressionView"></div>
-        <div class="main-value" id="resultView">0</div>
-      </div>
+        <nav class="mode-tabs">
+          <button class="mode-tab-btn active" data-tab="graph">
+            <i class="bi bi-graph-up"></i> Graficadora 2D
+          </button>
+          <button class="mode-tab-btn" data-tab="prog">
+            <i class="bi bi-binary"></i> Programador 32-Bit
+          </button>
+          <button class="mode-tab-btn" data-tab="solver">
+            <i class="bi bi-code-square"></i> Ecuaciones
+          </button>
+          <button class="mode-tab-btn" data-tab="stats">
+            <i class="bi bi-bar-chart-fill"></i> Estadística
+          </button>
+          <button class="mode-tab-btn" data-tab="history">
+            <i class="bi bi-clock-history"></i> Historial
+          </button>
+        </nav>
+      </header>
 
-      <div class="keypad">
-        <button class="danger" id="btnClear">C</button>
-        <button class="fn" id="btnBack">⌫</button>
-        <button class="fn" id="btnPercent">%</button>
-        <button class="op" data-op="/">÷</button>
+      <!-- Main Workstation Layout -->
+      <main class="calc-main-grid">
+        <!-- Core Calculator Unit -->
+        <article class="calc-core-card">
+          <!-- Screen Display -->
+          <div class="calc-screen">
+            <div class="screen-meta-row">
+              <span class="deg-rad-pill" id="angleModeBtn">DEG</span>
+              <span style="letter-spacing: 0.05em;">PRECISIÓN: 64-BIT IEEE 754</span>
+            </div>
+            <div class="screen-expression" id="screenExpression"></div>
+            <div class="screen-result" id="screenResult">0</div>
+          </div>
 
-        <button data-num="7">7</button>
-        <button data-num="8">8</button>
-        <button data-num="9">9</button>
-        <button class="op" data-op="*">×</button>
+          <!-- 5-Column High-Density Scientific Keypad -->
+          <div class="calc-keypad">
+            <!-- Row 1 -->
+            <button class="btn-key fn-key" onclick="window.quantumCalc.append('sin(')">sin</button>
+            <button class="btn-key fn-key" onclick="window.quantumCalc.append('cos(')">cos</button>
+            <button class="btn-key fn-key" onclick="window.quantumCalc.append('tan(')">tan</button>
+            <button class="btn-key fn-key danger-key" onclick="window.quantumCalc.clearAll()">AC</button>
+            <button class="btn-key fn-key" onclick="window.quantumCalc.deleteLast()">⌫</button>
 
-        <button data-num="4">4</button>
-        <button data-num="5">5</button>
-        <button data-num="6">6</button>
-        <button class="op" data-op="-">−</button>
+            <!-- Row 2 -->
+            <button class="btn-key fn-key" onclick="window.quantumCalc.append('π')">π</button>
+            <button class="btn-key fn-key" onclick="window.quantumCalc.append('e')">e</button>
+            <button class="btn-key fn-key" onclick="window.quantumCalc.append('^')">xʸ</button>
+            <button class="btn-key fn-key" onclick="window.quantumCalc.append('√(')">√</button>
+            <button class="btn-key op-key" onclick="window.quantumCalc.append('÷')">÷</button>
 
-        <button data-num="1">1</button>
-        <button data-num="2">2</button>
-        <button data-num="3">3</button>
-        <button class="op" data-op="+">+</button>
+            <!-- Row 3 -->
+            <button class="btn-key fn-key" onclick="window.quantumCalc.append('ln(')">ln</button>
+            <button class="btn-key fn-key" onclick="window.quantumCalc.append('log(')">log</button>
+            <button class="btn-key fn-key" onclick="window.quantumCalc.append('(')">(</button>
+            <button class="btn-key fn-key" onclick="window.quantumCalc.append(')')">)</button>
+            <button class="btn-key op-key" onclick="window.quantumCalc.append('×')">×</button>
 
-        <button class="fn" id="btnSign">±</button>
-        <button data-num="0">0</button>
-        <button data-num=".">.</button>
-        <button class="equal" id="btnEquals">=</button>
-      </div>
+            <!-- Row 4 -->
+            <button class="btn-key" onclick="window.quantumCalc.append('7')">7</button>
+            <button class="btn-key" onclick="window.quantumCalc.append('8')">8</button>
+            <button class="btn-key" onclick="window.quantumCalc.append('9')">9</button>
+            <button class="btn-key fn-key" onclick="window.quantumCalc.append('!')">n!</button>
+            <button class="btn-key op-key" onclick="window.quantumCalc.append('-')">-</button>
 
-      <div class="history-section">
-        <div class="history-header">
-          <span>Historial Reciente</span>
-          <button class="history-clear" id="btnClearHistory">Borrar</button>
-        </div>
-        <div class="history-list" id="historyList">
-          <div style="color: #64748b; font-size: 0.75rem;">Sin operaciones recientes</div>
-        </div>
-      </div>
-    </main>
+            <!-- Row 5 -->
+            <button class="btn-key" onclick="window.quantumCalc.append('4')">4</button>
+            <button class="btn-key" onclick="window.quantumCalc.append('5')">5</button>
+            <button class="btn-key" onclick="window.quantumCalc.append('6')">6</button>
+            <button class="btn-key fn-key" onclick="window.quantumCalc.append('^(2)')">x²</button>
+            <button class="btn-key op-key" onclick="window.quantumCalc.append('+')">+</button>
 
-    <footer class="footer-credit">
-      Desarrollado con JavaScript Vanilla &middot; Francis Delgado
-    </footer>
+            <!-- Row 6 -->
+            <button class="btn-key" onclick="window.quantumCalc.append('1')">1</button>
+            <button class="btn-key" onclick="window.quantumCalc.append('2')">2</button>
+            <button class="btn-key" onclick="window.quantumCalc.append('3')">3</button>
+            <button class="btn-key fn-key" onclick="window.quantumCalc.append('/100')">%</button>
+            <button class="btn-key eq-key" style="grid-row: span 2;" onclick="window.quantumCalc.evaluate()">=</button>
 
-    <script src="./calculadora.js"></script>
+            <!-- Row 7 -->
+            <button class="btn-key" style="grid-column: span 2;" onclick="window.quantumCalc.append('0')">0</button>
+            <button class="btn-key" onclick="window.quantumCalc.append('.')">.</button>
+            <button class="btn-key fn-key" onclick="window.quantumCalc.append('(-1)*(')">±</button>
+          </div>
+        </article>
+
+        <!-- Right Side: Secondary Advanced Engineering Suites -->
+        <aside class="calc-side-panel">
+          <!-- Tab 1: 2D Interactive Function Grapher -->
+          <div class="feature-box tab-view-panel" id="tab-graph">
+            <div class="feature-title">
+              <span><i class="bi bi-graph-up"></i> Trazador Cartesiano en Vivo</span>
+              <span style="font-size: 0.75rem; color: var(--accent-emerald);">CANVAS 2D</span>
+            </div>
+            <div class="graph-canvas-wrap">
+              <canvas id="graphCanvas"></canvas>
+            </div>
+            <div class="graph-controls">
+              <input type="text" id="graphFnInput" class="graph-input" value="Math.sin(x)" placeholder="Ej: Math.sin(x), x^2 - 4" />
+              <button class="mode-tab-btn active" id="plotFunctionBtn">Graficar</button>
+            </div>
+            <div style="font-family: var(--font-hud); font-size: 0.75rem; color: var(--text-dim); margin-top: 10px;">
+              Soporta: sin(x), cos(x), tan(x), x^2, Math.sqrt(x), Math.exp(x).
+            </div>
+          </div>
+
+          <!-- Tab 2: Programmer 32-Bit Inspector -->
+          <div class="feature-box tab-view-panel" id="tab-prog" style="display: none;">
+            <div class="feature-title">
+              <span><i class="bi bi-binary"></i> Inspector de Bits & Bases</span>
+              <span style="font-size: 0.75rem; color: var(--accent-cyan);">32-BIT REG</span>
+            </div>
+            <div class="bit-matrix-wrap">
+              <div class="base-conversions">
+                <div class="base-cell">
+                  <span class="base-label">DECIMAL</span>
+                  <span class="base-value" id="bitDec">42</span>
+                </div>
+                <div class="base-cell">
+                  <span class="base-label">HEXADECIMAL</span>
+                  <span class="base-value" id="bitHex">0x2A</span>
+                </div>
+                <div class="base-cell" style="grid-column: span 2;">
+                  <span class="base-label">BINARIO (32-BIT)</span>
+                  <span class="base-value" id="bitBin" style="letter-spacing: 0.05em; font-size: 0.75rem;">00000000000000000000000000101010</span>
+                </div>
+                <div class="base-cell">
+                  <span class="base-label">OCTAL</span>
+                  <span class="base-value" id="bitOct">0o52</span>
+                </div>
+                <div class="base-cell">
+                  <span class="base-label">ESTADO DE BITS</span>
+                  <span class="base-value" style="color: var(--accent-emerald);">Activos: Clic en LED</span>
+                </div>
+              </div>
+
+              <!-- Interactive Clickable Bit Matrix -->
+              <div class="bits-grid" id="bitsGrid">
+                <!-- Rendered dynamically -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 3: Equation Solver -->
+          <div class="feature-box tab-view-panel" id="tab-solver" style="display: none;">
+            <div class="feature-title">
+              <span><i class="bi bi-code-square"></i> Resolutor Cuadrático</span>
+              <span style="font-size: 0.75rem; color: var(--accent-amber);">ax² + bx + c = 0</span>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px;">
+              <div>
+                <label style="font-size: 0.75rem; color: var(--text-dim); display: block; margin-bottom: 4px;">Coef a</label>
+                <input type="number" id="quadA" class="graph-input" value="1" style="width: 100%;" />
+              </div>
+              <div>
+                <label style="font-size: 0.75rem; color: var(--text-dim); display: block; margin-bottom: 4px;">Coef b</label>
+                <input type="number" id="quadB" class="graph-input" value="-5" style="width: 100%;" />
+              </div>
+              <div>
+                <label style="font-size: 0.75rem; color: var(--text-dim); display: block; margin-bottom: 4px;">Coef c</label>
+                <input type="number" id="quadC" class="graph-input" value="6" style="width: 100%;" />
+              </div>
+            </div>
+            <button class="mode-tab-btn active" id="solveQuadBtn" style="width: 100%; justify-content: center;">
+              Calcular Raíces & Discriminante
+            </button>
+            <div id="quadResult" style="margin-top: 14px; padding: 14px; background: #020617; border-radius: 12px; border: 1px solid var(--border-subtle); font-family: var(--font-hud); font-size: 0.88rem; line-height: 1.5;">
+              Δ = 1<br><strong>x₁ = 3.0000</strong><br><strong>x₂ = 2.0000</strong>
+            </div>
+          </div>
+
+          <!-- Tab 4: Statistics Engine -->
+          <div class="feature-box tab-view-panel" id="tab-stats" style="display: none;">
+            <div class="feature-title">
+              <span><i class="bi bi-bar-chart-fill"></i> Analítica Estadística</span>
+              <span style="font-size: 0.75rem; color: var(--accent-purple);">Muestral</span>
+            </div>
+            <label style="font-size: 0.75rem; color: var(--text-dim); display: block; margin-bottom: 6px;">
+              Muestras (separadas por coma o espacio):
+            </label>
+            <textarea id="statsDataInput" class="graph-input" style="width: 100%; height: 70px; resize: none; font-family: var(--font-hud);">12, 15, 18, 22, 25, 29, 30, 35</textarea>
+            <button class="mode-tab-btn active" id="calcStatsBtn" style="width: 100%; justify-content: center; margin-top: 10px;">
+              Calcular Parámetros
+            </button>
+            <div id="statsResultBox" style="margin-top: 14px; padding: 14px; background: #020617; border-radius: 12px; border: 1px solid var(--border-subtle); font-family: var(--font-hud); font-size: 0.85rem; line-height: 1.6;">
+              Haz clic en calcular para ver Media, Mediana, Desvío (σ) y Varianza.
+            </div>
+          </div>
+
+          <!-- Tab 5: History -->
+          <div class="feature-box tab-view-panel" id="tab-history" style="display: none;">
+            <div class="feature-title">
+              <span><i class="bi bi-clock-history"></i> Historial de Operaciones</span>
+              <span style="font-size: 0.75rem; color: var(--text-dim);">SESIÓN ACTIVA</span>
+            </div>
+            <div class="history-list" id="historyList">
+              <div style="color: var(--text-dim); font-size: 0.85rem; text-align: center; padding: 20px;">
+                No hay cálculos previos en esta sesión.
+              </div>
+            </div>
+          </div>
+        </aside>
+      </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="./js/quantum-engine.js"></script>
   </body>
 </html>
