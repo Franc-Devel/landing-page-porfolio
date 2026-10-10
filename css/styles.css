@@ -105,10 +105,18 @@ body {
   left: 0;
   width: 100%;
   z-index: 100;
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   background: rgba(7, 10, 18, 0.82);
   border-bottom: 1px solid var(--bg-glass-border);
-  transition: all 0.3s ease;
+  transition: background 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  will-change: transform;
+}
+
+.site-header.scrolled {
+  background: rgba(7, 10, 18, 0.94);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  border-bottom-color: rgba(255, 255, 255, 0.12);
 }
 
 .site-header .container {
@@ -493,6 +501,8 @@ body {
   position: relative;
   margin-bottom: 42px;
   padding-left: 74px;
+  content-visibility: auto;
+  contain-intrinsic-size: 0 160px;
 }
 
 .timeline-step:last-child {
@@ -769,17 +779,21 @@ body {
   border: 1px solid var(--bg-glass-border);
   border-radius: var(--radius-lg);
   padding: 28px;
-  backdrop-filter: blur(16px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   display: flex;
   flex-direction: column;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.22s ease, box-shadow 0.22s ease;
   position: relative;
   overflow: hidden;
+  content-visibility: auto;
+  contain-intrinsic-size: 0 460px;
+  transform: translateZ(0);
 }
 
 .project-card:hover {
-  border-color: rgba(56, 189, 248, 0.4);
-  transform: translateY(-4px);
+  border-color: rgba(56, 189, 248, 0.45);
+  transform: translateY(-4px) translateZ(0);
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
 }
 

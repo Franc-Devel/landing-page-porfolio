@@ -21,32 +21,56 @@ function initNavigation() {
   const navLinks = document.querySelectorAll(".nav-link");
   const sections = document.querySelectorAll("section[id]");
 
-  window.addEventListener("scroll", () => {
-    // Header shadow on scroll
-    if (window.scrollY > 40) {
-      header.style.boxShadow = "0 10px 30px rgba(0, 0, 0, 0.6)";
-      header.style.background = "rgba(7, 10, 18, 0.92)";
-    } else {
-      header.style.boxShadow = "none";
-      header.style.background = "rgba(7, 10, 18, 0.82)";
-    }
+  // RAF-throttled passive scroll listener for header elevation: 60+ FPS, Zero Layout Thrashing
+  let isScrolled = false;
+  let ticking = false;
 
-    // Active link highlighting
-    let current = "";
-    sections.forEach((section) => {
-      const sectionTop = section.offsetTop - 120;
-      if (window.scrollY >= sectionTop) {
-        current = section.getAttribute("id");
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrolled = window.scrollY > 40;
+          if (scrolled !== isScrolled) {
+            isScrolled = scrolled;
+            if (header) {
+              header.classList.toggle("scrolled", isScrolled);
+            }
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
-    });
+    },
+    { passive: true }
+  );
 
-    navLinks.forEach((link) => {
-      link.classList.remove("active");
-      if (link.getAttribute("href") === `#${current}`) {
-        link.classList.add("active");
+  // Modern IntersectionObserver for active link highlighting without DOM reading/reflow
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute("id");
+            navLinks.forEach((link) => {
+              const href = link.getAttribute("href");
+              if (href === `#${id}`) {
+                link.classList.add("active");
+              } else if (href && href.startsWith("#")) {
+                link.classList.remove("active");
+              }
+            });
+          }
+        });
+      },
+      {
+        rootMargin: "-25% 0px -65% 0px",
+        threshold: 0
       }
-    });
-  });
+    );
+
+    sections.forEach((sec) => observer.observe(sec));
+  }
 }
 
 /* ==========================================================================
@@ -242,11 +266,15 @@ function initProjectGrid() {
     });
   });
 
-  // Search Input
+  // Search Input with micro-debounce for fluid typing
   if (searchInput) {
+    let debounceTimer;
     searchInput.addEventListener("input", (e) => {
-      searchQuery = e.target.value;
-      render();
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        searchQuery = e.target.value;
+        render();
+      }, 90);
     });
   }
 
