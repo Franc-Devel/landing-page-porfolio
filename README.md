@@ -27,7 +27,7 @@ Plataforma web interactiva, *landing page* y matriz integral de proyectos de **F
 graph TD
     F1[Fase 1: Fundamentos & Algoritmia] --> F2[Fase 2: DOM & Consumo de APIs]
     F2 --> F3[Fase 3: Componentes React 19 & SPAs]
-    F3 --> F4[Fase 4: Métricas & Simuladores UTN]
+    F3 --> F4[Fase 4: Métricas & Simuladores de Software]
     F4 --> F5[Fase 5: Fullstack Enterprise & SQLite]
     F5 --> F6[Fase 6: Ciberseguridad Defensiva & IA]
 ```
@@ -35,7 +35,7 @@ graph TD
 1. **Fase 1 · v1.0.0 (Fundamentos & Lógica Pura):** Estructuras de control, validación de tipos numéricos y control de errores matemáticos (*Calculadora Pro, Laboratorio de Condicionales & Bucles, Mi Primer Web*).
 2. **Fase 2 · v1.5.0 (DOM & APIs Asíncronas):** Formularios reactivos, consumo asíncrono sin claves expuestas y persistencia local (*Pokédex Nacional PokeAPI, MeteoTrack Satelital, Task Flow Pro, Gestor de Alumnos CRUD*).
 3. **Fase 3 · v2.0.0 (SPAs Modernas, E-Commerce & Streaming):** Enrutamiento multinivel, gestión de estado global, tiendas gamer y streaming de audio/video (*Francis Gamer, Francis Music Streamer, Francis Store, Titan Hard, CineApp Pro*).
-4. **Fase 4 · v2.5.0 (Simuladores Académicos UTN):** Algoritmos de barajado aleatorio, defensa metodológica ágil y ciencia de datos (*Modo Parcial Prog IV, Modo Defensa Software, Introducción al Análisis de Datos*).
+4. **Fase 4 · v2.5.0 (Simuladores Técnicos & Métricas):** Algoritmos de barajado aleatorio, defensa metodológica ágil y ciencia de datos (*Modo Parcial Prog IV, Modo Defensa Software, Introducción al Análisis de Datos*).
 5. **Fase 5 · v3.0.0 (Fullstack Enterprise & ERP):** Control transaccional, esquemas relacionales, POS, finanzas personales y gestión automotriz (*Lubricentro DyM Central ERP, En Orden Finanzas Personales, CRM Abatech, Francis Bank*).
 6. **Fase 6 · v3.5.0 (Ciberseguridad & IA Local):** Principio de menor privilegio, almacenamiento privado en NAS y análisis inteligente (*Talamasca Consultora Nexo, Al Día Asistente Personal*).
 
@@ -47,16 +47,16 @@ graph TD
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Francis Gamer** | E-Commerce & Gaming | React 19, Vite, Bootstrap 5 | GitHub (Vercel) | Desplegado en Vercel | [Abrir App](./apps/francis-gamer/index.html) |
 | **En Orden Finanzas** | Fullstack & Finanzas | JS, Drizzle, SQLite, Telegram | GitHub (Privado) | Standalone Integrado | [Abrir App](./apps/finanzas-personales/index.html) |
-| **CineApp Pro** | Streaming & Catálogo | JS Modular, CSS Bunker, UTN | GitHub (tpIntegral) | Standalone Integrado | [Abrir App](./apps/cine-app/index.html) |
+| **CineApp Pro** | Streaming & Catálogo | JS Modular, CSS Bunker, CRUD | GitHub (tpIntegral) | Standalone Integrado | [Abrir App](./apps/cine-app/index.html) |
 | **Francis Music** | Streaming & Audio | React, Vite, Web Audio API | Workspace Local | Standalone Integrado | [Abrir App](./apps/francis-music/index.html) |
-| **Pokédex Nacional** | Herramientas & APIs | JS Vanilla, PokeAPI, Bootstrap | GitHub (UTN) | Standalone Integrado | [Abrir App](./apps/pokedex/index.html) |
+| **Pokédex Nacional** | Herramientas & APIs | JS Vanilla, PokeAPI, Bootstrap | GitHub (REST Client) | Standalone Integrado | [Abrir App](./apps/pokedex/index.html) |
 | **Francis Bank** | Home Banking | JS, HTML5, Bootstrap 5 | GitHub (ProyectoBanco) | Standalone Integrado | [Abrir App](./apps/francis-bank/index.html) |
-| **Alumnos CRUD** | Herramientas & Datos | JS, REST API / LocalStorage | GitHub (UTN) | Standalone Integrado | [Abrir App](./apps/alumnos-crud/index.html) |
+| **Alumnos CRUD** | Herramientas & Datos | JS, REST API / LocalStorage | GitHub (Admin App) | Standalone Integrado | [Abrir App](./apps/alumnos-crud/index.html) |
 | **Titan Hard** | E-Commerce Gamer | HTML5, Bootstrap 5, FontAwesome | GitHub (Proyecto-Ecomerce) | Standalone Integrado | [Abrir App](./apps/titan-hard/index.html) |
 | **Francis Store** | E-Commerce | React, Vite, Framer Motion | Workspace Local | Standalone Integrado | [Abrir App](./apps/francis-store/index.html) |
 | **Modo Parcial Prog IV** | Simulador Académico | JS Vanilla, CSS, LocalStorage | GitHub (Vercel) | Desplegado en Vercel | [Abrir App](./apps/modo-parcial-prog4/index.html) |
 | **Modo Defensa Software** | Simulador Académico | JS Vanilla, Scrum / Agile | GitHub (Vercel) | Desplegado en Vercel | [Abrir App](./apps/modo-defensa-gestion/index.html) |
-| **Análisis de Datos** | Simulador Académico | JS, Conceptos Pandas / UTN | Workspace Local | Standalone Integrado | [Abrir App](./apps/analisis-datos/index.html) |
+| **Análisis de Datos** | Simulador Académico | JS, Conceptos Pandas & Data Science | Workspace Local | Standalone Integrado | [Abrir App](./apps/analisis-datos/index.html) |
 | **Control Central Lubricentro** | Fullstack & ERP | React, Express, SQLite | GitHub & Local | Standalone Integrado | [Abrir App](./apps/lubricentro-dym/index.html) |
 | **Al Día Asistente NAS** | Automatización & IA | JS Vanilla, Baileys, IA Local | Workspace Local | Standalone Integrado | [Abrir App](./apps/asistente-aldia/index.html) |
 | **Calculadora Pro** | Herramientas & Lógica | JS Vanilla, Glassmorphism | Workspace Local | Standalone Integrado | [Abrir App](./apps/calculadora/index.html) |
