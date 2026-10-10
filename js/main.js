@@ -104,7 +104,7 @@ function getProjectPresentation(project) {
   return { label: "Demo local", icon: "◌", className: "production", proof: "Explorable dentro del portfolio" };
 }
 
-function projectVisual(project) {
+function projectVisual(project, index = 0, total = 1) {
   const categoryLabels = {
     ecommerce: "Commerce system",
     streaming: "Media experience",
@@ -119,9 +119,15 @@ function projectVisual(project) {
     .slice(0, 7)
     .join(" ");
 
+  const num = String(index + 1).padStart(2, "0");
+  const tot = String(total).padStart(2, "0");
+
   return `
     <div class="project-visual" aria-hidden="true">
-      <div class="visual-topline"><span>${categoryLabels[project.category] || "Digital product"}</span><span>01 / 01</span></div>
+      <div class="visual-topline">
+        <span>${categoryLabels[project.category] || "Digital product"}</span>
+        <span>${num} / ${tot}</span>
+      </div>
       <div class="visual-brand">${project.title}</div>
       <div class="visual-metric">${metric}…</div>
       <div class="visual-ui"><span></span><span></span><span></span><span></span><span></span></div>
@@ -162,7 +168,7 @@ function initProjectGrid() {
     }
 
     gridContainer.innerHTML = filtered
-      .map((proj) => {
+      .map((proj, idx) => {
         const presentation = getProjectPresentation(proj);
 
         // Rutas y botones con target="_blank"
@@ -195,7 +201,7 @@ function initProjectGrid() {
 
         return `
           <article class="project-card ${presentation.className === "concept" ? "is-concept" : ""}" data-id="${proj.id}" data-category="${proj.category}">
-            ${projectVisual(proj)}
+            ${projectVisual(proj, idx, filtered.length)}
             <div class="project-card-header">
               <span class="project-status ${presentation.className}">
                 <i>${presentation.icon}</i> ${presentation.label}
