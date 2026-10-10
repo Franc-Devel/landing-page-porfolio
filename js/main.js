@@ -268,7 +268,10 @@ function initSandboxModal() {
 
   if (!modal || !iframe) return;
 
+  let currentSandboxUrl = "";
+
   window.openSandbox = function (url, title) {
+    currentSandboxUrl = url;
     modalTitle.textContent = title;
     iframe.src = url;
     if (externalLink) {
@@ -283,6 +286,7 @@ function initSandboxModal() {
   function closeSandbox() {
     modal.classList.remove("active");
     iframe.src = "about:blank";
+    currentSandboxUrl = "";
     document.body.style.overflow = "";
   }
 
@@ -300,7 +304,11 @@ function initSandboxModal() {
 
   if (reloadBtn) {
     reloadBtn.addEventListener("click", () => {
-      iframe.src = iframe.src;
+      try {
+        iframe.contentWindow.location.reload();
+      } catch (err) {
+        iframe.src = currentSandboxUrl || iframe.src;
+      }
     });
   }
 
