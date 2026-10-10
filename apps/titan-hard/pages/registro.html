@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Titan Hard" />
+    <meta
+      name="author"
+      content="Francisco Agustín Delgado"
+    />
+    <title>Titan Hard - Tienda Gamer</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../css/login.css" />
+    <link rel="icon" href="../assets/img/favicon.ico.ico" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbarCustom">
+        <div class="container">
+          <a class="navbar-brand" href="../index.html">
+            <img
+              src="../assets/img/LogoHome.png"
+              alt="TitanHard"
+              class="logoNavbar img-fluid"
+            />
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarContent"
+            aria-controls="navbarContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav navbarLinks">
+              <li class="nav-item">
+                <a class="nav-link" href="../index.html">INICIO</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  data-bs-toggle="dropdown"
+                  >PRODUCTOS</a
+                >
+                <ul class="dropdown-menu dropdownMenuCustom">
+                  <li>
+                    <a class="dropdown-item" href="./producto_teclado.html"
+                      >Teclados</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="./producto_mouse.html"
+                      >Mouses</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="./producto_auriculares.html"
+                      >Auriculares</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="./error-404.html"
+                      >Mousepad</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="./error-404.html">Webcam</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="./error-404.html">Cables</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  data-bs-toggle="dropdown"
+                  >CATEGORÍAS</a
+                >
+                <ul class="dropdown-menu dropdownMenuCustom">
+                  <li>
+                    <a class="dropdown-item" href="./categorias-placas.html"
+                      >Placas de Video</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="./categorias-procesadores.html"
+                      >Procesadores</a
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="../pages/contacto.html">CONTACTO</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="../pages/nosotros.html">NOSOTROS</a>
+              </li>
+            </ul>
+            <div class="navbarRight">
+              <form class="searchBox" onsubmit="return false;">
+                <input type="text" placeholder="Buscar productos..." />
+                <button type="submit">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+              </form>
+              <div class="navbarIcons">
+                <a href="../pages/login.html"
+                  ><i class="fa-solid fa-circle-user"></i
+                ></a>
+                <a href="../pages/carrito.html"
+                  ><i class="fa-solid fa-cart-shopping"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <section class="loginSection registerSection">
+        <div class="loginCard registerCard">
+          <div class="loginHeader">
+            <h2>CREAR CUENTA</h2>
+            <p>Únete a la comunidad de Titan Hard</p>
+          </div>
+          <div class="lineaDivisora"></div>
+          <form class="loginForm">
+            <div class="registroGrid">
+              <div class="inputForm">
+                <label for="nombre">NOMBRE</label>
+                <div class="inputBox">
+                  <i class="fa-regular fa-user"></i>
+                  <input
+                    type="text"
+                    id="nombre"
+                    placeholder="Nombre"
+                    required
+                    minlength="2"
+                    maxlength="30"
+                    pattern="[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+"
+                    title="Solo letras"
+                    autocomplete="given-name"
+                  />
+                </div>
+              </div>
+              <div class="inputForm">
+                <label for="apellido">APELLIDO</label>
+                <div class="inputBox">
+                  <i class="fa-regular fa-user"></i>
+                  <input
+                    type="text"
+                    id="apellido"
+                    placeholder="Apellido"
+                    required
+                    minlength="2"
+                    maxlength="30"
+                    pattern="[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+"
+                    title="Solo letras"
+                    autocomplete="family-name"
+                  />
+                </div>
+              </div>
+              <div class="inputForm">
+                <label for="username">USERNAME</label>
+                <div class="inputBox">
+                  <i class="fa-solid fa-at"></i>
+                  <input
+                    type="text"
+                    id="username"
+                    placeholder="TitanUser"
+                    required
+                    minlength="4"
+                    maxlength="20"
+                    pattern="[A-Za-z0-9_]+"
+                    title="Solo letras, números y guion bajo"
+                    autocomplete="username"
+                  />
+                </div>
+              </div>
+              <div class="inputForm">
+                <label for="email">EMAIL</label>
+                <div class="inputBox">
+                  <i class="fa-regular fa-envelope"></i>
+                  <input
+                    type="email"
+                    id="email"
+                    placeholder="ejemplo@gmail.com"
+                    required
+                    maxlength="50"
+                    autocomplete="email"
+                  />
+                </div>
+              </div>
+              <div class="inputForm">
+                <label for="telefono">TELÉFONO</label>
+                <div class="inputBox">
+                  <i class="fa-solid fa-phone"></i>
+                  <input
+                    type="tel"
+                    id="telefono"
+                    placeholder="+54 381 000000"
+                    required
+                    pattern="[0-9+\s]+"
+                    minlength="8"
+                    maxlength="18"
+                    title="Solo números"
+                    autocomplete="tel"
+                    type="number"
+                    oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                  />
+                </div>
+              </div>
+              <div class="inputForm">
+                <label for="cp">CÓDIGO POSTAL</label>
+                <div class="inputBox">
+                  <i class="fa-solid fa-location-dot"></i>
+                  <input
+                    type="text"
+                    id="cp"
+                    placeholder="4000"
+                    required
+                    pattern="[0-9]{4,8}"
+                    title="Solo números"
+                    maxlength="8"
+                    autocomplete="postal-code"
+                    type="number"
+                    oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="inputForm">
+              <label for="direccion">DOMICILIO</label>
+              <div class="inputBox">
+                <i class="fa-solid fa-house"></i>
+                <input
+                  type="text"
+                  id="direccion"
+                  placeholder="Domicilio"
+                  required
+                  minlength="5"
+                  maxlength="80"
+                  autocomplete="street-address"
+                />
+              </div>
+            </div>
+            <div class="registroGrid">
+              <div class="inputForm">
+                <label for="password">CONTRASEÑA</label>
+                <div class="inputBox">
+                  <i class="fa-solid fa-lock"></i>
+                  <input
+                    type="password"
+                    id="password"
+                    placeholder="********"
+                    required
+                    minlength="8"
+                    maxlength="24"
+                    pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).+$"
+                    title="Debe contener mayúscula, minúscula y número"
+                    autocomplete="new-password"
+                  />
+                </div>
+              </div>
+              <div class="inputForm">
+                <label for="confirmPassword">CONFIRMAR CONTRASEÑA</label>
+                <div class="inputBox">
+                  <i class="fa-solid fa-lock"></i>
+                  <input
+                    type="password"
+                    id="confirmPassword"
+                    placeholder="********"
+                    required
+                    minlength="8"
+                    maxlength="24"
+                    autocomplete="new-password"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="loginOpciones">
+              <label class="recuerdame">
+                <input type="checkbox" required />
+                <span>Acepto los términos y condiciones</span>
+              </label>
+            </div>
+            <button type="submit" class="loginButton">
+              CREAR CUENTA <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </form>
+          <p class="registroTexto">
+            ¿Ya tienes una cuenta?<a href="../pages/login.html"
+              >Inicia sesión</a
+            >
+          </p>
+        </div>
+      </section>
+    </main>
+    <footer class="footerCustom py-3"></footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

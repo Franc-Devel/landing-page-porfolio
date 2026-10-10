@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="es-AR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Titan Hard">
+    <meta name="author" content="Francisco Agustín Delgado">
+    <title>Titan Hard - Tienda Gamer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" href="../assets/img/favicon.ico.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbarCustom">
+            <div class="container">
+                <a class="navbar-brand" href="../index.html">
+                    <img src="../assets/img/LogoHome.png" alt="TitanHard" class="logoNavbar img-fluid">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <ul class="navbar-nav navbarLinks">
+                        <li class="nav-item"><a class="nav-link active" href="../index.html">INICIO</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">PRODUCTOS</a>
+                            <ul class="dropdown-menu dropdownMenuCustom">
+                                <li><a class="dropdown-item" href="../pages/producto_teclado.html">Teclados</a></li>
+                                <li><a class="dropdown-item" href="../pages/producto_mouse.html">Mouses</a></li>
+                                <li><a class="dropdown-item" href="../pages/producto_auriculares.html">Auriculares</a></li>
+                                <li><a class="dropdown-item" href="../pages/error-404.html">Mousepad</a></li>
+                                <li><a class="dropdown-item" href="../pages/error-404.html">Webcam</a></li>
+                                <li><a class="dropdown-item" href="../pages/error-404.html">Cables</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="error-404.html"
+                                data-bs-toggle="dropdown">CATEGORÍAS</a>
+                            <ul class="dropdown-menu dropdownMenuCustom">
+
+                                <li><a class="dropdown-item" href="../pages/categorias-placas.html">Placas de
+                                        Video</a></li>
+                                <li><a class="dropdown-item"
+                                        href="../pages/categorias-procesadores.html">Procesadores</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="../pages/contacto.html">CONTACTO</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../pages/nosotros.html">NOSOTROS</a></li>
+                    </ul>
+                    <div class="navbarRight">
+                        <form class="searchBox">
+                            <input type="text" placeholder="Buscar productos...">
+                            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        </form>
+                        <div class="navbarIcons">
+                            <a href="../pages/login.html">
+                                <i class="fa-solid fa-circle-user"></i>
+                                <a href="./carrito.html">
+                                </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main class="paginaCarrito">
+  <div class="contenedorCarrito">
+    <div class="encabezadoCarrito">
+      <h1>
+        <i class="fa-solid fa-cart-shopping"></i>
+        Mi Carrito
+      </h1>
+      <p>
+        Estos son los productos que agregaste.
+      </p>
+    </div>
+    <div class="contenidoCarrito">
+      <div class="productosCarrito">
+        <div class="titulosTabla">
+          <span>Producto</span>
+          <span>Descripción</span>
+          <span>Precio</span>
+          <span>Importe</span>
+          <span></span>
+        </div>
+        <div class="productoCarrito">
+          <div class="imagenProducto">
+            <img src="../assets/img/4060ti.png" alt="RTX">
+          </div>
+          <div class="infoProducto">
+            <h3>RTX 4070 SUPER</h3>
+            <p>12GB GDDR6X</p>
+          </div>
+          <div class="precioProducto">
+            <span>$450.000</span>
+          </div>
+          <div class="importeProducto">
+            <span>$450.000</span>
+          </div>
+          <button class="botonEliminar">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </div>
+        <div class="productoCarrito">
+          <div class="imagenProducto">
+            <img src="../assets/img/Fuente_de_alimentacion.png" alt="Fuente">
+          </div>
+          <div class="infoProducto">
+            <h3>Fuente Corsair 850W</h3>
+            <p>80 Plus Gold</p>
+          </div>
+          <div class="precioProducto">
+            <span>$180.000</span>
+          </div>
+          <div class="importeProducto">
+            <span>$180.000</span>
+          </div>
+          <button class="botonEliminar">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </div>
+        <div class="productoCarrito">
+          <div class="imagenProducto">
+            <img src="../assets/img/AMDRyzen5-7600X6C12T5.3GHz.png" alt="Ryzen">
+          </div>
+          <div class="infoProducto">
+            <h3>Ryzen 7 7800X3D</h3>
+            <p>Procesador Gamer</p>
+          </div>
+          <div class="precioProducto">
+            <span>$320.000</span>
+          </div>
+          <div class="importeProducto">
+            <span>$320.000</span>
+          </div>
+          <button class="botonEliminar">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </div>
+      </div>
+      <div class="resumenCarrito">
+        <h2>Resumen</h2>
+        <div class="itemResumen">
+          <span>Subtotal</span>
+          <span>$950.000</span>
+        </div>
+        <div class="itemResumen">
+          <span>Envío</span>
+          <span>Gratis</span>
+        </div>
+        <div class="itemResumen">
+          <span>Descuento</span>
+          <span>- $25.000</span>
+        </div>
+        <div class="totalResumen">
+          <span>Total</span>
+          <span>$925.000</span>
+        </div>
+        <div class="botonesResumen">
+          <a href="../index.html" class="botonComprar">
+            Comprar ahora
+          </a>
+          <a href="../index.html" class="botonVolver">
+            Seguir comprando
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+    <footer>
+        <footer class="footerCustom mt-5 pt-5 pb-3">
+            <div class="container">
+                <div class="row gy-4 justify-content-center">
+                    <div class="col-12 col-lg-3 text-center text-lg-start">
+                        <a href="../index.html">
+                            <img src="../assets/img/LogoHome.png" alt="TitanHard" class="logoFooter img-fluid mb-2" />
+                        </a>
+                        <p class="footerSubLogo">INSUMOS GAMER</p>
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg-2 text-center text-lg-start">
+                        <h6 class="footerTitle">INFORMACIÓN</h6>
+                        <ul class="list-unstyled footerLinks">
+                            <li><a href="../pages/Nosotros.html" target="_blank">Quiénes somos</a></li>
+                            <li><a href="../pages/error-404.html" target="_blank">Envíos y entregas</a></li>
+                            <li><a href="../pages/error-404.html" target="_blank">Formas de pago</a></li>
+                            <li><a href="../pages/error-404.html" target="_blank">Preguntas frecuentes</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg-3 text-center text-lg-start">
+                        <h6 class="footerTitle">ATENCIÓN AL CLIENTE</h6>
+                        <ul class="list-unstyled footerLinks footerContact">
+                            <li><a href="https://web.whatsapp.com" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+                            </li>
+                            <li><a href="https://www.google.com/maps" target="_blank"><i
+                                        class="fa-solid fa-location-dot"></i> Sucursal
+                                    Tucumán</a></li>
+                            <li><span class="footerSchedule"><i class="fa-regular fa-clock"></i> Lunes a Viernes de 10 a
+                                    18hs</span></li>
+                        </ul>
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg-2 text-center text-lg-start">
+                        <h6 class="footerTitle">SEGUINOS</h6>
+                        <div class="footerSocials d-flex justify-content-center justify-content-lg-start gap-3">
+                            <a href="https://www.instagram.com" target="_blank"><i
+                                    class="fa-brands fa-instagram"></i></a>
+                            <a href="https://www.facebook.com" target="_blank"><i
+                                    class="fa-brands fa-facebook-f"></i></a>
+                            <a href="https://www.tiktok.com" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+                            <a href="https://www.youtube.com" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-5 pt-4 footerBottom">
+                    <div class="col-12 col-md-6 text-center text-md-start">
+                        <p>© 2026 Titan Hard - Todos los derechos reservados.</p>
+                    </div>
+                    <div class="col-12 col-md-6 text-center text-md-end">
+                        <p>Diseñado para gamers. Hecho con pasión. <i class="fa-solid fa-heart"></i></p>
+                    </div>
+                </div>
+            </div>
+        </footer>
