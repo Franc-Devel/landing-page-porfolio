@@ -1,7 +1,7 @@
 /**
  * BASE DE DATOS DE ESTUDIO - INTRODUCCIÓN AL ANÁLISIS DE DATOS
  * =========================================================================
- * Dossier de Cátedra 2026 — UTN FRT
+ * Programa Técnico 2026 — Ingeniería de Datos
  * Fuente: docs/Unidad_1_2_y_Caso_AgroTek_Introduccion_Analisis_Datos.md
  * Total de preguntas: 56
  */
