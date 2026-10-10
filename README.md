@@ -155,5 +155,4 @@ El desarrollo del repositorio sigue un flujo profesional estructurado:
 
 **Francisco Agustín Delgado**  
 - GitHub: [@Franc-Devel](https://github.com/Franc-Devel)  
-- Correo: Franc-Devel@users.noreply.github.com  
 - Ubicación: Tucumán, Argentina  
