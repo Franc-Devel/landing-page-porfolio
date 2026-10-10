@@ -1,0 +1,167 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  --primaryPurple: #951196;
+  --secondaryPurple: #bc26bd;
+  --lightPurple: #bf60bf;
+  --primaryGreen: #59f218;
+  --secondaryGreen: #3cc900;
+  --primaryYellow: #edd600;
+  --black: #000000;
+  --darkGray: #0d0d0d;
+  --lightBlack: #111111;
+  --white: #ffffff;
+  --purpleBorder: rgba(149, 17, 150, 0.5);
+  --greenShadow: rgba(89, 242, 24, 0.3);
+  --transition: 0.3s ease;
+  --navbarGradient: linear-gradient(
+    90deg,
+    #000000 0%,
+    #120012 40%,
+    #000000 100%
+  );
+  --buttonGradient: linear-gradient(135deg, #951196, #59f218);
+}
+body{
+    font-family:"Barlow", sans-serif;
+}
+
+.errorPage{
+    min-height:100vh;
+
+    background-image:
+        linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.8)),
+        url("../assets/img/error-404-background.png");
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:20px;
+
+    position:relative;
+    overflow:hidden;
+}
+
+.errorBox{
+    width:100%;
+    max-width:700px;
+
+    padding:60px 40px;
+
+    border-radius:25px;
+
+    background:rgba(0,0,0,0.45);
+
+    backdrop-filter:blur(10px);
+
+    border:1px solid rgba(149,17,150,0.4);
+
+    text-align:center;
+
+    box-shadow:
+        0 0 30px rgba(149,17,150,0.2),
+        0 0 60px rgba(89,242,24,0.08);
+}
+
+.errorTitle{
+    color:white;
+
+    font-size:4rem;
+    font-weight:800;
+
+    margin-bottom:20px;
+
+    text-shadow:0 0 20px rgba(89,242,24,0.3);
+}
+
+.errorDescription{
+    color:rgba(255,255,255,0.75);
+
+    font-size:1.1rem;
+
+    line-height:1.7;
+
+    max-width:550px;
+
+    margin:0 auto 40px auto;
+}
+
+.homeBtn{
+    display:inline-flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:16px 35px;
+
+    border-radius:14px;
+
+    background:#59f218;
+
+    color:black;
+
+    text-decoration:none;
+
+    font-weight:800;
+
+    transition:0.3s ease;
+}
+
+.homeBtn:hover{
+    transform:translateY(-4px);
+
+    box-shadow:
+        0 0 20px rgba(89,242,24,0.4);
+}
+
+@media (max-width:768px){
+
+    .errorBox{
+        padding:45px 25px;
+    }
+
+    .errorTitle{
+        font-size:2.2rem;
+    }
+
+    .errorDescription{
+        display:none;
+    }
+
+    .homeBtn{
+        width:100%;
+    }
+}
+.secretRick{
+    display:block;
+    margin-top:20px;
+
+    font-size:12px;
+    font-weight:700;
+
+    text-decoration:none;
+    letter-spacing:2px;
+
+    color:#39ff14;
+
+    opacity:0.15;
+
+    transition:0.3s;
+}
+
+.secretRick:hover{
+    opacity:1;
+
+    text-shadow:
+    0 0 5px #39ff14,
+    0 0 10px #39ff14,
+    0 0 20px #39ff14;
+
+    transform:scale(1.05);
+}
