@@ -225,8 +225,9 @@ function initProjectGrid() {
             </a>`
           : "";
 
-        const repoAction = (proj.liveUrl && proj.liveUrl.includes("github.com"))
-          ? `<a href="${proj.liveUrl}" target="_blank" rel="noopener noreferrer" class="btn-card btn-card-secondary" title="Ver código fuente en GitHub">
+        const repositoryUrl = proj.repository || (proj.liveUrl && proj.liveUrl.includes("github.com") ? proj.liveUrl : null);
+        const repoAction = repositoryUrl
+          ? `<a href="${repositoryUrl}" target="_blank" rel="noopener noreferrer" class="btn-card btn-card-secondary" title="Ver código fuente en GitHub">
               🐙 GitHub Repo
             </a>`
           : "";
@@ -437,6 +438,13 @@ function initCaseStudyModal() {
               p.liveUrl
                 ? `<a href="${p.liveUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding: 10px 20px; font-size: 0.88rem;">
                     ⚡ Ver Despliegue en Vercel
+                  </a>`
+                : ""
+            }
+            ${
+              p.repository
+                ? `<a href="${p.repository}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding: 10px 20px; font-size: 0.88rem;">
+                    🐙 Ver repositorio en GitHub
                   </a>`
                 : ""
             }

@@ -41,7 +41,8 @@ const PROJECTS_DATA = [
     tags: ["React 19", "Vite", "Bootstrap 5", "SweetAlert2", "SPA"],
     status: "deployed",
     statusLabel: "Desplegado en Vercel",
-    liveUrl: "https://francis-gamer.vercel.app",
+    liveUrl: "https://byte-brothers-rolling-gamer.vercel.app",
+    repository: "https://github.com/Franc-Devel/Francis-Gamer",
     localAppUrl: "apps/francis-gamer/index.html",
     description: "Plataforma integral de exploración, compra simulada y reseña de videojuegos para PC. Incluye wishlist personalizada, buscador en tiempo real por género y especificaciones de hardware.",
     highlights: [
@@ -311,6 +312,7 @@ const PROJECTS_DATA = [
     status: "production",
     statusLabel: "App Interactiva",
     liveUrl: null,
+    repository: "https://github.com/Franc-Devel/Lubricentro-DYM",
     localAppUrl: "apps/lubricentro-dym/index.html",
     description: "Sistema integral de punto de venta y seguimiento de mantenimientos preventivos para centros de lubricación y mecánica ligera. Control de clientes, órdenes de trabajo, vehículos y alertas de kilometraje.",
     highlights: [
