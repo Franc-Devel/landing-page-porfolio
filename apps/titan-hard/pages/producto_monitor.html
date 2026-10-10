@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Titan Hard">
+    <meta name="author" content="Francisco Agustín Delgado">
+    <title>Titan Hard - Tienda Gamer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/productos.css">
+    <link rel="icon" href="../assets/img/favicon.ico.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbarCustom">
+            <div class="container">
+                <a class="navbar-brand" href="../index.html">
+                    <img src="../assets/img/LogoHome.png" alt="TitanHard" class="logoNavbar img-fluid">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <ul class="navbar-nav navbarLinks">
+                        <li class="nav-item"><a class="nav-link active" href="../index.html">INICIO</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">PRODUCTOS</a>
+                            <ul class="dropdown-menu dropdownMenuCustom">
+                                <li><a class="dropdown-item" href="../pages/producto_teclado.html">Teclados</a></li>
+                                <li><a class="dropdown-item" href="../pages/producto_mouse.html">Mouses</a></li>
+                                <li><a class="dropdown-item" href="../pages/producto_auriculares.html">Auriculares</a></li>
+                                <li><a class="dropdown-item" href="../pages/error-404.html">Mousepad</a></li>
+                                <li><a class="dropdown-item" href="../pages/error-404.html">Webcam</a></li>
+                                <li><a class="dropdown-item" href="../pages/error-404.html">Cables</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="pages/"
+                                data-bs-toggle="dropdown">CATEGORÍAS</a>
+                            <ul class="dropdown-menu dropdownMenuCustom">
+                                
+                                <li><a class="dropdown-item" href="./categorias-placas.html">Placas de
+                                        Video</a></li>
+                                <li><a class="dropdown-item"
+                                        href="./categorias-procesadores.html">Procesadores</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="../pages/contacto.html">CONTACTO</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../pages/nosotros.html">NOSOTROS</a></li>
+                    </ul>
+                    <div class="navbarRight">
+                        <form class="searchBox">
+                            <input type="text" placeholder="Buscar productos...">
+                            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        </form>
+                        <div class="navbarIcons">
+                            <a href="login.html"><i class="fa-solid fa-circle-user"></i></a>
+                            <a href="#modalCarrito"><i class="fa-solid fa-cart-shopping"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+</header>
+<main>
+    <section>
+        <article class="productos">
+            <img src="../assets/img/Aoc24.png" alt=" Monitor AOC 24 165Hz 1ms IPS Full HD">
+               <div class="separador_producto"></div>
+        <div class="info">
+            <h1>Monitor AOC 24" 165Hz 1ms IPS Full HD</h1>
+            <p class="precio">$199.999</p>
+        <ul>
+    <p>★ Lo que tenés que saber de los MonitorAOC 24" 165Hz 1ms IPS Full HD</p>
+    <li>Pantalla Full HD de 24 pulgadas con gran nitidez y colores más realistas.</li>
+    <li>Tasa de refresco de 165Hz para una experiencia ultra fluida en juegos competitivos.</li>
+    <li>Tiempo de respuesta de 1ms que reduce el ghosting y mejora la precisión.</li>
+    <li>Panel IPS con mejores ángulos de visión y colores más vivos.</li>
+    <li>Tecnología Adaptive Sync para evitar cortes de imagen y tearing.</li>
+    <li>Diseño gamer moderno con bordes finos ideal para setups y multitarea.</li>
+    <li>Compatible con HDMI y DisplayPort para conectar PC y consolas fácilmente.</li>
+        </ul>
+    </p>
+    </div>
+    <div class="detalle_de_compra">
+        <div class="info_compra">
+        <p>Llega gratis el miércoles por ser tu primera compra</p>
+        <p>Retirá gratis entre el jueves y el martes 2/jun en correo y otros puntos</p>
+        <p>Stock disponible</p>
+        <button type="button" class="abrir_modal" data-bs-toggle="modal" data-bs-target="#modalPago">
+    Seleccionar método de pago
+</button>
+<div class="modal fade" id="modalPago" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content modal_pago">
+            <div class="modal-header">
+                <h2 class="modal-title">Seleccione sus métodos de pago</h2>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <button class="metodo_pago">💳 Tarjeta de crédito</button>
+                <button class="metodo_pago">📱 Mercado Pago</button>
+            </div>
+        </div>
+    </div>
+</div>
+        </div>
+        <hr>
+                <a href="#modalCarrito" class="boton_1">
+    Comprar ahora
+</a>
+<div id="modalCarrito" class="modalCarrito">
+    <div class="carritoContenido">
+        <a href="#" class="cerrarModal">
+            <i class="fa-solid fa-xmark"></i>
+        </a>
+        <h2>Tu carrito</h2>
+        <div class="productoCarrito">
+            <img src="../assets/img/Aoc24.png" alt="placa4060">
+            <div class="infoProducto">
+                <h3>Monitor AOC 24" 165Hz 1ms IPS Full HD</h3>
+                <p>Cantidad: 1</p>
+                <span>$199.999</span>
+            </div>
+        </div>
+    </div>
+    </div>
+        <button type="button" class="boton_2"><i class="fa-solid fa-cart-shopping"></i> Agregar al carrito</button>
+        <hr>
+        <div class="info_compra_2">
+        <p> ⤶ Devolución gratis. Tenés 30 días desde que lo recibís.</p>
+        <p>⛉ Compra Protegida. Recibí el producto que esperabas o te devolvemos tu dinero.</p>
+        </div>
+    </div>
+        </article>
+        <hr>
+        <section>
+            <article class="foro_opiniones">
+        <h2>OPINIONES DEL PRODUCTO</h2>
+        <p>4.8 ★★★★★</p>
+    <div class="comentarios">
+        <article class="comentario_personas">
+            <img src="../assets/img/foto_de_perfil.jpg" alt="Avatar de usuario" class="avatar">
+            <div class="contenido_comentario">
+                <span class="nombre-usuario">@CyrsuBlack</span>
+                <p>
+                Yo diría que es el mejor en calidad precio tiene muchas más opciones que los demás monitores de su misma gamma aparte de una base movible que muchos otros no tienen.
+            </div>
+        </article>
+        <article class="comentario_personas">
+            <img src="../assets/img/foto_de_perfil.jpg" alt="Avatar de usuario" class="avatar">
+            <div class="contenido_comentario">
+                <span class="nombre-usuario">@Cronos900</span>
+                <p>
+                El monitor tiene muy buenos colores y buen brillo para su precio se notan los 165hz, por el momento no ha tenido ninguna falla, todo bien , 100% recomendable.
+                </p>
+            </div>
+        </article>
+        <article class="comentario_personas">
+            <img src="../assets/img/foto_de_perfil.jpg" alt="Avatar de usuario" class="avatar">
+            <div class="contenido_comentario">
+                <span class="nombre-usuario">@Nacopa</span>
+                <p>
+                El mejor monitor por el precio, excelente calidad de pantalla, muy fluido y buena nitidez, me encantó.
+                </p>
+            </div>
+        </article>
+    </div>
+    <form class="form_comentario">
+        <div class="fila-form">
+            <label for="usuario">Comentar como:</label>
+            <input
+                type="text"
+                id="usuario"
+                placeholder="Tu nombre de usuario"
+                minlength="3"
+                maxlength="100"
+                required
+            >
+        </div>
+        <div class="campo_mensaje">
+            <span class="nombre-usuario">@Hablemos</span>
+            <textarea
+                placeholder="Escribe un mensaje..."
+                required
+            ></textarea>
+            <button type="submit">
+                PUBLICAR COMENTARIO
+            </button>
+        </div>
+    </form>
+            </article>
+    </section>
+</main>
+<footer>
+            <footer class="footerCustom mt-5 pt-5 pb-3">
+            <div class="container">
+                <div class="row gy-4 justify-content-center">
+                    <div class="col-12 col-lg-3 text-center text-lg-start">
+                        <a href="../index.html">
+                            <img src="../assets/img/LogoHome.png" alt="TitanHard" class="logoFooter img-fluid mb-2" />
+                        </a>
+                        <p class="footerSubLogo">INSUMOS GAMER</p>
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg-2 text-center text-lg-start">
+                        <h6 class="footerTitle">INFORMACIÓN</h6>
+                        <ul class="list-unstyled footerLinks">
+                            <li><a href="../pages/Nosotros.html" target="_blank">Quiénes somos</a></li>
+                            <li><a href="../pages/error-404.html" target="_blank">Envíos y entregas</a></li>
+                            <li><a href="../pages/error-404.html" target="_blank">Formas de pago</a></li>
+                            <li><a href="../pages/error-404.html" target="_blank">Preguntas frecuentes</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg-3 text-center text-lg-start">
+                        <h6 class="footerTitle">ATENCIÓN AL CLIENTE</h6>
+                        <ul class="list-unstyled footerLinks footerContact">
+                            <li><a href="https://web.whatsapp.com"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+                            </li>
+                            <li><a href="https://www.google.com/maps" target="_blank"><i
+                                        class="fa-solid fa-location-dot"></i> Sucursal
+                                    Tucumán</a></li>
+                            <li><span class="footerSchedule"><i class="fa-regular fa-clock"></i> Lunes a Viernes de 10 a
+                                    18hs</span></li>
+                        </ul>
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg-2 text-center text-lg-start">
+                        <h6 class="footerTitle">SEGUINOS</h6>
+                        <div class="footerSocials d-flex justify-content-center justify-content-lg-start gap-3">
+                            <a href="https://www.instagram.com" target="_blank"><i
+                                    class="fa-brands fa-instagram"></i></a>
+                            <a href="https://www.facebook.com" target="_blank"><i
+                                    class="fa-brands fa-facebook-f"></i></a>
+                            <a href="https://www.tiktok.com" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+                            <a href="https://www.youtube.com" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-5 pt-4 footerBottom">
+                    <div class="col-12 col-md-6 text-center text-md-start">
+                        <p>© 2026 Titan Hard - Todos los derechos reservados.</p>
+                    </div>
+                    <div class="col-12 col-md-6 text-center text-md-end">
+                        <p>Diseñado para gamers. Hecho con pasión. <i class="fa-solid fa-heart"></i></p>
+                    </div>
+                </div>
+            </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
