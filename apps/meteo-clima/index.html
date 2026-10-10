@@ -1,14 +1,253 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MeteoTrack Pro | Francis Delgado</title>
-    <script type="module" crossorigin src="./assets/index-CRJn3_vj.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-D9k3ioRU.css">
+    <title>MeteoTrack Pro 2.0 | Cyber Climate Workstation · Francisco Delgado</title>
+    <meta name="description" content="Estación meteorológica interactiva de alta fidelidad con simulador de partículas en vivo, radar Doppler táctico, instrumental climático y centro de desafíos atmosféricos." />
+    <meta name="author" content="Francisco Agustín Delgado" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./css/meteo.css" />
   </head>
   <body>
-    <div id="root"></div>
+    <!-- Live Atmosphere Particle Canvas -->
+    <canvas id="weatherCanvas"></canvas>
+    <div class="hud-vignette"></div>
+    <div class="hud-grid-overlay"></div>
+
+    <div class="app-container">
+      <!-- HUD Header -->
+      <header class="hud-header">
+        <div class="brand-section">
+          <div class="brand-icon">
+            <i class="bi bi-cloud-lightning-rain-fill"></i>
+          </div>
+          <div>
+            <div class="brand-title">
+              MeteoTrack Pro <span class="brand-badge">v2.4 HUD</span>
+            </div>
+            <div style="font-family: var(--font-hud); font-size: 0.75rem; color: var(--text-dim);">
+              Estación Atmosférica Cuántica · Desarrollado por Francisco Delgado
+            </div>
+          </div>
+        </div>
+
+        <div class="header-controls">
+          <div class="search-box">
+            <i class="bi bi-search search-icon"></i>
+            <input type="text" id="citySearch" placeholder="Buscar ciudad global (Enter)..." autocomplete="off" />
+          </div>
+
+          <button class="hud-btn" id="unitToggleBtn" title="Alternar escala térmica">
+            °C
+          </button>
+
+          <button class="ambient-sound-pill" id="ambientAudioBtn" title="Generador acústico ambiental">
+            <i class="bi bi-volume-up-fill"></i>
+            <span class="audio-label">Atmósfera Sonora</span>
+            <div class="sound-waves">
+              <span></span><span></span><span></span>
+            </div>
+          </button>
+
+          <button class="hud-btn" id="exportWeatherBtn" title="Exportar ficha técnica">
+            <i class="bi bi-share-fill"></i> Ficha
+          </button>
+        </div>
+      </header>
+
+      <!-- City Presets Ticker Bar -->
+      <nav class="city-presets-bar">
+        <button class="preset-chip active" data-city="tucuman">
+          <span>⚡ Tucumán (Base)</span>
+          <span class="chip-temp">24°C</span>
+        </button>
+        <button class="preset-chip" data-city="buenosaires">
+          <span>☁️ Buenos Aires</span>
+          <span class="chip-temp">19°C</span>
+        </button>
+        <button class="preset-chip" data-city="tokyo">
+          <span>🌧️ Tokio</span>
+          <span class="chip-temp">16°C</span>
+        </button>
+        <button class="preset-chip" data-city="reykjavik">
+          <span>🌌 Reikiavik (Aurora)</span>
+          <span class="chip-temp">-2°C</span>
+        </button>
+        <button class="preset-chip" data-city="cairo">
+          <span>☀️ El Cairo</span>
+          <span class="chip-temp">34°C</span>
+        </button>
+      </nav>
+
+      <!-- Primary Dashboard Grid -->
+      <main class="dashboard-grid">
+        <!-- Weather Hero Card -->
+        <article class="weather-hero-card">
+          <div class="hero-topline">
+            <div>
+              <h1 class="location-title" id="cityName">San Miguel de Tucumán</h1>
+              <div class="location-subtitle" id="cityCoords">Argentina · 26.8241° S, 65.2226° W</div>
+            </div>
+            <div class="condition-badge" id="conditionBadge">
+              Tormenta Aislada
+            </div>
+          </div>
+
+          <div class="hero-primary-display">
+            <div>
+              <span class="main-temp" id="mainTemp">24</span>
+              <span class="temp-unit">°</span>
+            </div>
+            <div class="temp-meta">
+              <span class="feels-like">Sensación: <strong id="feelsLike">25°</strong></span>
+              <span class="hi-lo" id="hiLo">Mín: 17° · Máx: 29°</span>
+            </div>
+          </div>
+
+          <!-- Quick Stats Row -->
+          <div class="climate-stats-strip">
+            <div class="mini-stat-cell">
+              <span class="mini-stat-label">Humedad</span>
+              <span class="mini-stat-val" id="humidityVal">78%</span>
+            </div>
+            <div class="mini-stat-cell">
+              <span class="mini-stat-label">Presión</span>
+              <span class="mini-stat-val" id="pressureVal">1012 hPa</span>
+            </div>
+            <div class="mini-stat-cell">
+              <span class="mini-stat-label">Viento</span>
+              <span class="mini-stat-val" id="windVal">24 km/h</span>
+            </div>
+            <div class="mini-stat-cell">
+              <span class="mini-stat-label">Aire (AQI)</span>
+              <span class="mini-stat-val" id="aqiVal" style="color: var(--neon-emerald);">38 · Excelente</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Right Side: Radar & Instruments -->
+        <aside class="side-hud-column">
+          <!-- Tactical Doppler Radar -->
+          <section class="radar-panel">
+            <div class="panel-header">
+              <span class="panel-title">
+                <i class="bi bi-broadcast"></i> Radar Doppler Convectivo
+              </span>
+              <span class="panel-badge">EN VIVO · 200 KM</span>
+            </div>
+            <div class="radar-canvas-container">
+              <canvas id="radarCanvas"></canvas>
+            </div>
+            <div class="radar-controls-bar">
+              <span>Banda S / Azimut 360°</span>
+              <span style="color: var(--neon-cyan);">Reflectividad activa</span>
+            </div>
+          </section>
+
+          <!-- Precision Instrument Grid -->
+          <div class="instruments-grid">
+            <div class="instrument-card">
+              <div class="inst-head">
+                <span>Rosa de los Vientos</span>
+                <i class="bi bi-compass"></i>
+              </div>
+              <div class="compass-visual">
+                <div class="compass-needle" id="windNeedle"></div>
+              </div>
+              <div class="inst-head" style="justify-content: center; font-size: 0.75rem;">
+                Dirección SSE (145°)
+              </div>
+            </div>
+
+            <div class="instrument-card">
+              <div class="inst-head">
+                <span>Radiación Solar & UV</span>
+                <i class="bi bi-sun-fill" style="color: var(--neon-amber);"></i>
+              </div>
+              <div class="inst-main">
+                <span class="inst-value" id="uvVal">7 / 11+</span>
+                <span class="inst-unit">Alto</span>
+              </div>
+              <div class="inst-gauge">
+                <div class="inst-gauge-fill" id="uvGauge" style="width: 70%; background: linear-gradient(90deg, #f59e0b, #f43f5e);"></div>
+              </div>
+            </div>
+
+            <div class="instrument-card">
+              <div class="inst-head">
+                <span>Punto de Rocío</span>
+                <i class="bi bi-droplet-half"></i>
+              </div>
+              <div class="inst-main">
+                <span class="inst-value" id="dewPointVal">19°</span>
+                <span class="inst-unit">Condensación</span>
+              </div>
+              <div class="inst-gauge">
+                <div class="inst-gauge-fill" id="humidityGauge" style="width: 78%;"></div>
+              </div>
+            </div>
+
+            <div class="instrument-card">
+              <div class="inst-head">
+                <span>Cobertura Nubosa</span>
+                <i class="bi bi-clouds-fill"></i>
+              </div>
+              <div class="inst-main">
+                <span class="inst-value" id="cloudVal">72%</span>
+                <span class="inst-unit">Cumulonimbus</span>
+              </div>
+              <div class="inst-gauge">
+                <div class="inst-gauge-fill" style="width: 72%; background: linear-gradient(90deg, #38bdf8, #a855f7);"></div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </main>
+
+      <!-- Secondary Row: Forecast Curves + Graphical Climate Quiz -->
+      <section class="secondary-grid">
+        <!-- Forecast Panel with 24h Smooth Canvas Curve -->
+        <article class="forecast-panel">
+          <div class="panel-header">
+            <span class="panel-title">
+              <i class="bi bi-graph-up"></i> Curva Térmica & Probabilidad de Lluvia (24h)
+            </span>
+            <span style="font-family: var(--font-hud); font-size: 0.75rem; color: var(--text-dim);">
+              Interpolación Bézier Cuántica
+            </span>
+          </div>
+
+          <div class="forecast-canvas-wrap">
+            <canvas id="forecastCanvas"></canvas>
+          </div>
+
+          <!-- 7-Day Extended Bar Forecast -->
+          <div class="daily-forecast-row" id="dailyForecastRow">
+            <!-- Rendered by JS -->
+          </div>
+        </article>
+
+        <!-- Graphical Interactive Climate Challenge (Quiz Hub) -->
+        <aside class="quiz-panel" id="quizContainer">
+          <!-- Rendered by ClimateQuiz JS with dynamic diagrams -->
+        </aside>
+      </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="./js/meteo-radar.js"></script>
+    <script src="./js/meteo-quiz.js"></script>
+    <script src="./js/meteo-engine.js"></script>
   </body>
 </html>

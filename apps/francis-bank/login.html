@@ -29,7 +29,7 @@
             <p class="text-muted">Ingresá a tu cuenta</p>
           </div>
 
-          <form>
+          <form action="dashboard.html" method="GET">
             <div class="mb-3">
               <label for="usuario" class="form-label small fw-bold"
                 >Usuario o DNI</label
@@ -39,6 +39,7 @@
                 class="form-control"
                 id="usuario"
                 placeholder="Ej: 42123456"
+                value="42123456"
               />
             </div>
 
@@ -52,6 +53,7 @@
                   class="form-control"
                   id="inputPassword"
                   placeholder="Tu clave secreta"
+                  value="DemoSecurePass2026!"
                 />
                 <button
                   class="btn btn-outline-secondary"
@@ -65,13 +67,13 @@
 
             <div class="d-grid gap-2">
               <button type="submit" class="btn btn-primary fw-bold">
-                Entrar
+                Entrar al HomeBanking Cuántico ↗
               </button>
             </div>
 
             <div class="text-center mt-3">
-              <a href="#" class="text-decoration-none small"
-                >¿Olvidaste tu clave?</a
+              <a href="dashboard.html" class="text-decoration-none small text-success fw-bold"
+                >⚡ Acceso Rápido Modo Demo ➔</a
               >
             </div>
           </form>
