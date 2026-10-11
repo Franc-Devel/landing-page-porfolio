@@ -1,0 +1,36 @@
+.imagen-banner {
+  height: 700px;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (max-width: 768px) {
+  .imagen-banner {
+    height: 250px;
+  }
+}
+
+.tarjeta-animada {
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.tarjeta-animada:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+.pie-oscuro {
+  background-color: #343a40 !important;
+}
+
+.fondo-celeste {
+  background-color: #007bff !important;
+}
+
+footer a:hover {
+  color: white !important;
+  transition: 0.3s;
+}
+

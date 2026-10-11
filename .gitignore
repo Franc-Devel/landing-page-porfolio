@@ -1,0 +1,6 @@
+temp_data_analytics_studio/
+.venv/
+.venv*/
+__pycache__/
+*.log
+.DS_Store

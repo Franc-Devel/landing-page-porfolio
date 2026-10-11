@@ -1,0 +1,1031 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Data Analytics Studio - Suite Integral de Consultoría Comercial, Ingesta de Datos, CRM 360° y Auditoría Analítica" />
+  <title>Data Analytics Studio · Nexo Suite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-base: #070b14;
+      --bg-surface: #0d1527;
+      --bg-card: rgba(18, 28, 50, 0.7);
+      --bg-card-hover: rgba(28, 42, 74, 0.85);
+      --border: rgba(148, 163, 184, 0.12);
+      --border-accent: rgba(56, 189, 248, 0.35);
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.2);
+      --emerald: #34d399;
+      --indigo: #818cf8;
+      --amber: #fbbf24;
+      --rose: #fb7185;
+      --radius: 12px;
+      --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --font-display: 'Outfit', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: radial-gradient(circle at 50% 0%, #111d38 0%, var(--bg-base) 65%);
+      color: var(--text);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    header.topbar {
+      border-bottom: 1px solid var(--border);
+      background: rgba(13, 21, 39, 0.85);
+      backdrop-filter: blur(14px);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      padding: 1rem 1.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #0284c7, #6366f1);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      box-shadow: 0 4px 16px var(--accent-glow);
+    }
+    .brand h1 { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; }
+    .brand p { font-size: 0.75rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+
+    .search-box {
+      position: relative;
+      flex: 1;
+      max-width: 380px;
+    }
+    .search-input {
+      width: 100%;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.55rem 1rem 0.55rem 2.25rem;
+      color: #fff;
+      font-size: 0.875rem;
+      outline: none;
+      transition: all 0.2s;
+    }
+    .search-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+    .search-box svg {
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 15px;
+      height: 15px;
+      color: var(--text-muted);
+    }
+
+    .meta-badges {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .badge {
+      font-size: 0.75rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      font-weight: 600;
+      border: 1px solid transparent;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .badge-live {
+      background: rgba(52, 211, 153, 0.1);
+      border-color: rgba(52, 211, 153, 0.3);
+      color: var(--emerald);
+    }
+    .badge-live::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--emerald);
+      box-shadow: 0 0 8px var(--emerald);
+    }
+    .badge-repo {
+      background: rgba(56, 189, 248, 0.1);
+      border-color: rgba(56, 189, 248, 0.25);
+      color: var(--accent);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .badge-repo:hover {
+      background: rgba(56, 189, 248, 0.2);
+    }
+
+    /* Tabs */
+    .tab-bar {
+      background: rgba(13, 21, 39, 0.6);
+      border-bottom: 1px solid var(--border);
+      padding: 0 1.75rem;
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+    }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: var(--text-muted);
+      font-family: var(--font-display);
+      font-size: 0.925rem;
+      font-weight: 600;
+      padding: 1rem 1.25rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .tab-btn:hover { color: var(--text); }
+    .tab-btn.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+      background: linear-gradient(180deg, transparent 70%, rgba(56, 189, 248, 0.08) 100%);
+    }
+
+    /* Content Area */
+    .content-area {
+      flex: 1;
+      padding: 2rem 1.75rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; animation: fadeIn 0.25s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Cards & Grids */
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+    .kpi-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.4rem;
+      backdrop-filter: blur(8px);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--border-accent);
+    }
+    .kpi-card p { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; letter-spacing: 0.05em; }
+    .kpi-card h3 { font-family: var(--font-display); font-size: 2rem; font-weight: 700; margin: 0.4rem 0; color: #fff; }
+    .kpi-card .trend { font-size: 0.8rem; font-weight: 600; display: flex; align-items: center; gap: 0.3rem; }
+    .trend-up { color: var(--emerald); }
+    .trend-down { color: var(--rose); }
+
+    /* Tables */
+    .table-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-top: 1.5rem;
+    }
+    .table-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .table-header h2 { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; }
+    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.875rem; }
+    th {
+      background: rgba(13, 21, 39, 0.95);
+      padding: 0.85rem 1.25rem;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border);
+    }
+    td {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      color: #cbd5e1;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--bg-card-hover); }
+
+    .lead-name { font-weight: 600; color: #fff; }
+    .lead-comp { font-size: 0.75rem; color: var(--text-muted); }
+    .score-badge {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+    }
+    .score-high { background: rgba(52, 211, 153, 0.15); color: var(--emerald); }
+    .score-med { background: rgba(251, 191, 36, 0.15); color: var(--amber); }
+
+    .btn-wa {
+      background: rgba(37, 211, 102, 0.15);
+      border: 1px solid rgba(37, 211, 102, 0.35);
+      color: #25d366;
+      border-radius: 6px;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all 0.2s;
+    }
+    .btn-wa:hover {
+      background: #25d366;
+      color: #070b14;
+    }
+
+    .btn-detail {
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      color: var(--accent);
+      border-radius: 6px;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-detail:hover {
+      background: var(--accent);
+      color: #070b14;
+    }
+
+    /* Modal Ficha 360 */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(7, 11, 20, 0.8);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      display: none;
+      place-items: center;
+      padding: 1.5rem;
+    }
+    .modal-overlay.open { display: grid; }
+    .modal-card {
+      background: #0f182c;
+      border: 1px solid var(--border-accent);
+      border-radius: 16px;
+      max-width: 650px;
+      width: 100%;
+      padding: 2rem;
+      position: relative;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+      animation: zoomIn 0.2s ease-out;
+    }
+    @keyframes zoomIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .modal-close {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    .modal-close:hover { color: #fff; }
+
+    /* WhatsApp Simulator */
+    .wa-chat-container {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      height: 580px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .chat-list {
+      border-right: 1px solid var(--border);
+      background: rgba(13, 21, 39, 0.75);
+      overflow-y: auto;
+    }
+    .chat-item {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .chat-item:hover, .chat-item.active { background: rgba(56, 189, 248, 0.1); }
+    .chat-item h4 { font-size: 0.9rem; color: #fff; margin-bottom: 0.2rem; }
+    .chat-item p { font-size: 0.75rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    .chat-view {
+      display: flex;
+      flex-direction: column;
+      background: #0b1120;
+    }
+    .chat-messages {
+      flex: 1;
+      padding: 1.5rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .msg-bubble {
+      max-width: 75%;
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      font-size: 0.875rem;
+      line-height: 1.4;
+    }
+    .msg-in {
+      align-self: flex-start;
+      background: #1e293b;
+      color: #f1f5f9;
+      border-bottom-left-radius: 2px;
+    }
+    .msg-out {
+      align-self: flex-end;
+      background: #0284c7;
+      color: #fff;
+      border-bottom-right-radius: 2px;
+    }
+    .msg-time {
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.6);
+      margin-top: 0.3rem;
+      text-align: right;
+    }
+
+    /* Accounting P&L Bars */
+    .pl-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.25rem;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 0.75rem;
+    }
+    .pl-positive { border-left: 4px solid var(--emerald); }
+    .pl-negative { border-left: 4px solid var(--rose); }
+    .pl-net { border-left: 4px solid var(--accent); background: rgba(56, 189, 248, 0.08); }
+
+    @media (max-width: 900px) {
+      .wa-chat-container { grid-template-columns: 1fr; height: auto; }
+      .chat-list { max-height: 200px; }
+      .chat-view { height: 400px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-icon">DA</div>
+      <div>
+        <p>Plataforma de Consultoría & BI</p>
+        <h1>Data Analytics Studio</h1>
+      </div>
+    </div>
+
+    <div class="search-box">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input type="text" id="globalSearch" class="search-input" placeholder="Buscar cliente (ej: Juan Pérez, Elena Gómez)..." />
+    </div>
+
+    <div class="meta-badges">
+      <span class="badge badge-live">Demo Interconectada Activa</span>
+      <a href="https://github.com/Franc-Devel/Data-Analytics-Studio" target="_blank" rel="noopener" class="badge badge-repo">
+        GitHub Repo ↗
+      </a>
+    </div>
+  </header>
+
+  <!-- Navigation Tabs -->
+  <nav class="tab-bar">
+    <button class="tab-btn active" data-tab="crm">📇 CRM & Leads 360°</button>
+    <button class="tab-btn" data-tab="ingesta">📂 Ingesta & Calidad (98%)</button>
+    <button class="tab-btn" data-tab="pauta">📊 Pauta & Conversión (Ads)</button>
+    <button class="tab-btn" data-tab="contabilidad">📈 Estado de Resultados</button>
+    <button class="tab-btn" data-tab="whatsapp">📲 WhatsApp Simulator</button>
+  </nav>
+
+  <!-- Content Container -->
+  <main class="content-area">
+
+    <!-- TAB 1: CRM & LEADS -->
+    <section id="tab-crm" class="tab-content active">
+      <div class="kpi-row">
+        <div class="kpi-card">
+          <p>Leads Totales Activos</p>
+          <h3 id="crmTotalLeads">17</h3>
+          <span class="trend trend-up">↑ 100% Calificados y clasificados</span>
+        </div>
+        <div class="kpi-card">
+          <p>Cotizaciones en Pipeline</p>
+          <h3>$1.645.000</h3>
+          <span class="trend trend-up">↑ Tasa de cierre proyectada 78%</span>
+        </div>
+        <div class="kpi-card">
+          <p>Reuniones Asignadas</p>
+          <h3>6 Agendadas</h3>
+          <span class="trend trend-up">Closers: Jony, Luisa, Sergio, Alon</span>
+        </div>
+        <div class="kpi-card">
+          <p>Recontacto Comercial</p>
+          <h3>🟢 Activo</h3>
+          <span class="trend trend-up">Protección anti-saturación hoy</span>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <div class="table-header">
+          <h2>Prospectos Comerciales Interconectados</h2>
+          <span style="font-size: 0.8rem; color: var(--text-muted);">Filtrado en caliente disponible</span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Cliente / Empresa</th>
+              <th>Producto</th>
+              <th>Closer</th>
+              <th>Cotización</th>
+              <th>Score</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="crmTableBody">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- TAB 2: INGESTA & CALIDAD -->
+    <section id="tab-ingesta" class="tab-content">
+      <div class="kpi-row">
+        <div class="kpi-card">
+          <p>Data Quality Score</p>
+          <h3 style="color: var(--emerald);">98.4%</h3>
+          <span class="trend trend-up">✓ Completitud óptima validada</span>
+        </div>
+        <div class="kpi-card">
+          <p>Filas Ingestadas</p>
+          <h3>17 Filas</h3>
+          <span class="trend">sample_leads.xlsx & Comercial.xlsx</span>
+        </div>
+        <div class="kpi-card">
+          <p>Detección de Duplicados</p>
+          <h3 style="color: var(--emerald);">0 Filas</h3>
+          <span class="trend trend-up">✓ Deduplicación por teléfono y hash</span>
+        </div>
+        <div class="kpi-card">
+          <p>Formato Canónico E.164</p>
+          <h3 style="color: var(--accent);">100%</h3>
+          <span class="trend trend-up">✓ Códigos de área normalizados</span>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <div class="table-header">
+          <h2>Auditoría de Columnas & Métricas Univariadas</h2>
+          <span class="badge badge-live">Sniffer Automático CSV/XLSX</span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Columna</th>
+              <th>Tipo Inferido</th>
+              <th>Valores No Nulos</th>
+              <th>Completitud</th>
+              <th>Observación de Auditoría</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>NUMERO (ID_Lead)</strong></td>
+              <td><code>INTEGER</code></td>
+              <td>17 / 17</td>
+              <td><span style="color: var(--emerald);">100.0%</span></td>
+              <td>Clave primaria unívoca serializada</td>
+            </tr>
+            <tr>
+              <td><strong>NOMBRE (Contacto)</strong></td>
+              <td><code>STRING</code></td>
+              <td>17 / 17</td>
+              <td><span style="color: var(--emerald);">100.0%</span></td>
+              <td>Nombres y razones sociales estructuradas</td>
+            </tr>
+            <tr>
+              <td><strong>PRODUCTO (Telefono)</strong></td>
+              <td><code>PHONE_E164</code></td>
+              <td>17 / 17</td>
+              <td><span style="color: var(--emerald);">100.0%</span></td>
+              <td>Validado para envío automático de WhatsApp</td>
+            </tr>
+            <tr>
+              <td><strong>PRODUCTO.1 (Línea)</strong></td>
+              <td><code>CATEGORY</code></td>
+              <td>17 / 17</td>
+              <td><span style="color: var(--emerald);">100.0%</span></td>
+              <td>Sentek, Davis, Raphael, Galcon, GSI</td>
+            </tr>
+            <tr>
+              <td><strong>FECHA CONTACTO</strong></td>
+              <td><code>DATETIME</code></td>
+              <td>17 / 17</td>
+              <td><span style="color: var(--emerald);">100.0%</span></td>
+              <td>Historial de toques fechados en línea de tiempo</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- TAB 3: PAUTA & CONVERSION -->
+    <section id="tab-pauta" class="tab-content">
+      <div class="kpi-row">
+        <div class="kpi-card">
+          <p>Inversión en Campañas Meta Ads</p>
+          <h3>$1.610.000</h3>
+          <span class="trend trend-up">5 Líneas estratégicas activas</span>
+        </div>
+        <div class="kpi-card">
+          <p>Impresiones Totales</p>
+          <h3>1.330.000</h3>
+          <span class="trend">Alcance agroindustrial específico</span>
+        </div>
+        <div class="kpi-card">
+          <p>Conversaciones Iniciadas</p>
+          <h3>475 Leads</h3>
+          <span class="trend trend-up">Tasa de interacción comercial 3.57%</span>
+        </div>
+        <div class="kpi-card">
+          <p>Costo por Lead (CPL) Promedio</p>
+          <h3>$3.389</h3>
+          <span class="trend trend-up">↓ -12% vs. benchmark agropecuario</span>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <div class="table-header">
+          <h2>Rendimiento de Pauta por Línea de Producto</h2>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Inversión Total ($)</th>
+              <th>Impresiones</th>
+              <th>Leads / Conversaciones</th>
+              <th>CPL Unitario</th>
+              <th>Volumen Cotizado en CRM</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Sentek (Sondas de Humedad)</strong></td>
+              <td>$450.000</td>
+              <td>320.000</td>
+              <td>120</td>
+              <td>$3.750</td>
+              <td><span style="color: var(--emerald); font-weight:700;">$760.000</span> (Elena Gómez + Sofía Romero)</td>
+            </tr>
+            <tr>
+              <td><strong>Davis (Estaciones Meteorológicas)</strong></td>
+              <td>$380.000</td>
+              <td>290.000</td>
+              <td>95</td>
+              <td>$4.000</td>
+              <td><span style="color: var(--emerald); font-weight:700;">$670.000</span> (Juan Pérez + Lucas Fernández)</td>
+            </tr>
+            <tr>
+              <td><strong>Galcon (Riego Inteligente)</strong></td>
+              <td>$310.000</td>
+              <td>410.000</td>
+              <td>180</td>
+              <td>$1.722</td>
+              <td><span style="color: var(--emerald); font-weight:700;">$235.000</span> (Laura Díaz + Diego Martínez)</td>
+            </tr>
+            <tr>
+              <td><strong>Raphael (Válvulas Hidráulicas)</strong></td>
+              <td>$260.000</td>
+              <td>150.000</td>
+              <td>35</td>
+              <td>$7.428</td>
+              <td><span style="color: var(--emerald); font-weight:700;">$320.000</span> (Carlos Rodríguez)</td>
+            </tr>
+            <tr>
+              <td><strong>GSI (Silos y Almacenamiento)</strong></td>
+              <td>$210.000</td>
+              <td>180.000</td>
+              <td>45</td>
+              <td>$4.666</td>
+              <td><span style="color: var(--emerald); font-weight:700;">$185.000</span> (Martín Álvarez)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- TAB 4: ESTADO DE RESULTADOS -->
+    <section id="tab-contabilidad" class="tab-content">
+      <div class="kpi-row">
+        <div class="kpi-card">
+          <p>Ingresos Totales</p>
+          <h3 style="color: var(--emerald);">$75.000</h3>
+          <span class="trend">Ventas, Servicios y Otros Ingresos</span>
+        </div>
+        <div class="kpi-card">
+          <p>Costo de Ventas Directo</p>
+          <h3 style="color: var(--rose);">$24.000</h3>
+          <span class="trend">Insumos y Adquisición directa</span>
+        </div>
+        <div class="kpi-card">
+          <p>Gastos Operativos & Impuestos</p>
+          <h3 style="color: var(--amber);">$13.800</h3>
+          <span class="trend">Operación, Logística y Cargas</span>
+        </div>
+        <div class="kpi-card">
+          <p>Utilidad Neta</p>
+          <h3 style="color: var(--accent);">$37.200</h3>
+          <span class="trend trend-up">Margen Neto: 49.6%</span>
+        </div>
+      </div>
+
+      <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;">
+        <h2 style="font-family: var(--font-display); font-size: 1.15rem; margin-bottom: 1.25rem;">Estado de Resultados Simplificado (P&L)</h2>
+        
+        <div class="pl-row pl-positive">
+          <div>
+            <strong>(+) Ingresos Totales por Ventas y Servicios</strong>
+            <p style="font-size: 0.75rem; color: var(--text-muted);">Ventas ($60.000) + Servicios ($12.000) + Otros ($3.000)</p>
+          </div>
+          <span style="font-family: var(--font-mono); font-size: 1.15rem; font-weight: 700; color: var(--emerald);">$75.000</span>
+        </div>
+
+        <div class="pl-row pl-negative">
+          <div>
+            <strong>(-) Costo de Ventas Directo</strong>
+            <p style="font-size: 0.75rem; color: var(--text-muted);">Costo de equipamiento y reposición</p>
+          </div>
+          <span style="font-family: var(--font-mono); font-size: 1.15rem; font-weight: 700; color: var(--rose);">-$24.000</span>
+        </div>
+
+        <div class="pl-row" style="border-left: 4px solid #60a5fa;">
+          <div>
+            <strong>(=) Utilidad Bruta del Ejercicio</strong>
+            <p style="font-size: 0.75rem; color: var(--text-muted);">Margen Bruto de Operación: 68.0%</p>
+          </div>
+          <span style="font-family: var(--font-mono); font-size: 1.15rem; font-weight: 700; color: #60a5fa;">$51.000</span>
+        </div>
+
+        <div class="pl-row pl-negative">
+          <div>
+            <strong>(-) Gastos Operativos, Logística e Impuestos</strong>
+            <p style="font-size: 0.75rem; color: var(--text-muted);">Gastos ($9.000) + Impuestos ($3.600) + Varios ($1.200)</p>
+          </div>
+          <span style="font-family: var(--font-mono); font-size: 1.15rem; font-weight: 700; color: var(--rose);">-$13.800</span>
+        </div>
+
+        <div class="pl-row pl-net">
+          <div>
+            <strong style="color: var(--accent); font-size: 1.05rem;">(=) Utilidad Neta Final</strong>
+            <p style="font-size: 0.75rem; color: var(--text-muted);">Rendimiento disponible después de todos los costos</p>
+          </div>
+          <span style="font-family: var(--font-mono); font-size: 1.35rem; font-weight: 800; color: var(--accent);">$37.200</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: WHATSAPP SIMULATOR -->
+    <section id="tab-whatsapp" class="tab-content">
+      <div class="wa-chat-container">
+        <!-- Sidebar Chats -->
+        <div class="chat-list" id="chatList">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Chat View Area -->
+        <div class="chat-view">
+          <div style="padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); background: rgba(13, 21, 39, 0.9); display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <h3 id="currentChatName" style="font-size: 1rem; color: #fff;">Juan Pérez</h3>
+              <p id="currentChatMeta" style="font-size: 0.75rem; color: var(--accent);">Agro del Sur S.A. · Davis Vantage Pro2</p>
+            </div>
+            <a id="btnExternalWA" href="#" target="_blank" rel="noopener" class="btn-wa">Abrir wa.me ↗</a>
+          </div>
+
+          <div class="chat-messages" id="chatMessages">
+            <!-- Messages inserted here -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal Ficha 360 -->
+  <div class="modal-overlay" id="leadModal">
+    <div class="modal-card">
+      <button class="modal-close" id="closeModal">&times;</button>
+      <div style="display: flex; gap: 0.75rem; align-items: center; margin-bottom: 1.25rem;">
+        <span class="brand-icon" style="width: 36px; height: 36px; font-size: 0.9rem;">360</span>
+        <div>
+          <h2 id="modalLeadName" style="font-family: var(--font-display); font-size: 1.35rem;">Juan Pérez</h2>
+          <p id="modalLeadCompany" style="font-size: 0.8rem; color: var(--accent);">Agro del Sur S.A. (Córdoba)</p>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+        <div style="background: rgba(15, 23, 42, 0.8); padding: 0.85rem; border-radius: 8px;">
+          <p style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Teléfono</p>
+          <strong id="modalPhone" style="font-family: var(--font-mono); font-size: 0.85rem;">+54 9 351 777-1234</strong>
+        </div>
+        <div style="background: rgba(15, 23, 42, 0.8); padding: 0.85rem; border-radius: 8px;">
+          <p style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Closer Asignado</p>
+          <strong id="modalCloser" style="color: var(--emerald);">Jony</strong>
+        </div>
+        <div style="background: rgba(15, 23, 42, 0.8); padding: 0.85rem; border-radius: 8px;">
+          <p style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Cotización Registrada</p>
+          <strong id="modalQuote" style="color: var(--accent);">$280.000</strong>
+        </div>
+        <div style="background: rgba(15, 23, 42, 0.8); padding: 0.85rem; border-radius: 8px;">
+          <p style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Lead Score</p>
+          <strong id="modalScore" style="color: var(--emerald);">85 / 100</strong>
+        </div>
+      </div>
+
+      <div style="background: rgba(15, 23, 42, 0.8); padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+        <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.35rem; font-weight: 600;">Reunión / Minuta Técnica Agendada:</p>
+        <p id="modalMeeting" style="font-size: 0.85rem; color: #cbd5e1;">Revisión técnica de sensores de viento y radiación solar.</p>
+      </div>
+
+      <div style="background: rgba(15, 23, 42, 0.8); padding: 1rem; border-radius: 8px;">
+        <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.35rem; font-weight: 600;">Última Interacción WhatsApp:</p>
+        <p id="modalLastWA" style="font-size: 0.85rem; color: #cbd5e1;">"Stock garantizado y entrega dentro de 15 días hábiles..."</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Dataset Interconectado Idéntico a los archivos Excel y Base de Datos
+    const CONNECTED_DATA = [
+      {
+        id: 1,
+        name: "Juan Pérez",
+        company: "Agro del Sur S.A.",
+        location: "Córdoba",
+        phone: "+54 9 351 777-1234",
+        cleanPhone: "5493517771234",
+        product: "Davis Vantage Pro2",
+        closer: "Jony",
+        quote: "$280.000",
+        prob: "80%",
+        score: 85,
+        status: "Cotizado",
+        meeting: "Revisión técnica de sensores de viento y radiación solar en Córdoba.",
+        chat: [
+          { text: "Hola Jony, recibimos la cotización de las estaciones Davis Vantage. ¿El plazo de entrega es de 15 días?", fromMe: false, time: "10:15" },
+          { text: "Hola Juan! Exacto, stock garantizado y entrega dentro de 15 días hábiles tras confirmación.", fromMe: true, time: "10:22" }
+        ]
+      },
+      {
+        id: 2,
+        name: "Elena Gómez",
+        company: "Establecimiento El Trébol",
+        location: "Buenos Aires",
+        phone: "+54 9 11 5555-4444",
+        cleanPhone: "5491155554444",
+        product: "Sentek Drill & Drop",
+        closer: "Luisa",
+        quote: "$450.000",
+        prob: "100%",
+        score: 95,
+        status: "Ganado / Despacho",
+        meeting: "Definición de profundidad de instalación (60cm y 90cm) con agrónomo.",
+        chat: [
+          { text: "Buenas tardes Luisa, transferimos el anticipo de las sondas Sentek. Adjunto comprobante.", fromMe: false, time: "14:30" },
+          { text: "Excelente Elena, pago acreditado. Ya coordinamos el despacho para el lunes.", fromMe: true, time: "14:45" }
+        ]
+      },
+      {
+        id: 3,
+        name: "Carlos Rodríguez",
+        company: "Viñedos & Bodegas Mendoza",
+        location: "Mendoza",
+        phone: "+54 9 261 444-3322",
+        cleanPhone: "5492614443322",
+        product: "Válvulas Raphael",
+        closer: "Sergio",
+        quote: "$320.000",
+        prob: "70%",
+        score: 75,
+        status: "Evaluación Técnica",
+        meeting: "Presentación de memoria de cálculo de presión para riego por goteo.",
+        chat: [
+          { text: "Sergio, revisamos la ficha técnica de las válvulas Raphael. ¿Soportan presión variable?", fromMe: false, time: "11:05" },
+          { text: "Hola Carlos! Si, el diafragma reforzado tolera hasta 16 bar. Te paso las curvas en PDF.", fromMe: true, time: "11:20" }
+        ]
+      },
+      {
+        id: 4,
+        name: "Laura Díaz",
+        company: "Viveros del Litoral",
+        location: "Rosario",
+        phone: "+54 9 341 666-7788",
+        cleanPhone: "5493416667788",
+        product: "Galcon Riego Inteligente",
+        closer: "Alon",
+        quote: "$95.000",
+        prob: "90%",
+        score: 90,
+        status: "Aceptado",
+        meeting: "Capacitación de uso de app móvil Galcon Bluetooth para encargados de invernáculo.",
+        chat: [
+          { text: "Alon, confirmamos la compra de los controladores Galcon. Enviamos datos de facturación.", fromMe: false, time: "16:00" },
+          { text: "Perfecto Laura, factura emitida y envío despachado por encomienda.", fromMe: true, time: "16:15" }
+        ]
+      },
+      {
+        id: 5,
+        name: "Martín Álvarez",
+        company: "Cereales del Centro",
+        location: "Balcarce",
+        phone: "+54 9 221 777-1122",
+        cleanPhone: "5492217771122",
+        product: "GSI Termometría Silos",
+        closer: "Jony",
+        quote: "$185.000",
+        prob: "60%",
+        score: 65,
+        status: "En Revisión",
+        meeting: "Revisión de planos estructurales de silos de 5.000 toneladas.",
+        chat: [
+          { text: "Jony, estamos evaluando los costos de instalación del sistema GSI para la cosecha.", fromMe: false, time: "09:40" },
+          { text: "Hola Martín! Podemos bonificar la mano de obra si confirmamos antes de fin de mes.", fromMe: true, time: "10:00" }
+        ]
+      }
+    ];
+
+    // Navigation Tabs
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        tabContents.forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        const target = document.getElementById('tab-' + btn.dataset.tab);
+        if (target) target.classList.add('active');
+      });
+    });
+
+    // Populate CRM Table
+    const tableBody = document.getElementById('crmTableBody');
+    function renderCRM(leads) {
+      tableBody.innerHTML = leads.map(l => `
+        <tr>
+          <td><span style="font-family: var(--font-mono); color: var(--text-muted);">#${l.id}</span></td>
+          <td>
+            <div class="lead-name">${l.name}</div>
+            <div class="lead-comp">${l.company} (${l.location})</div>
+          </td>
+          <td><strong>${l.product}</strong></td>
+          <td><span style="color: var(--emerald); font-weight: 600;">${l.closer}</span></td>
+          <td><span style="font-family: var(--font-mono);">${l.quote}</span> <span style="font-size:0.75rem; color:var(--text-muted);">(${l.prob})</span></td>
+          <td><span class="score-badge ${l.score >= 80 ? 'score-high' : 'score-med'}">${l.score} pts</span></td>
+          <td>
+            <div style="display: flex; gap: 0.4rem;">
+              <button class="btn-detail" onclick="open360Modal(${l.id})">Ficha 360°</button>
+              <a class="btn-wa" href="https://wa.me/${l.cleanPhone}?text=Hola%20${encodeURIComponent(l.name)}%20te%20escribo%20por%20${encodeURIComponent(l.product)}" target="_blank" rel="noopener">WhatsApp</a>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    }
+    renderCRM(CONNECTED_DATA);
+
+    // Global Search Across Leads
+    const searchInput = document.getElementById('globalSearch');
+    searchInput.addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase().trim();
+      const filtered = CONNECTED_DATA.filter(l => 
+        l.name.toLowerCase().includes(q) ||
+        l.company.toLowerCase().includes(q) ||
+        l.product.toLowerCase().includes(q) ||
+        l.closer.toLowerCase().includes(q) ||
+        l.location.toLowerCase().includes(q)
+      );
+      renderCRM(filtered);
+    });
+
+    // Modal 360
+    const modal = document.getElementById('leadModal');
+    const closeModal = document.getElementById('closeModal');
+    closeModal.addEventListener('click', () => modal.classList.remove('open'));
+    modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('open'); });
+
+    window.open360Modal = function(id) {
+      const lead = CONNECTED_DATA.find(l => l.id === id);
+      if (!lead) return;
+      document.getElementById('modalLeadName').textContent = lead.name;
+      document.getElementById('modalLeadCompany').textContent = `${lead.company} (${lead.location}) · ${lead.product}`;
+      document.getElementById('modalPhone').textContent = lead.phone;
+      document.getElementById('modalCloser').textContent = lead.closer;
+      document.getElementById('modalQuote').textContent = `${lead.quote} (${lead.prob})`;
+      document.getElementById('modalScore').textContent = `${lead.score} / 100`;
+      document.getElementById('modalMeeting').textContent = lead.meeting;
+      document.getElementById('modalLastWA').textContent = lead.chat[lead.chat.length - 1]?.text || 'Sin mensajes';
+      modal.classList.add('open');
+    };
+
+    // WhatsApp Simulator
+    const chatList = document.getElementById('chatList');
+    const chatMessages = document.getElementById('chatMessages');
+    const currentChatName = document.getElementById('currentChatName');
+    const currentChatMeta = document.getElementById('currentChatMeta');
+    const btnExternalWA = document.getElementById('btnExternalWA');
+
+    function selectChat(lead) {
+      currentChatName.textContent = lead.name;
+      currentChatMeta.textContent = `${lead.company} · ${lead.product} · Closer: ${lead.closer}`;
+      btnExternalWA.href = `https://wa.me/${lead.cleanPhone}?text=Hola%20${encodeURIComponent(lead.name)}`;
+      
+      chatMessages.innerHTML = lead.chat.map(m => `
+        <div class="msg-bubble ${m.fromMe ? 'msg-out' : 'msg-in'}">
+          <div>${m.text}</div>
+          <div class="msg-time">${m.time}</div>
+        </div>
+      `).join('');
+
+      document.querySelectorAll('.chat-item').forEach(item => {
+        item.classList.toggle('active', item.dataset.id == lead.id);
+      });
+    }
+
+    chatList.innerHTML = CONNECTED_DATA.map((l, idx) => `
+      <div class="chat-item ${idx === 0 ? 'active' : ''}" data-id="${l.id}">
+        <h4>${l.name}</h4>
+        <p>${l.company} · ${l.product}</p>
+      </div>
+    `).join('');
+
+    chatList.querySelectorAll('.chat-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const lead = CONNECTED_DATA.find(l => l.id == item.dataset.id);
+        if (lead) selectChat(lead);
+      });
+    });
+
+    selectChat(CONNECTED_DATA[0]);
+  </script>
+</body>
+</html>

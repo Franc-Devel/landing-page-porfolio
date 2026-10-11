@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Control Central | Lubricentro DYM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+      // 1. Acceso de Administrador directo con datos ficticios
+      const adminUser = {
+        id: 1,
+        usuario: "admin",
+        nombre: "Administrador General",
+        rol: "Admin",
+        token: "demo_admin_jwt_token_2026"
+      };
+      try {
+        localStorage.setItem("lubri_user", JSON.stringify(adminUser));
+        localStorage.setItem("lubri_terminal", "Caja_Admin");
+      } catch (e) {
+        console.warn("Storage warning:", e);
+      }
+
+      // 2. Interceptor de API ficticia para auditorías, KPIs, caja y stock
+      const realFetch = window.fetch;
+      window.fetch = async function(url, options = {}) {
+        const urlStr = typeof url === "string" ? url : (url && url.url ? url.url : "");
+        if (urlStr.includes("/api/")) {
+          const mockResponses = {
+            "/api/dashboard/kpis": {
+              ventasHoy: 642800,
+              serviciosRealizados: 18,
+              clientesAtendidos: 24,
+              stockCritico: 4,
+              totalMes: 9850000,
+              ticketPromedio: 35700
+            },
+            "/api/admin/audit-logs": [
+              { id: 101, timestamp: "2026-10-10 21:15:22", usuario: "admin", accion: "CIERRE_CAJA_Z", detalle: "Cierre Z de Caja Principal #1. Total recaudado: $642.800.", ip: "192.168.1.50" },
+              { id: 102, timestamp: "2026-10-10 19:40:10", usuario: "admin", accion: "AUTORIZACION_DESCUENTO", detalle: "Bonificación 10% en cambio de aceite sintético para Cliente Frecuente (Carlos Gómez).", ip: "192.168.1.50" },
+              { id: 103, timestamp: "2026-10-10 17:22:05", usuario: "admin", accion: "INGRESO_MERCADERIA", detalle: "Recepción de remito #8841: 36u Motul 8100 X-cess 5W40 y 24u Filtros Mann W712.", ip: "192.168.1.50" },
+              { id: 104, timestamp: "2026-10-10 14:05:44", usuario: "admin", accion: "AUDITORIA_PRECIOS", detalle: "Actualización de lista de precios de lubricantes y fluidos hidráulicos.", ip: "192.168.1.50" },
+              { id: 105, timestamp: "2026-10-10 11:30:19", usuario: "admin", accion: "APERTURA_TURNO", detalle: "Apertura de turno mañana con fondo fijo de caja: $50.000.", ip: "192.168.1.50" }
+            ],
+            "/api/admin/users": [
+              { id: 1, usuario: "admin", nombre: "Administrador General", rol: "Admin", activo: true, ultimoAcceso: "2026-10-10 21:15" },
+              { id: 2, usuario: "mecanico1", nombre: "Roberto Méndez", rol: "Técnico", activo: true, ultimoAcceso: "2026-10-10 18:30" },
+              { id: 3, usuario: "cajero", nombre: "Martín Suárez", rol: "Cajero", activo: true, ultimoAcceso: "2026-10-10 20:00" }
+            ],
+            "/api/admin/suppliers": [
+              { id: 1, razonSocial: "Distribuidora Shell & Motul Litoral", cuit: "30-71234567-8", contacto: "ventas@distrilub.com.ar", telefono: "+54 9 341 456-7890" },
+              { id: 2, razonSocial: "Filtros Mann & Hummel Argentina", cuit: "30-65432109-4", contacto: "pedidos@mann-hummel.com.ar", telefono: "+54 9 11 4789-0123" }
+            ],
+            "/api/cash/summary-by-box": {
+              cajaPrincipal: { efectivo: 310500, transferencia: 215300, tarjetas: 117000, total: 642800 },
+              estado: "Abierta",
+              responsable: "Administrador General"
+            },
+            "/api/clients": [
+              { id: 1, nombre: "Juan Pérez (Agro del Sur)", cuit_dni: "20-33445566-9", vehiculo: "Toyota Hilux 2.8 D-4D (2022)", patente: "AF 123 CD", ultimoServicio: "2026-09-15" },
+              { id: 2, nombre: "Elena Gómez (El Trébol)", cuit_dni: "27-28990011-4", vehiculo: "Ford Ranger 3.2 TDCi (2021)", patente: "AE 789 XY", ultimoServicio: "2026-10-02" },
+              { id: 3, nombre: "Carlos Rodríguez (Viñedos Mza)", cuit_dni: "20-25443322-1", vehiculo: "Volkswagen Amarok V6 (2023)", patente: "AG 456 ZW", ultimoServicio: "2026-10-08" }
+            ],
+            "/api/products": [
+              { id: 1, codigo: "MOT-8100-5W40", nombre: "Motul 8100 X-cess 5W40 5L", categoria: "Lubricantes Sintéticos", stock: 24, precioVenta: 78500 },
+              { id: 2, codigo: "CAS-MAG-10W40", nombre: "Castrol Magnatec 10W40 4L", categoria: "Lubricantes Semisintéticos", stock: 18, precioVenta: 54200 },
+              { id: 3, codigo: "MAN-W712", nombre: "Filtro de Aceite Mann W712", categoria: "Filtros", stock: 32, precioVenta: 14800 },
+              { id: 4, codigo: "VAL-80W90", nombre: "Valvoline Gear Oil 80W90 GL-5", categoria: "Fluidos de Transmisión", stock: 12, precioVenta: 32000 }
+            ]
+          };
+
+          for (const [endpoint, data] of Object.entries(mockResponses)) {
+            if (urlStr.includes(endpoint)) {
+              return new Response(JSON.stringify(data), {
+                status: 200,
+                headers: { "Content-Type": "application/json" }
+              });
+            }
+          }
+          return new Response(JSON.stringify({ success: true, data: [] }), {
+            status: 200,
+            headers: { "Content-Type": "application/json" }
+          });
+        }
+        return realFetch.apply(this, arguments);
+      };
+    </script>
+    <script type="module" crossorigin src="./assets/index-BTcjl3zQ.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-Bspshcv_.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

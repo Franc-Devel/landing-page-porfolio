@@ -1,0 +1,12 @@
+import {getDocument,GlobalWorkerOptions} from 'pdfjs-dist/build/pdf.mjs';
+GlobalWorkerOptions.workerSrc='/pdf-worker.js';
+export async function openPdf(bytes,root,signal){
+ const loading=getDocument({data:bytes,useSystemFonts:true,isEvalSupported:false});let pdf,task,page=1,zoom=1,sequence=0;
+ const cleanup=()=>{sequence++;task?.cancel();loading.destroy()};signal.addEventListener('abort',cleanup,{once:true});
+ try{pdf=await loading.promise;if(signal.aborted)return;root.innerHTML='<div class="pdf-controls"><button type="button" data-prev aria-label="Página anterior">Anterior</button><span data-page></span><button type="button" data-next aria-label="Página siguiente">Siguiente</button><button type="button" data-minus aria-label="Alejar">−</button><button type="button" data-plus aria-label="Acercar">+</button></div><div class="pdf-surface"><canvas aria-label="Página del comprobante"></canvas></div>';
+ const render=async()=>{const revision=++sequence;task?.cancel();const documentPage=await pdf.getPage(page);if(signal.aborted||revision!==sequence)return;const natural=documentPage.getViewport({scale:1}),width=Math.max(150,root.clientWidth-24),scale=width/natural.width*zoom,viewport=documentPage.getViewport({scale}),ratio=Math.min(devicePixelRatio||1,2),canvas=root.querySelector('canvas');canvas.width=Math.floor(viewport.width*ratio);canvas.height=Math.floor(viewport.height*ratio);canvas.style.width=viewport.width+'px';canvas.style.height=viewport.height+'px';root.querySelector('[data-page]').textContent=page+' / '+pdf.numPages;root.querySelector('[data-prev]').disabled=page===1;root.querySelector('[data-next]').disabled=page===pdf.numPages;task=documentPage.render({canvasContext:canvas.getContext('2d'),viewport,transform:[ratio,0,0,ratio,0,0]});try{await task.promise}catch(e){if(e.name!=='RenderingCancelledException')throw e}};
+ const update=fn=>async()=>{fn();try{await render()}catch{if(!signal.aborted)root.querySelector('[data-page]').textContent='No se pudo mostrar la página. Reintentá.'}};
+ root.querySelector('[data-prev]').onclick=update(()=>page=Math.max(1,page-1));root.querySelector('[data-next]').onclick=update(()=>page=Math.min(pdf.numPages,page+1));root.querySelector('[data-plus]').onclick=update(()=>zoom=Math.min(3,zoom+.25));root.querySelector('[data-minus]').onclick=update(()=>zoom=Math.max(.5,zoom-.25));
+ await render();
+ }catch(e){cleanup();throw e}
+}

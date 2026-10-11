@@ -1,0 +1,404 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+:root {
+  --primaryPurple: #951196;
+  --secondaryPurple: #bc26bd;
+  --lightPurple: #bf60bf;
+  --primaryGreen: #59f218;
+  --secondaryGreen: #3cc900;
+  --primaryYellow: #edd600;
+  --black: #000000;
+  --darkGray: #0d0d0d;
+  --lightBlack: #111111;
+  --white: #ffffff;
+  --purpleBorder: rgba(149, 17, 150, 0.5);
+  --greenShadow: rgba(89, 242, 24, 0.3);
+  --transition: 0.3s ease;
+  --navbarGradient: linear-gradient(
+    90deg,
+    #000000 0%,
+    #120012 40%,
+    #000000 100%
+  );
+  --buttonGradient: linear-gradient(135deg, #951196, #59f218);
+}
+body{
+    overflow-x: hidden;
+    background-color: var(--black);
+    color: var(--white)
+}
+main{
+    width: 100%;
+    height: 100%;
+}
+.productos{
+    width: 90%;
+    background-color: var(--darkGray);
+    border: 2px solid var(--greenShadow);
+    border-radius: 10px;
+    margin: 50px auto;
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    padding: 15px;
+}
+img{
+    width: 350px;
+}
+.separador_producto{
+    width: 3px;
+    height: 400px;
+    margin: 0 20px;
+    border-radius: 10px;
+    background-color: var(--primaryGreen);
+    box-shadow:
+    0 0 5px rgba(89, 242, 24, 0.5),
+    0 0 15px rgba(89, 242, 24, 0.5),
+    0 0 30px rgba(89, 242, 24, 0.4);
+}
+.info{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    text-align: center;
+}
+.info ul li{
+    font-size: 14px;
+    list-style: none;
+    text-align: left;
+}
+.info ul p{
+    font-size: 21px;
+    color: var(--primaryYellow);
+}
+.precio{
+    font-size: 50px;
+    color: var(--primaryGreen);
+    font-family: "Barlow";
+    font-weight: 800;
+    text-align: center;
+}
+.detalle_de_compra{
+    width: 30%;
+    border: 2px solid var(--primaryGreen);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 10px 10px;
+    box-shadow:
+    0 0 5px rgba(89, 242, 24, 0.5),
+    0 0 15px rgba(89, 242, 24, 0.5),
+    0 0 30px rgba(89, 242, 24, 0.4);
+}
+.info_compra{
+    font-size: 16px;
+    text-align: left;
+    margin: 0;
+}
+.info_compra_2{
+    font-size: 12px;
+    font-weight: 600;
+}
+.boton_1{
+    padding: 10px 10px;
+    text-decoration: none;
+    border: 2px solid var(--primaryPurple);
+    border-radius: 5px;
+    background-color: var(--primaryPurple);
+    margin-bottom: 10px;
+    color: var(--white);
+    transition: 0.3s;
+}
+.boton_1:hover{
+    transform: scale(1.03);
+    background-color: var(--secondaryPurple);
+}
+.boton_2{
+    padding: 10px 10px;
+    border: 2px solid var(--lightPurple);
+    border-radius: 5px;
+    background-color: var(--lightPurple);
+    margin-top: 10px;
+    color: var(--white);
+}
+.abrir_modal{
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--primaryYellow);
+    color: var(--black);
+    font-size: 15px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+.abrir_modal:hover{
+    background-color:#d4bf00;
+    transform: scale(1.03);
+}
+
+.modal_pago{
+    background-color: var(--darkGray);
+    border: 2px solid var(--primaryPurple);
+    color: white;
+    border-radius: 15px;
+}
+
+.modal-header{
+    border-bottom: 1px solid var(--greenShadow);
+}
+
+.modal-title{
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.modal-body{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+}
+
+.metodo_pago{
+    padding: 15px;
+    border: 2px solid var(--secondaryGreen);
+    border-radius: 10px;
+    background-color: transparent;
+    color: white;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.metodo_pago:hover{
+    background-color: var(--primaryPurple);
+    transform: scale(1.03);
+}
+.foro_opiniones{
+background-image: url(../assets/img/fondo_gamer.png);
+background-position: center;
+background-size: cover;
+max-width: 650px;
+margin: 32px auto;
+padding: 32px;
+border-radius: 12px;
+color: var(--white);
+}
+
+.foro_opiniones h2 {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.foro_opiniones p {
+    color: var(--primaryYellow);
+    font-weight: bold;
+    margin-bottom: 24px;
+}
+.comentarios {
+    display: flex;
+    flex-direction: column;
+    gap: 19px;
+    margin-bottom: 19px;
+}
+
+.comentario_personas{
+    display: flex;
+    gap: 16px;
+    padding-bottom: 19px;
+    border-bottom: 1px solid var(--white);
+}
+
+.comentario:last-child {
+    border-bottom: none;
+}
+
+.avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+
+.contenido_comentario {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.nombre-usuario {
+    font-weight: 600;
+    color: var(--secondaryGreen);
+    font-size: 15px;
+}
+
+.contenido_comentario p {
+    color: var(--white);
+    font-size: 15px;
+    margin: 0;
+}
+.form_comentario {
+    background-color: var(--black);
+    padding: 24px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 19px;
+}
+
+.fila-form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.fila-form label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--white);
+}
+.campo_mensaje {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.campo_mensaje .nombre-usuario {
+    margin-bottom: 4px;
+}
+
+.form_comentario textarea {
+    padding: 13px;
+    border: 1px solid var(--primaryPurple);
+    background-color: var(--darkGray);
+    border-radius: 6px;
+    font-size: 15px;
+    color: var(--white);
+}
+input{
+    background-color: var(--darkGray);
+    border: 1px solid var(--primaryPurple);
+    border-radius: 2px;
+    color: var(--white);
+}
+button{
+    background-color: var(--darkGray);
+    border: 1px solid var(--primaryPurple);
+    border-radius: 5px;
+    color: var(--white);
+}
+@media (max-width: 768px){
+
+    .productos{
+        flex-direction: column;
+        width: 95%;
+        gap: 20px;
+        padding: 20px;
+        text-align: center;
+    }
+
+    img{
+        width: 100%;
+        max-width: 280px;
+    }
+
+    .separador_producto{
+        width: 100%;
+        height: 3px;
+        margin: 10px 0;
+    }
+
+    .info{
+        width: 100%;
+        gap: 10px;
+    }
+
+    .info h1{
+        font-size: 28px;
+    }
+
+    .info ul li{
+        font-size: 13px;
+        text-align: left;
+    }
+
+    .info ul p{
+        font-size: 18px;
+    }
+
+    .precio{
+        font-size: 38px;
+    }
+
+    .detalle_de_compra{
+        width: 100%;
+    }
+
+    .info_compra{
+        font-size: 14px;
+    }
+
+    .info_compra_2{
+        font-size: 11px;
+    }
+
+    .boton_1,
+    .boton_2,
+    .abrir_modal{
+        width: 100%;
+        font-size: 14px;
+    }
+
+    .foro_opiniones{
+        width: 95%;
+        padding: 20px;
+    }
+
+    .foro_opiniones h2{
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .comentario_personas{
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .contenido_comentario{
+        align-items: center;
+    }
+
+    .contenido_comentario p{
+        font-size: 14px;
+    }
+
+    .form_comentario{
+        padding: 18px;
+    }
+
+    .form_comentario textarea{
+        width: 100%;
+        resize: none;
+    }
+
+    input{
+        width: 100%;
+        padding: 10px;
+    }
+
+    button{
+        padding: 10px;
+    }
+
+    .modal-body{
+        padding: 15px;
+    }
+
+    .metodo_pago{
+        font-size: 14px;
+        padding: 12px;
+    }
+}

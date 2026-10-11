@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Francis Bank | Portal HomeBanking Cuántico · Francisco Delgado</title>
+    <meta name="description" content="Plataforma de Neo-Banking futurista: tarjeta holográfica 3D, transferencias con autenticación biométrica, analítica de gastos en tiempo real y módulo de inversiones multidivisa." />
+    <meta name="author" content="Francisco Agustín Delgado" />
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <!-- Custom Dashboard CSS -->
+    <link rel="stylesheet" href="./css/dashboard.css" />
+  </head>
+  <body>
+    <div class="bank-app-container">
+      <!-- Header HUD Bar -->
+      <header class="bank-header">
+        <div class="bank-brand">
+          <div class="bank-logo-icon">FB</div>
+          <div>
+            <div class="bank-brand-title">FrancisBank <span style="font-size: 0.7rem; font-family: var(--font-hud); color: var(--teal-neon); border: 1px solid var(--border-neon); padding: 2px 8px; border-radius: 999px;">NEO-BANK v3.2</span></div>
+            <div style="font-family: var(--font-hud); font-size: 0.72rem; color: var(--text-dim);">Plataforma Financiera Cuántica · Encriptación AES-256</div>
+          </div>
+        </div>
+
+        <div class="user-profile-badge">
+          <img
+            src="../titan-hard/assets/img/Fran.png"
+            alt="Francisco Agustín Delgado"
+            class="user-avatar"
+          />
+          <div>
+            <div class="user-name">Francisco Agustín Delgado</div>
+            <div class="user-tier"><i class="bi bi-patch-check-fill"></i> Cuenta Platinum Black</div>
+          </div>
+          <a href="index.html" class="card-btn" style="text-decoration: none;">
+            <i class="bi bi-box-arrow-right"></i> Salir
+          </a>
+        </div>
+      </header>
+
+      <!-- Main Dashboard Grid -->
+      <main class="dashboard-main-grid">
+        <!-- Left Column: Balances & 3D Holographic Card -->
+        <section class="left-dash-column">
+          <!-- Balance Hero Card -->
+          <article class="balance-hero-card">
+            <div class="balance-topline">
+              <span class="balance-label"><i class="bi bi-shield-lock-fill"></i> Saldo Total Disponible</span>
+              <button class="privacy-toggle-btn" id="privacyToggleBtn">
+                <i class="bi bi-eye-fill"></i> Ocultar
+              </button>
+            </div>
+
+            <div class="balance-amount" id="balanceARS">$ 4.850.240,50</div>
+
+            <div class="multi-currency-row">
+              <div class="sub-currency-pill">
+                <span class="curr-code">USD</span>
+                <span id="balanceUSD">USD 3.250,00</span>
+              </div>
+              <div class="sub-currency-pill">
+                <span class="curr-code">BTC</span>
+                <span>0.0854 BTC (~$ 5.4M)</span>
+              </div>
+              <div class="sub-currency-pill">
+                <span class="curr-code">ETH</span>
+                <span>1.420 ETH</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- 3D Holographic Titanium Card -->
+          <article class="dash-box">
+            <div class="box-title">
+              <span><i class="bi bi-credit-card-2-front-fill"></i> Tarjeta Holográfica Cuántica</span>
+              <span style="font-size: 0.72rem; color: var(--teal-neon);">NFC / CHIP EMV</span>
+            </div>
+
+            <div class="card-stage-container" id="cardStage">
+              <div class="hologram-card" id="holoCard">
+                <!-- Front Face -->
+                <div class="card-face card-front">
+                  <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div class="card-chip"></div>
+                    <span style="font-family: var(--font-hud); font-weight: 800; font-size: 1.1rem; color: var(--teal-neon); letter-spacing: 0.1em;">PLATINUM</span>
+                  </div>
+
+                  <div class="card-number">4519 •••• •••• 9824</div>
+
+                  <div class="card-holder-row">
+                    <div>
+                      <div style="font-size: 0.65rem; color: var(--text-dim);">TITULAR</div>
+                      <div class="holder-name">FRANCISCO A. DELGADO</div>
+                    </div>
+                    <div>
+                      <div style="font-size: 0.65rem; color: var(--text-dim);">VENCE</div>
+                      <div style="color: #fff; font-weight: 700;">10/30</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Back Face (CVV) -->
+                <div class="card-face card-back">
+                  <div class="magnetic-strip"></div>
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                    <div>
+                      <div style="font-size: 0.68rem; font-family: var(--font-hud); color: var(--text-dim); margin-bottom: 4px;">CVV DINÁMICO DE SEGURIDAD</div>
+                      <div class="cvv-display-box" id="cvvDisplay">842</div>
+                    </div>
+                    <div class="cvv-timer-pill" id="cvvTimer">
+                      <i class="bi bi-clock-history"></i> Renueva en 60s
+                    </div>
+                  </div>
+                  <div style="font-family: var(--font-hud); font-size: 0.68rem; color: var(--text-dim); margin-top: 14px;">
+                    FrancisBank Quantum Security Protocol. Código de un solo uso para compras web.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-action-bar">
+              <button class="card-btn" id="flipCardBtn">
+                <i class="bi bi-arrow-repeat"></i> Girar / Ver CVV
+              </button>
+              <button class="card-btn" id="freezeCardBtn">
+                <i class="bi bi-snow"></i> Congelar
+              </button>
+            </div>
+          </article>
+
+          <!-- Real-Time Market FX & Crypto Tickers -->
+          <article class="dash-box">
+            <div class="box-title">
+              <span><i class="bi bi-currency-exchange"></i> Cotizaciones & Cripto en Tiempo Real</span>
+              <span style="font-size: 0.72rem; color: var(--emerald-neon);">MERCADO EN VIVO</span>
+            </div>
+
+            <div class="market-ticker-grid">
+              <div class="ticker-item">
+                <div>
+                  <div class="ticker-pair">DÓLAR MEP</div>
+                  <div class="ticker-val">$ 1.285,40</div>
+                </div>
+                <div class="ticker-delta"><i class="bi bi-caret-up-fill"></i> +1.2%</div>
+              </div>
+              <div class="ticker-item">
+                <div>
+                  <div class="ticker-pair">DÓLAR CRIPTO</div>
+                  <div class="ticker-val">$ 1.298,00</div>
+                </div>
+                <div class="ticker-delta"><i class="bi bi-caret-up-fill"></i> +0.8%</div>
+              </div>
+              <div class="ticker-item">
+                <div>
+                  <div class="ticker-pair">BITCOIN (BTC)</div>
+                  <div class="ticker-val">$ 64.280 USD</div>
+                </div>
+                <div class="ticker-delta"><i class="bi bi-caret-up-fill"></i> +3.4%</div>
+              </div>
+              <div class="ticker-item">
+                <div>
+                  <div class="ticker-pair">ETHEREUM (ETH)</div>
+                  <div class="ticker-val">$ 2.640 USD</div>
+                </div>
+                <div class="ticker-delta" style="color: var(--teal-neon);"><i class="bi bi-dash"></i> 0.0%</div>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <!-- Right Column: Instant Transfers & Live Analytics -->
+        <section class="right-dash-column">
+          <!-- Instant Transfer Simulator -->
+          <article class="dash-box">
+            <div class="box-title">
+              <span><i class="bi bi-send-fill"></i> Transferencias Inmediatas 24/7</span>
+              <span style="font-size: 0.72rem; color: var(--teal-neon);">CBU / CVU / ALIAS</span>
+            </div>
+
+            <form class="transfer-form-grid" id="transferForm">
+              <div>
+                <label style="font-size: 0.78rem; font-family: var(--font-hud); color: var(--text-dim); display: block; margin-bottom: 6px;">
+                  Destinatario (Alias, CBU o CVU)
+                </label>
+                <input
+                  type="text"
+                  id="transferAlias"
+                  class="input-field"
+                  placeholder="Ej: satoshi.nakamoto o 00000031000..."
+                  value="dev.francis.labs"
+                  required
+                />
+              </div>
+
+              <div>
+                <label style="font-size: 0.78rem; font-family: var(--font-hud); color: var(--text-dim); display: block; margin-bottom: 6px;">
+                  Monto a Transferir ($ ARS)
+                </label>
+                <input
+                  type="number"
+                  id="transferAmount"
+                  class="input-field"
+                  placeholder="0.00"
+                  value="150000"
+                  min="1"
+                  step="any"
+                  required
+                />
+              </div>
+
+              <button type="submit" class="action-btn-primary">
+                <i class="bi bi-shield-check"></i> Transferir con Autenticación Biométrica
+              </button>
+            </form>
+          </article>
+
+          <!-- Spending Analytics Chart -->
+          <article class="dash-box">
+            <div class="box-title">
+              <span><i class="bi bi-graph-up"></i> Flujo Patrimonial Semestral</span>
+              <span style="font-size: 0.72rem; color: var(--teal-neon);">INGRESOS VS EGRESOS</span>
+            </div>
+            <div class="analytics-chart-wrap">
+              <canvas id="analyticsCanvas"></canvas>
+            </div>
+          </article>
+
+          <!-- Investment Yield Simulator -->
+          <article class="dash-box">
+            <div class="box-title">
+              <span><i class="bi bi-piggy-bank-fill"></i> Simulador de Rendimientos Diarios</span>
+              <span style="font-size: 0.72rem; color: var(--emerald-neon);">42% TNA COMPUESTA</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px;">
+              <span style="font-size: 0.82rem; color: var(--text-muted);">Monto Invertido:</span>
+              <strong id="investAmountDisplay" style="font-family: var(--font-hud); font-size: 1.25rem; color: #fff;">$ 500.000</strong>
+            </div>
+            <input
+              type="range"
+              id="investSlider"
+              min="50000"
+              max="2000000"
+              step="50000"
+              value="500000"
+              style="width: 100%; accent-color: var(--teal-neon); cursor: pointer;"
+            />
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 14px; padding: 12px; background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.25); border-radius: 12px;">
+              <span style="font-size: 0.85rem; color: #fff;">Ganancia Estimada:</span>
+              <span id="investProfitDisplay" style="font-family: var(--font-hud); font-weight: 700; color: var(--emerald-neon); font-size: 1.1rem;">+$ 17.500 / mes</span>
+            </div>
+          </article>
+
+          <!-- Recent Transactions -->
+          <article class="dash-box">
+            <div class="box-title">
+              <span><i class="bi bi-clock-history"></i> Movimientos Recientes</span>
+              <span style="font-size: 0.72rem; color: var(--text-dim);">AUDITADOS EN BLOCKCHAIN</span>
+            </div>
+            <div id="transactionsList">
+              <!-- Rendered by JS -->
+            </div>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <!-- Biometric Scan Modal Simulation -->
+    <div class="biometric-modal-overlay" id="biometricModal">
+      <div class="biometric-box">
+        <div class="scan-animation-ring">
+          <i class="bi bi-fingerprint"></i>
+        </div>
+        <h3 style="font-family: var(--font-display); color: #fff; margin-bottom: 8px;">Autenticación Biométrica</h3>
+        <p id="biometricStatus" style="font-family: var(--font-hud); font-size: 0.85rem; color: var(--teal-neon);">
+          Escaneando Face ID / Sensor Biométrico...
+        </p>
+      </div>
+    </div>
+
+    <!-- Transfer Receipt Modal -->
+    <div class="biometric-modal-overlay" id="receiptModal">
+      <div class="biometric-box" style="max-width: 500px;">
+        <div style="color: var(--emerald-neon); font-size: 3rem; margin-bottom: 8px;">
+          <i class="bi bi-check-circle-fill"></i>
+        </div>
+        <h3 style="font-family: var(--font-display); color: #fff;">Transferencia Exitosa</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
+          Operación procesada instantáneamente a través de la Red Interbancaria FrancisBank.
+        </p>
+
+        <div class="receipt-box">
+          <div>Destinatario: <strong id="receiptAlias">dev.francis.labs</strong></div>
+          <div>Monto: <strong id="receiptAmount" style="color: var(--teal-neon);">$ 150.000,00</strong></div>
+          <div>Identificador: <span id="receiptId">TX-8291</span></div>
+          <div>Fecha: <span id="receiptDate">10/10/2026</span></div>
+          <div style="margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border-subtle); color: var(--text-dim); font-size: 0.75rem;">
+            Hash Criptográfico: 0x9f8b2a1c7e4d82f3...
+          </div>
+        </div>
+
+        <button class="action-btn-primary" style="margin-top: 20px;" onclick="document.getElementById('receiptModal').style.display='none';">
+          Cerrar Comprobante
+        </button>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="./js/dashboard.js"></script>
+  </body>
+</html>
