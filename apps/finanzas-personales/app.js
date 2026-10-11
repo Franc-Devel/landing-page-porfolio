@@ -45,26 +45,69 @@ function aiView(){
 
 
 function getFinanzasDemoState() {
-  const currentMonth = new Date().toISOString().slice(0, 7);
+  const currentMonth = "2026-10";
   return {
-    today: new Date().toISOString().slice(0, 10),
+    today: "2026-10-11",
     people: { owner: "Titular", partner: "Cotitular", shared: "Compartidos" },
     rubros: ["Servicios", "Vivienda", "Salud", "Tecnología", "Supermercado"],
-    categories: ["Alquiler", "Luz & Gas", "Internet & Hosting", "Obra Social", "Suscripciones"],
-    telegram: { configured: true, tokenSaved: true },
+    categories: ["Alquiler", "Luz & Gas", "Internet & Hosting", "Obra Social", "Hardware", "Supermercado"],
+    telegram: { configured: true, tokenSaved: true, username: "FinanzasProBot" },
     receipts: [],
-    events: [],
+    events: [
+      { id: "ev1", title: "Vencimiento tarjeta de crédito", date: "2026-10-15", time: "10:00", person: "owner", recurrence: "monthly", notes: "Cierre de resumen mensual" },
+      { id: "ev2", title: "Reunión balance y gastos compartidos", date: "2026-10-20", time: "19:30", person: "shared", recurrence: "monthly", notes: "Planificación de compras" }
+    ],
     account: { role: "Administrador", view: "overview", month: currentMonth },
+    nextMonth: {
+      month: "2026-11",
+      total: 155146267,
+      items: [
+        { name: "Alquiler Inmueble Residencial", amount: 62000000, beneficiary: "shared", date: "2026-11-05" },
+        { name: "Expensas Edificio Torre", amount: 14500000, beneficiary: "shared", date: "2026-11-10" },
+        { name: "Servicio Fibra Óptica 1Gbps", amount: 3200000, beneficiary: "owner", date: "2026-11-12" },
+        { name: "Servidor Cloud & Dedicated VPS", amount: 4800000, beneficiary: "owner", date: "2026-11-14" },
+        { name: "Plan Salud & Medicina Prepaga", amount: 28500000, beneficiary: "owner", date: "2026-11-15" },
+        { name: "Seguro Automotor Completo", amount: 18200000, beneficiary: "shared", date: "2026-11-18" },
+        { name: "Electricidad & Red Energética", amount: 7600000, beneficiary: "shared", date: "2026-11-20" },
+        { name: "Gas Natural Domiciliario", amount: 3100000, beneficiary: "shared", date: "2026-11-22" },
+        { name: "Agua Corriente & Saneamiento", amount: 1900000, beneficiary: "shared", date: "2026-11-24" },
+        { name: "Telefonía Móvil 5G", amount: 2400000, beneficiary: "owner", date: "2026-11-25" },
+        { name: "Suscripciones Streaming & AI Tools", amount: 1850000, beneficiary: "owner", date: "2026-11-26" },
+        { name: "Cochera Fija Mensual", amount: 3500000, beneficiary: "shared", date: "2026-11-27" },
+        { name: "Mantenimiento & Limpieza", amount: 2200000, beneficiary: "shared", date: "2026-11-28" },
+        { name: "Seguro de Hogar & Contenido", amount: 1400000, beneficiary: "shared", date: "2026-11-29" },
+        { name: "Patente Vehicular Cuota", amount: 1350000, beneficiary: "shared", date: "2026-11-30" },
+        { name: "Gimnasio & Entrenamiento", amount: 1546267, beneficiary: "owner", date: "2026-11-30" }
+      ]
+    },
     bills: [
-      { id: "b1", name: "Servidor Cloud & Backup Sync", amount: 4500000, due: currentMonth + "-15", rubro: "Tecnología", category: "Internet & Hosting", beneficiary: "owner", active: true, recurrence: "monthly" },
-      { id: "b2", name: "Servicio de Fibra Óptica 1Gbps", amount: 2800000, due: currentMonth + "-18", rubro: "Servicios", category: "Internet & Hosting", beneficiary: "shared", active: true, recurrence: "monthly" },
-      { id: "b3", name: "Factura de Luz & Electricidad", amount: 6500000, due: currentMonth + "-22", rubro: "Servicios", category: "Luz & Gas", beneficiary: "shared", active: true, recurrence: "monthly" },
-      { id: "b4", name: "Alquiler Inmueble Residencial", amount: 18000000, due: currentMonth + "-05", rubro: "Vivienda", category: "Alquiler", beneficiary: "shared", active: true, recurrence: "monthly" }
+      { id: "b1", name: "Servicio Fibra Óptica 1Gbps", amount: 3250900, due: "2026-10-14", rubro: "Servicios", category: "Internet & Hosting", beneficiary: "owner", active: true, recurrence: "monthly" },
+      { id: "b2", name: "Servicio Eléctrico Residencial", amount: 5400000, due: "2026-10-16", rubro: "Servicios", category: "Luz & Gas", beneficiary: "shared", active: true, recurrence: "monthly" },
+      { id: "b3", name: "Gas Natural Domiciliario", amount: 2800000, due: "2026-10-18", rubro: "Servicios", category: "Luz & Gas", beneficiary: "shared", active: true, recurrence: "monthly" },
+      { id: "b4", name: "Servidor Cloud VPS & Storage", amount: 4800000, due: "2026-10-20", rubro: "Tecnología", category: "Internet & Hosting", beneficiary: "owner", active: true, recurrence: "monthly" },
+      { id: "b5", name: "Seguro Automotor Cuota Octubre", amount: 8900000, due: "2026-10-22", rubro: "Servicios", category: "Servicios", beneficiary: "shared", active: true, recurrence: "monthly" }
     ],
     expenses: [
-      { id: "e1", description: "Dominio Web y Certificados SSL", amount: 1500000, rubro: "Tecnología", category: "Internet & Hosting", beneficiary: "owner", date: currentMonth + "-02", source: "manual" },
-      { id: "e2", description: "Cuota Plan Obra Social & Salud", amount: 3200000, rubro: "Salud", category: "Obra Social", beneficiary: "owner", date: currentMonth + "-04", source: "manual" },
-      { id: "e3", description: "Insumos & Periféricos de Trabajo", amount: 4800000, rubro: "Tecnología", category: "Hardware", beneficiary: "owner", date: currentMonth + "-07", source: "telegram" }
+      { id: "e1", description: "Alquiler Inmueble Residencial", amount: 18000000, rubro: "Vivienda", category: "Alquiler", beneficiary: "shared", date: "2026-10-01", source: "manual" },
+      { id: "e2", description: "Supermercado Central Compra Quincenal", amount: 34500000, rubro: "Supermercado", category: "Supermercado", beneficiary: "shared", date: "2026-10-02", source: "telegram" },
+      { id: "e3", description: "Plan Médico Prepago Integral", amount: 32000000, rubro: "Salud", category: "Obra Social", beneficiary: "owner", date: "2026-10-03", source: "manual" },
+      { id: "e4", description: "Insumos & Periféricos de Trabajo", amount: 4800000, rubro: "Tecnología", category: "Hardware", beneficiary: "owner", date: "2026-10-04", source: "telegram" },
+      { id: "e5", description: "Mantenimiento Preventivo Vehicular", amount: 25000000, rubro: "Servicios", category: "Servicios", beneficiary: "shared", date: "2026-10-05", source: "manual" },
+      { id: "e6", description: "Combustible y Peajes Ruta", amount: 12500000, rubro: "Servicios", category: "Servicios", beneficiary: "shared", date: "2026-10-06", source: "manual" },
+      { id: "e7", description: "Supermercado Reposición Frescos", amount: 11200000, rubro: "Supermercado", category: "Supermercado", beneficiary: "shared", date: "2026-10-07", source: "telegram" },
+      { id: "e8", description: "Farmacia & Medicamentos", amount: 8400000, rubro: "Salud", category: "Obra Social", beneficiary: "owner", date: "2026-10-08", source: "manual" },
+      { id: "e9", description: "Licencia Software IDE Cloud", amount: 4800000, rubro: "Tecnología", category: "Hardware", beneficiary: "owner", date: "2026-10-09", source: "telegram" },
+      { id: "e10", description: "Gastos Varios Domicilio", amount: 4444463, rubro: "Servicios", category: "Servicios", beneficiary: "shared", date: "2026-10-10", source: "manual" },
+      ...Array.from({ length: 24 }, (_, i) => ({
+        id: `e_gen_${i + 11}`,
+        description: `Consumo habitual registrado #${i + 1}`,
+        amount: 833333,
+        rubro: "Servicios",
+        category: "Servicios",
+        beneficiary: i % 2 === 0 ? "owner" : "shared",
+        date: `2026-10-${String((i % 10) + 1).padStart(2, "0")}`,
+        source: "manual"
+      }))
     ]
   };
 }
