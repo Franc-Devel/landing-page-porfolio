@@ -475,6 +475,105 @@
       .kpi-row { grid-template-columns: 1fr; }
       .view-container { padding: 1rem; }
     }
+
+    /* CRM Explorador & Dynamic Modules */
+    .crm-pills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 1.25rem;
+    }
+    .crm-pill {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-card);
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all .15s ease;
+      user-select: none;
+    }
+    .crm-pill:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+    .crm-pill.active {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: var(--accent-blue);
+      color: var(--accent-blue);
+      font-weight: 600;
+    }
+    .urgent-banner {
+      background: rgba(236, 72, 153, 0.12);
+      border-left: 4px solid #ec4899;
+      padding: 12px 18px;
+      border-radius: 10px;
+      margin-bottom: 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+    .urgent-banner-text {
+      font-size: 0.88rem;
+      color: #fbcfe8;
+      line-height: 1.5;
+    }
+    .urgent-banner-text b {
+      color: #fff;
+    }
+    .btn-urgent {
+      background: #ec4899;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background .15s;
+    }
+    .btn-urgent:hover {
+      background: #db2777;
+    }
+    .funnel-bar-container {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-card);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .funnel-label {
+      width: 180px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #fff;
+    }
+    .funnel-progress-wrap {
+      flex: 1;
+      height: 10px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    .funnel-progress-fill {
+      height: 100%;
+      border-radius: 5px;
+    }
+    .funnel-stat {
+      width: 140px;
+      text-align: right;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--accent-blue);
+      font-weight: 600;
+    }
   </style>
 </head>
 <body>
@@ -958,14 +1057,400 @@
         </div>
       </section>
 
-      <!-- Fallback container for other tabs -->
-      <section id="view-generic" class="view-pane">
-        <div class="view-title-block" style="margin-bottom: 1.5rem;">
-          <h2 id="genericTitle">Módulo</h2>
-          <p id="genericSubtitle">Panel analítico del sistema.</p>
+      <!-- =====================================================================
+           VISTA: CRM & LEADS (EXPLORADOR) - IDÉNTICA AL ORIGINAL DE STREAMLIT
+           ===================================================================== -->
+      <section id="view-crm-explorador" class="view-pane">
+        <div class="top-action-row">
+          <div class="view-title-block">
+            <h2>CRM & Leads (Explorador)</h2>
+            <p>Módulo de Inteligencia de Clientes y Gestión de Cartera Comercial — <strong id="crmSubtitleCount" style="color: var(--accent-blue);">466 leads seleccionados</strong> de 466 totales</p>
+          </div>
+          <button class="btn-download-pdf" onclick="openPdfModal()">
+            📄 Exportar Leads a Excel / PDF
+          </button>
         </div>
-        <div style="background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 12px; padding: 2rem;">
-          <p style="color: var(--text-muted);">Módulo sincronizado con la base de datos de Nexo Analytics. Datos filtrados para el perfil actual.</p>
+
+        <!-- 5 Tarjetas de KPI principales con indicadores de Recontacto -->
+        <div class="kpi-row" style="grid-template-columns: repeat(5, 1fr); margin-bottom: 1.25rem;">
+          <div class="kpi-card" style="border-top-color: #38bdf8;">
+            <div class="kpi-label">Leads en Vista</div>
+            <div class="kpi-value" id="kpiCrmEnVista" style="color: #38bdf8;">466</div>
+            <div class="kpi-detail">466 en base total</div>
+          </div>
+          <div class="kpi-card" style="border-top-color: #4ade80;">
+            <div class="kpi-label">Conversión CRM</div>
+            <div class="kpi-value" style="color: #4ade80;">18.2%</div>
+            <div class="kpi-detail">85 ganados / derivados</div>
+          </div>
+          <div class="kpi-card" style="border-top-color: #10b981;">
+            <div class="kpi-label">Hablados Hoy</div>
+            <div class="kpi-value" id="kpiCrmHoy" style="color: #10b981;">42</div>
+            <div class="kpi-detail">Contactados hoy (al día)</div>
+          </div>
+          <div class="kpi-card" style="border-top-color: #ec4899;">
+            <div class="kpi-label">Urgentes ≥14d</div>
+            <div class="kpi-value" id="kpiCrmUrgentes" style="color: #ec4899;">15</div>
+            <div class="kpi-detail">Sin contacto por ≥2 semanas</div>
+          </div>
+          <div class="kpi-card" style="border-top-color: #f59e0b;">
+            <div class="kpi-label">En Seguimiento</div>
+            <div class="kpi-value" id="kpiCrmSeguimiento" style="color: #f59e0b;">128</div>
+            <div class="kpi-detail">65 Hot | 63 Warm</div>
+          </div>
+        </div>
+
+        <!-- Banner informativo de Recontacto Urgente -->
+        <div class="urgent-banner" id="urgentBanner">
+          <div class="urgent-banner-text">
+            <span>⚠️ <b>Oportunidades de Recontacto:</b> Hay <b>15 prospectos con más de 2 semanas sin contacto (URGENTES)</b>. Haz clic en <b>'Chatear'</b> en la tabla o presiona el botón para filtrarlos de inmediato.</span>
+          </div>
+          <button class="btn-urgent" id="btnFilterUrgBanner" onclick="selectCrmPill('urgentes')">
+            Filtrar 15 Urgentes (≥14d)
+          </button>
+        </div>
+
+        <!-- Segment Pills (Idénticas a Streamlit) -->
+        <div class="crm-pills-row" id="crmPillsContainer">
+          <div class="crm-pill active" data-pill="all" onclick="selectCrmPill('all')">Todos (466)</div>
+          <div class="crm-pill" data-pill="urgentes" onclick="selectCrmPill('urgentes')">Urgentes ≥14d (15)</div>
+          <div class="crm-pill" data-pill="hoy" onclick="selectCrmPill('hoy')">Hablados Hoy (42)</div>
+          <div class="crm-pill" data-pill="seguimiento" onclick="selectCrmPill('seguimiento')">En Seguimiento (128)</div>
+          <div class="crm-pill" data-pill="hot" onclick="selectCrmPill('hot')">Hot & Warm (185)</div>
+          <div class="crm-pill" data-pill="won" onclick="selectCrmPill('won')">Ganados (85)</div>
+          <div class="crm-pill" data-pill="remarketing" onclick="selectCrmPill('remarketing')">Remarketing (56)</div>
+          <div class="crm-pill" data-pill="cold" onclick="selectCrmPill('cold')">Fríos (140)</div>
+        </div>
+
+        <!-- Search and Closer Filters -->
+        <div style="display: grid; grid-template-columns: 1fr 220px; gap: 1rem; margin-bottom: 1.25rem;">
+          <input type="text" id="inputFilterCrm" placeholder="🔍 Buscar por nombre, empresa, producto o teléfono (ej: Juan Pérez, Elena Gómez, 351, Davis, Pergamino)..." style="background: #0f1422; border: 1px solid var(--border-card); color: #fff; padding: 0.75rem 1rem; border-radius: 6px; font-size: 0.9rem; outline: none;" />
+          <select id="selectCloserCrm" style="background: #0f1422; border: 1px solid var(--border-card); color: #fff; padding: 0.75rem 1rem; border-radius: 6px; font-size: 0.9rem; outline: none; color-scheme: dark;">
+            <option value="all">Todos los Closers</option>
+            <option value="Jony">Closer: Jony</option>
+            <option value="Luisa">Closer: Luisa</option>
+            <option value="Sergio">Closer: Sergio</option>
+            <option value="Alon">Closer: Alon</option>
+          </select>
+        </div>
+
+        <!-- CRM Interactive Table -->
+        <div class="st-table-wrapper" style="background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 12px; margin-bottom: 1rem;">
+          <table class="st-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Contacto & Empresa</th>
+                <th>Teléfono (E.164)</th>
+                <th>Producto de Interés</th>
+                <th>Closer</th>
+                <th>Etapa CRM</th>
+                <th>Días Inactivo</th>
+                <th>Score</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tableCrmBody">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination & status info -->
+        <div style="display: flex; justify-content: space-between; align-items: center; color: var(--text-muted); font-size: 0.85rem; padding: 0.5rem 0.25rem;">
+          <div id="crmPaginationInfo">Mostrando prospectos</div>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn-action" id="btnCrmPrev" onclick="changeCrmPage(-1)">‹ Anterior</button>
+            <button class="btn-action" id="btnCrmNext" onclick="changeCrmPage(1)">Siguiente ›</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================================
+           VISTA: PLAN DE REACTIVACIÓN
+           ===================================================================== -->
+      <section id="view-reactivacion" class="view-pane">
+        <div class="view-title-block" style="margin-bottom: 1.5rem;">
+          <h2>🔁 Plan de Reactivación de Leads Dormidos</h2>
+          <p>Estrategia de recontacto para prospectos inactivos con plantillas personalizadas y control anti-saturación.</p>
+        </div>
+
+        <div class="kpi-row" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 1.5rem;">
+          <div class="kpi-card" style="border-top-color: #ec4899;">
+            <div class="kpi-label">Leads Dormidos (>20d)</div>
+            <div class="kpi-value" style="color: #ec4899;">98</div>
+            <div class="kpi-detail">Candidatos a campaña de recuperación</div>
+          </div>
+          <div class="kpi-card" style="border-top-color: #f59e0b;">
+            <div class="kpi-label">Valor Estimado en Riesgo</div>
+            <div class="kpi-value" style="color: #f59e0b;">$ 14.850.000</div>
+            <div class="kpi-detail">Presupuestos cotizados sin cierre</div>
+          </div>
+          <div class="kpi-card" style="border-top-color: #10b981;">
+            <div class="kpi-label">Tasa de Éxito Histórica</div>
+            <div class="kpi-value" style="color: #10b981;">14.2%</div>
+            <div class="kpi-detail">Retorno positivo tras 2do contacto</div>
+          </div>
+        </div>
+
+        <div class="st-table-wrapper" style="background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 12px;">
+          <table class="st-table">
+            <thead>
+              <tr>
+                <th>Lead</th>
+                <th>Empresa / Localidad</th>
+                <th>Días Inactivo</th>
+                <th>Última Cotización</th>
+                <th>Plantilla Recomendada</th>
+                <th>Acción Rápida</th>
+              </tr>
+            </thead>
+            <tbody id="tableReactivacionBody">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- =====================================================================
+           VISTA: PAUTA & CONVERSIÓN (META ADS & ANALYTICS)
+           ===================================================================== -->
+      <section id="view-pauta" class="view-pane">
+        <div class="view-title-block" style="margin-bottom: 1.5rem;">
+          <h2>📈 Pauta & Conversión (Meta Ads & Campañas)</h2>
+          <p>Rendimiento publicitario, embudo de adquisición, inversión acumulada y costo por lead (CPL).</p>
+        </div>
+
+        <div class="kpi-row" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 1.5rem;">
+          <div class="kpi-card" style="border-top-color: #6366f1;">
+            <div class="kpi-label">Inversión Total Ads</div>
+            <div class="kpi-value" style="color: #6366f1;">$ 1.485.000</div>
+            <div class="kpi-detail">Meta Ads + Google Search</div>
+          </div>
+          <div class="kpi-card" style="border-top-color: #38bdf8;">
+            <div class="kpi-label">Clicks & CTR</div>
+            <div class="kpi-value" style="color: #38bdf8;">8.420 <span style="font-size: 1rem; color: #94a3b8;">(4.56%)</span></div>
+            <div class="kpi-detail">184.500 impresiones totales</div>
+          </div>
+          <div class="kpi-card" style="border-top-color: #ec4899;">
+            <div class="kpi-label">CPL Promedio</div>
+            <div class="kpi-value" style="color: #ec4899;">$ 3.186</div>
+            <div class="kpi-detail">Costo por conversación iniciada</div>
+          </div>
+          <div class="kpi-card" style="border-top-color: #10b981;">
+            <div class="kpi-label">ROAS Estimado</div>
+            <div class="kpi-value" style="color: #10b981;">8.4x</div>
+            <div class="kpi-detail">Retorno comercial de inversión</div>
+          </div>
+        </div>
+
+        <h3 style="color: #fff; margin-bottom: 1rem; font-size: 1.1rem;">Embudo de Conversión de Cartera (Funnel 360°)</h3>
+        <div style="margin-bottom: 2rem;">
+          <div class="funnel-bar-container">
+            <div class="funnel-label">1. Impresiones Totales</div>
+            <div class="funnel-progress-wrap"><div class="funnel-progress-fill" style="width: 100%; background: #6366f1;"></div></div>
+            <div class="funnel-stat">184.500 imp</div>
+          </div>
+          <div class="funnel-bar-container">
+            <div class="funnel-label">2. Clics en Anuncios</div>
+            <div class="funnel-progress-wrap"><div class="funnel-progress-fill" style="width: 45%; background: #38bdf8;"></div></div>
+            <div class="funnel-stat">8.420 clics (4.5%)</div>
+          </div>
+          <div class="funnel-bar-container">
+            <div class="funnel-label">3. Conversaciones / Leads</div>
+            <div class="funnel-progress-wrap"><div class="funnel-progress-fill" style="width: 25%; background: #ec4899;"></div></div>
+            <div class="funnel-stat">466 leads (5.5%)</div>
+          </div>
+          <div class="funnel-bar-container">
+            <div class="funnel-label">4. Cotizaciones Emitidas</div>
+            <div class="funnel-progress-wrap"><div class="funnel-progress-fill" style="width: 15%; background: #f59e0b;"></div></div>
+            <div class="funnel-stat">142 cotizaciones</div>
+          </div>
+          <div class="funnel-bar-container">
+            <div class="funnel-label">5. Ventas Cerradas</div>
+            <div class="funnel-progress-wrap"><div class="funnel-progress-fill" style="width: 9%; background: #10b981;"></div></div>
+            <div class="funnel-stat">85 órdenes (18.2%)</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================================
+           VISTA: CAMPAÑAS
+           ===================================================================== -->
+      <section id="view-campanas" class="view-pane">
+        <div class="view-title-block" style="margin-bottom: 1.5rem;">
+          <h2>🎯 Campañas Comerciales Activas</h2>
+          <p>Auditoría de pauta publicitaria por línea de equipamiento y público objetivo.</p>
+        </div>
+
+        <div class="st-table-wrapper" style="background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 12px;">
+          <table class="st-table">
+            <thead>
+              <tr>
+                <th>Campaña</th>
+                <th>Canal</th>
+                <th>Presupuesto Asignado</th>
+                <th>Leads Generados</th>
+                <th>CPL Unitario</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Estaciones Davis Agro Clima</strong></td>
+                <td>Meta Ads (Instagram)</td>
+                <td><strong style="font-family:var(--font-mono); color:#fff;">$ 450.000</strong></td>
+                <td>142 leads</td>
+                <td><code style="font-family:var(--font-mono); color:var(--accent-blue);">$ 3.169</code></td>
+                <td><span class="badge-status bg-green">ACTIVA</span></td>
+              </tr>
+              <tr>
+                <td><strong>Sondas Sentek Humedad de Suelo</strong></td>
+                <td>Google Search Ads</td>
+                <td><strong style="font-family:var(--font-mono); color:#fff;">$ 380.000</strong></td>
+                <td>118 leads</td>
+                <td><code style="font-family:var(--font-mono); color:var(--accent-blue);">$ 3.220</code></td>
+                <td><span class="badge-status bg-green">ACTIVA</span></td>
+              </tr>
+              <tr>
+                <td><strong>Válvulas de Riego Raphael Hidráulica</strong></td>
+                <td>Meta Ads (Facebook B2B)</td>
+                <td><strong style="font-family:var(--font-mono); color:#fff;">$ 320.000</strong></td>
+                <td>96 leads</td>
+                <td><code style="font-family:var(--font-mono); color:var(--accent-blue);">$ 3.333</code></td>
+                <td><span class="badge-status bg-green">ACTIVA</span></td>
+              </tr>
+              <tr>
+                <td><strong>Automatización de Riego Galcon</strong></td>
+                <td>Meta Ads (Reels & Feed)</td>
+                <td><strong style="font-family:var(--font-mono); color:#fff;">$ 210.000</strong></td>
+                <td>72 leads</td>
+                <td><code style="font-family:var(--font-mono); color:var(--accent-blue);">$ 2.916</code></td>
+                <td><span class="badge-status bg-green">ACTIVA</span></td>
+              </tr>
+              <tr>
+                <td><strong>Silos y Termometría GSI Granos</strong></td>
+                <td>Campaña Agro Directa</td>
+                <td><strong style="font-family:var(--font-mono); color:#fff;">$ 125.000</strong></td>
+                <td>38 leads</td>
+                <td><code style="font-family:var(--font-mono); color:var(--accent-blue);">$ 3.289</code></td>
+                <td><span class="badge-status bg-blue">PAUSADA</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- =====================================================================
+           VISTA: GEOGRAFÍA & TERRITORIO
+           ===================================================================== -->
+      <section id="view-geografia" class="view-pane">
+        <div class="view-title-block" style="margin-bottom: 1.5rem;">
+          <h2>🗺️ Geografía & Territorio</h2>
+          <p>Distribución geográfica de la cartera de clientes y cobertura por zonas productivas.</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+          <div style="background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 12px; padding: 1.5rem;">
+            <h3 style="color: #fff; margin-bottom: 1rem; font-size: 1rem;">Concentración por Provincia (Top 5)</h3>
+            <div style="display: flex; flex-direction: column; gap: 0.85rem;">
+              <div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.35rem;">
+                  <span style="color: #fff; font-weight: 600;">1. Córdoba</span>
+                  <span style="color: var(--accent-blue); font-family: var(--font-mono);">158 leads (33.9%)</span>
+                </div>
+                <div style="height: 8px; background: rgba(255,255,255,0.06); border-radius: 4px; overflow: hidden;">
+                  <div style="width: 33.9%; height: 100%; background: #38bdf8;"></div>
+                </div>
+              </div>
+              <div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.35rem;">
+                  <span style="color: #fff; font-weight: 600;">2. Buenos Aires</span>
+                  <span style="color: var(--accent-blue); font-family: var(--font-mono);">131 leads (28.1%)</span>
+                </div>
+                <div style="height: 8px; background: rgba(255,255,255,0.06); border-radius: 4px; overflow: hidden;">
+                  <div style="width: 28.1%; height: 100%; background: #818cf8;"></div>
+                </div>
+              </div>
+              <div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.35rem;">
+                  <span style="color: #fff; font-weight: 600;">3. Santa Fe</span>
+                  <span style="color: var(--accent-blue); font-family: var(--font-mono);">84 leads (18.0%)</span>
+                </div>
+                <div style="height: 8px; background: rgba(255,255,255,0.06); border-radius: 4px; overflow: hidden;">
+                  <div style="width: 18.0%; height: 100%; background: #4ade80;"></div>
+                </div>
+              </div>
+              <div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.35rem;">
+                  <span style="color: #fff; font-weight: 600;">4. Mendoza</span>
+                  <span style="color: var(--accent-blue); font-family: var(--font-mono);">56 leads (12.0%)</span>
+                </div>
+                <div style="height: 8px; background: rgba(255,255,255,0.06); border-radius: 4px; overflow: hidden;">
+                  <div style="width: 12.0%; height: 100%; background: #f59e0b;"></div>
+                </div>
+              </div>
+              <div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.35rem;">
+                  <span style="color: #fff; font-weight: 600;">5. Entre Ríos & Otras</span>
+                  <span style="color: var(--accent-blue); font-family: var(--font-mono);">37 leads (8.0%)</span>
+                </div>
+                <div style="height: 8px; background: rgba(255,255,255,0.06); border-radius: 4px; overflow: hidden;">
+                  <div style="width: 8.0%; height: 100%; background: #c084fc;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 12px; padding: 1.5rem;">
+            <h3 style="color: #fff; margin-bottom: 0.75rem; font-size: 1rem;">Asignación de Closers por Región</h3>
+            <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.85rem;">
+              <li style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border-subtle);">
+                <span style="color: var(--text-muted);">Región Centro (Córdoba / San Luis):</span>
+                <strong style="color: var(--accent-blue);">Jony (Lead Closer)</strong>
+              </li>
+              <li style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border-subtle);">
+                <span style="color: var(--text-muted);">Pampa Húmeda (Bs. As. / Pergamino):</span>
+                <strong style="color: var(--accent-green);">Luisa</strong>
+              </li>
+              <li style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border-subtle);">
+                <span style="color: var(--text-muted);">Cuyo (Mendoza / San Juan):</span>
+                <strong style="color: var(--accent-indigo);">Sergio</strong>
+              </li>
+              <li style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border-subtle);">
+                <span style="color: var(--text-muted);">Litoral (Santa Fe / Entre Ríos):</span>
+                <strong style="color: var(--accent-purple);">Alon</strong>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================================
+           VISTA: INFORMES MENSUALES & PDF
+           ===================================================================== -->
+      <section id="view-informes-pdf" class="view-pane">
+        <div class="view-title-block" style="margin-bottom: 1.5rem;">
+          <h2>📄 Informes Mensuales & Generador PDF</h2>
+          <p>Motor de generación automatizado con ReportLab para informes de directorio y auditoría.</p>
+        </div>
+
+        <div style="background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 12px; padding: 2rem; max-width: 720px;">
+          <h3 style="color: #fff; margin-bottom: 1rem;">Generar Informe Ejecutivo Consolidado</h3>
+          <p style="color: var(--text-muted); font-size: 0.88rem; line-height: 1.6; margin-bottom: 1.5rem;">
+            El informe incluye la carátula formal de Nexo Analytics, resumen de métricas de rentabilidad comercial, diagnóstico de calidad de datos, desglose de facturación por closer y auditoría de recontactos urgentes.
+          </p>
+          <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1.5rem;">
+            <label style="color: var(--text-muted); font-size: 0.85rem;">Período a compilar:</label>
+            <select style="background: #0f1422; border: 1px solid var(--border-card); color: #fff; padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.85rem; color-scheme: dark;">
+              <option>Octubre 2026 (Mes Actual)</option>
+              <option>Septiembre 2026</option>
+              <option>Agosto 2026</option>
+            </select>
+          </div>
+          <button class="btn-download-pdf" onclick="openPdfModal()">
+            📄 Compilar y Descargar Informe PDF (ReportLab)
+          </button>
         </div>
       </section>
 
@@ -1188,7 +1673,375 @@
     });
 
     // =========================================================================
-    // SIDEBAR NAVIGATION HANDLER
+    // BASE DE DATOS DE LEADS Y CLIENTES (DATASET COHESIVO E INTERCONECTADO)
+    // =========================================================================
+    const BASE_LEADS = [
+      {
+        id: 101,
+        name: "Juan Pérez",
+        company: "Agro del Sur S.A. (Córdoba)",
+        phone: "+54 9 351 777-1234",
+        cleanPhone: "5493517771234",
+        product: "Davis Vantage Pro2",
+        closer: "Jony",
+        quote: "$280.000",
+        prob: "80%",
+        score: 92,
+        stage: "Propuesta Enviada",
+        daysInactive: 1,
+        segment: "hot",
+        meeting: "Revisión técnica de sensores de viento y radiación solar en Córdoba.",
+        chat: [
+          { fromMe: false, text: "Hola Jony, recibimos la cotización de las estaciones Davis Vantage. ¿El plazo de entrega es de 15 días?", time: "10:15" },
+          { fromMe: true, text: "Hola Juan! Exacto, stock garantizado y entrega dentro de 15 días hábiles tras confirmación.", time: "10:22" }
+        ]
+      },
+      {
+        id: 102,
+        name: "Elena Gómez",
+        company: "Establecimiento El Trébol (Pergamino)",
+        phone: "+54 9 11 5555-4444",
+        cleanPhone: "5491155554444",
+        product: "Sentek Drill & Drop",
+        closer: "Luisa",
+        quote: "$450.000",
+        prob: "100%",
+        score: 98,
+        stage: "Ganado / Despacho",
+        daysInactive: 0,
+        segment: "won",
+        meeting: "Definición de profundidad de instalación (60cm y 90cm) con agrónomo.",
+        chat: [
+          { fromMe: false, text: "Buenas tardes Luisa, transferimos el anticipo de las sondas Sentek. Te adjunto comprobante.", time: "14:30" },
+          { fromMe: true, text: "Excelente Elena, pago acreditado. Ya coordinamos el despacho para el lunes.", time: "14:45" }
+        ]
+      },
+      {
+        id: 103,
+        name: "Carlos Rodríguez",
+        company: "Viñedos & Bodegas Mendoza",
+        phone: "+54 9 261 444-3322",
+        cleanPhone: "5492614443322",
+        product: "Válvulas Raphael",
+        closer: "Sergio",
+        quote: "$320.000",
+        prob: "70%",
+        score: 76,
+        stage: "Evaluación Hidráulica",
+        daysInactive: 3,
+        segment: "warm",
+        meeting: "Presentación de memoria de cálculo de presión y golpe de ariete para riego por goteo.",
+        chat: [
+          { fromMe: false, text: "Sergio, revisamos la ficha técnica de las válvulas Raphael. ¿Soportan presión variable?", time: "11:05" },
+          { fromMe: true, text: "Hola Carlos! Sí, el diafragma reforzado tolera hasta 16 bar. Te paso las curvas en PDF.", time: "11:20" }
+        ]
+      },
+      {
+        id: 104,
+        name: "Laura Díaz",
+        company: "Viveros del Litoral (Rosario)",
+        phone: "+54 9 341 666-7788",
+        cleanPhone: "5493416667788",
+        product: "Galcon Riego Inteligente",
+        closer: "Alon",
+        quote: "$95.000",
+        prob: "90%",
+        score: 88,
+        stage: "Cotización Aceptada",
+        daysInactive: 2,
+        segment: "hot",
+        meeting: "Capacitación de uso de app móvil Galcon Bluetooth para invernáculos florales.",
+        chat: [
+          { fromMe: false, text: "Alon, confirmamos la compra de los controladores Galcon. Enviamos datos de facturación.", time: "16:00" },
+          { fromMe: true, text: "Perfecto Laura, factura emitida y envío despachado por encomienda.", time: "16:15" }
+        ]
+      },
+      {
+        id: 105,
+        name: "Martín Álvarez",
+        company: "Cereales del Centro (Balcarce)",
+        phone: "+54 9 221 777-1122",
+        cleanPhone: "5492217771122",
+        product: "GSI Termometría Silos",
+        closer: "Jony",
+        quote: "$185.000",
+        prob: "60%",
+        score: 65,
+        stage: "Evaluación de Costos",
+        daysInactive: 5,
+        segment: "warm",
+        meeting: "Revisión de planos estructurales de silos de 5.000 toneladas.",
+        chat: [
+          { fromMe: false, text: "Jony, estamos evaluando los costos de instalación del sistema GSI para la cosecha.", time: "09:40" },
+          { fromMe: true, text: "Hola Martín! Podemos bonificar la mano de obra si confirmamos antes de fin de mes.", time: "10:00" }
+        ]
+      },
+      {
+        id: 106,
+        name: "Ricardo Biondi",
+        company: "Agrícola del Salado (Venado Tuerto)",
+        phone: "+54 9 3462 55-8811",
+        cleanPhone: "5493462558811",
+        product: "Estación Davis Vantage Vue",
+        closer: "Jony",
+        quote: "$190.000",
+        prob: "40%",
+        score: 58,
+        stage: "Recontacto Urgente",
+        daysInactive: 16,
+        segment: "urgentes",
+        meeting: "Sin reunión agendada.",
+        chat: []
+      },
+      {
+        id: 107,
+        name: "Gustavo Menéndez",
+        company: "Frutícola Alto Valle (Gral. Roca)",
+        phone: "+54 9 298 441-2300",
+        cleanPhone: "5492984412300",
+        product: "Caudalímetros Arad",
+        closer: "Sergio",
+        quote: "$410.000",
+        prob: "50%",
+        score: 62,
+        stage: "Recontacto Urgente",
+        daysInactive: 18,
+        segment: "urgentes",
+        meeting: "Sin reunión agendada.",
+        chat: []
+      },
+      {
+        id: 108,
+        name: "Patricia Ferreyra",
+        company: "Cabaña Las Lilas (Río Cuarto)",
+        phone: "+54 9 358 412-9988",
+        cleanPhone: "5493584129988",
+        product: "Sondas Sentek All-In-One",
+        closer: "Luisa",
+        quote: "$230.000",
+        prob: "45%",
+        score: 55,
+        stage: "Recontacto Urgente",
+        daysInactive: 15,
+        segment: "urgentes",
+        meeting: "Sin reunión agendada.",
+        chat: []
+      },
+      {
+        id: 109,
+        name: "Fernando Castro",
+        company: "Tambos San Jorge (Rafaela)",
+        phone: "+54 9 3492 63-4411",
+        cleanPhone: "5493492634411",
+        product: "Galcon 8002 DC Control",
+        closer: "Alon",
+        quote: "$115.000",
+        prob: "35%",
+        score: 52,
+        stage: "Recontacto Urgente",
+        daysInactive: 21,
+        segment: "urgentes",
+        meeting: "Sin reunión agendada.",
+        chat: []
+      },
+      {
+        id: 110,
+        name: "Marcelo Solari",
+        company: "Estancia La Escondida (Tres Arroyos)",
+        phone: "+54 9 2983 50-7766",
+        cleanPhone: "5492983507766",
+        product: "Silos y Aireación GSI",
+        closer: "Jony",
+        quote: "$340.000",
+        prob: "40%",
+        score: 59,
+        stage: "Recontacto Urgente",
+        daysInactive: 14,
+        segment: "urgentes",
+        meeting: "Sin reunión agendada.",
+        chat: []
+      },
+      {
+        id: 111,
+        name: "Sofía Benítez",
+        company: "Citrus del Litoral (Concordia)",
+        phone: "+54 9 345 422-9011",
+        cleanPhone: "5493454229011",
+        product: "Válvulas Raphael Plásticas",
+        closer: "Sergio",
+        quote: "$175.000",
+        prob: "85%",
+        score: 91,
+        stage: "Negociación de Cierre",
+        daysInactive: 0,
+        segment: "hoy",
+        meeting: "Llamada de confirmación acordada para las 16 hs.",
+        chat: []
+      },
+      {
+        id: 112,
+        name: "Ignacio Rossi",
+        company: "Olivícola del Sol (Aimogasta)",
+        phone: "+54 9 3827 49-3322",
+        cleanPhone: "5493827493322",
+        product: "Davis EnviroMonitor",
+        closer: "Jony",
+        quote: "$390.000",
+        prob: "80%",
+        score: 87,
+        stage: "Envío de Presupuesto",
+        daysInactive: 0,
+        segment: "hoy",
+        meeting: "Enviado catálogo técnico por correo.",
+        chat: []
+      },
+      {
+        id: 113,
+        name: "Andrés Quiroga",
+        company: "Semillero del Valle (Pergamino)",
+        phone: "+54 9 2477 68-1244",
+        cleanPhone: "5492477681244",
+        product: "Sentek Sonda Triple",
+        closer: "Luisa",
+        quote: "$290.000",
+        prob: "95%",
+        score: 96,
+        stage: "Ganado / Facturación",
+        daysInactive: 0,
+        segment: "won",
+        meeting: "Orden cerrada hoy por la mañana.",
+        chat: []
+      },
+      {
+        id: 114,
+        name: "Diego Villalba",
+        company: "Cooperativa Agro (San Justo)",
+        phone: "+54 9 3498 42-5500",
+        cleanPhone: "5493498425500",
+        product: "Sensores de Nivel GSI",
+        closer: "Jony",
+        quote: "$510.000",
+        prob: "75%",
+        score: 82,
+        stage: "En Seguimiento",
+        daysInactive: 4,
+        segment: "seguimiento",
+        meeting: "Esperando confirmación de comisión directiva.",
+        chat: []
+      },
+      {
+        id: 115,
+        name: "Andrea Navarro",
+        company: "Tabacalera Salteña (Gral. Güemes)",
+        phone: "+54 9 387 512-3344",
+        cleanPhone: "5493875123344",
+        product: "Galcon 8002 AC Profesional",
+        closer: "Alon",
+        quote: "$140.000",
+        prob: "70%",
+        score: 78,
+        stage: "En Seguimiento",
+        daysInactive: 6,
+        segment: "seguimiento",
+        meeting: "Ajustando memoria de cálculo para aspersores.",
+        chat: []
+      },
+      {
+        id: 116,
+        name: "Mariano Herrera",
+        company: "Forestal Mesopotámica (Gualeguaychú)",
+        phone: "+54 9 3446 59-7711",
+        cleanPhone: "5493446597711",
+        product: "Davis Vantage Pro2 Plus",
+        closer: "Jony",
+        quote: "$330.000",
+        prob: "10%",
+        score: 30,
+        stage: "Remarketing Inactivo",
+        daysInactive: 45,
+        segment: "remarketing",
+        meeting: "Sin actividad en 45 días.",
+        chat: []
+      },
+      {
+        id: 117,
+        name: "Belén Castillo",
+        company: "Huerta Urbana Orgánica (Pilar)",
+        phone: "+54 9 11 3344-9900",
+        cleanPhone: "5491133449900",
+        product: "Kit Galcon Bluetooth",
+        closer: "Alon",
+        quote: "$72.000",
+        prob: "15%",
+        score: 35,
+        stage: "Remarketing Inactivo",
+        daysInactive: 38,
+        segment: "remarketing",
+        meeting: "Sin actividad en 38 días.",
+        chat: []
+      },
+      {
+        id: 118,
+        name: "Javier Godoy",
+        company: "Viña Las Moras (Caucete)",
+        phone: "+54 9 264 489-0012",
+        cleanPhone: "5492644890012",
+        product: "Válvulas Metálicas 4\"",
+        closer: "Sergio",
+        quote: "$260.000",
+        prob: "0%",
+        score: 18,
+        stage: "Descartado por Presupuesto",
+        daysInactive: 60,
+        segment: "cold",
+        meeting: "Descartado. Derivado a segunda línea.",
+        chat: []
+      },
+      {
+        id: 119,
+        name: "Cecilia Domínguez",
+        company: "Molino Harinero del Sud (Bahía Blanca)",
+        phone: "+54 9 291 455-6677",
+        cleanPhone: "5492914556677",
+        product: "Termometría Cableada GSI",
+        closer: "Jony",
+        quote: "$210.000",
+        prob: "0%",
+        score: 20,
+        stage: "Sin Respuesta (3 toques)",
+        daysInactive: 52,
+        segment: "cold",
+        meeting: "Descartado tras 3 intentos.",
+        chat: []
+      },
+      {
+        id: 120,
+        name: "Leonardo Carrizo",
+        company: "Invernáculos Santa Rosa (Colonia Caroya)",
+        phone: "+54 9 3525 46-1188",
+        cleanPhone: "5493525461188",
+        product: "Sentek Drill & Drop 30cm",
+        closer: "Luisa",
+        quote: "$195.000",
+        prob: "100%",
+        score: 97,
+        stage: "Facturado y Entregado",
+        daysInactive: 0,
+        segment: "won",
+        meeting: "Capacitación completada con agrónomo.",
+        chat: []
+      }
+    ];
+
+    // Variables de estado del CRM Explorador
+    let currentCrmPill = "all";
+    let currentCrmQuery = "";
+    let currentCrmCloser = "all";
+    let currentCrmPage = 1;
+    const CRM_PAGE_SIZE = 10;
+
+    // =========================================================================
+    // SIDEBAR NAVIGATION HANDLER (MÓDULOS ACTIVOS)
     // =========================================================================
     const navItems = document.querySelectorAll(".nav-item");
     const viewPanes = document.querySelectorAll(".view-pane");
@@ -1204,17 +2057,174 @@
         const directPane = document.getElementById("view-" + targetView);
         if (directPane) {
           directPane.classList.add("active");
-        } else {
-          const generic = document.getElementById("view-generic");
-          document.getElementById("genericTitle").textContent = item.querySelector("span").textContent;
-          document.getElementById("genericSubtitle").textContent = `Módulo ${item.querySelector("span").textContent} de Nexo Analytics.`;
-          generic.classList.add("active");
+          if (targetView === "crm-explorador") {
+            renderCrmTable();
+          } else if (targetView === "reactivacion") {
+            renderReactivacionTable();
+          }
         }
       });
     });
 
     // =========================================================================
-    // FICHA 360 & PIPELINE CRM TABLE
+    // CRM & LEADS EXPLORADOR LOGIC
+    // =========================================================================
+    function getFilteredCrmLeads() {
+      return BASE_LEADS.filter(c => {
+        // Filtro por Closer
+        if (currentCrmCloser !== "all" && c.closer !== currentCrmCloser) return false;
+
+        // Filtro por Segmento / Pastilla
+        if (currentCrmPill === "urgentes" && c.daysInactive < 14) return false;
+        if (currentCrmPill === "hoy" && c.daysInactive !== 0) return false;
+        if (currentCrmPill === "seguimiento" && (c.segment !== "seguimiento" && c.segment !== "warm" && c.segment !== "hot")) return false;
+        if (currentCrmPill === "hot" && (c.segment !== "hot" && c.segment !== "warm")) return false;
+        if (currentCrmPill === "won" && c.segment !== "won") return false;
+        if (currentCrmPill === "remarketing" && c.segment !== "remarketing") return false;
+        if (currentCrmPill === "cold" && c.segment !== "cold") return false;
+
+        // Filtro por Buscador
+        if (currentCrmQuery) {
+          const q = currentCrmQuery.toLowerCase();
+          const match = c.name.toLowerCase().includes(q) ||
+                        c.company.toLowerCase().includes(q) ||
+                        c.product.toLowerCase().includes(q) ||
+                        c.phone.includes(q) ||
+                        c.closer.toLowerCase().includes(q);
+          if (!match) return false;
+        }
+
+        return true;
+      });
+    }
+
+    function renderCrmTable() {
+      const filtered = getFilteredCrmLeads();
+      const tbody = document.getElementById("tableCrmBody");
+      
+      // Actualizar contadores
+      const totalDisplay = currentCrmPill === "all" ? 466 : filtered.length;
+      document.getElementById("crmSubtitleCount").textContent = `${totalDisplay} leads seleccionados`;
+      document.getElementById("kpiCrmEnVista").textContent = totalDisplay;
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding:2rem; color:var(--text-muted)">No se encontraron prospectos que coincidan con los filtros seleccionados.</td></tr>`;
+        document.getElementById("crmPaginationInfo").textContent = "0 resultados";
+        return;
+      }
+
+      const totalPages = Math.ceil(filtered.length / CRM_PAGE_SIZE);
+      if (currentCrmPage > totalPages) currentCrmPage = 1;
+
+      const startIdx = (currentCrmPage - 1) * CRM_PAGE_SIZE;
+      const pageSlice = filtered.slice(startIdx, startIdx + CRM_PAGE_SIZE);
+
+      tbody.innerHTML = pageSlice.map(c => {
+        let badgeClass = "bg-blue";
+        if (c.segment === "won") badgeClass = "bg-green";
+        else if (c.daysInactive >= 14) badgeClass = "bg-red";
+        else if (c.segment === "warm") badgeClass = "bg-yellow";
+
+        return `
+          <tr>
+            <td><span style="font-family:var(--font-mono); color:var(--text-muted)">#${c.id}</span></td>
+            <td>
+              <div style="font-weight:600; color:#fff;">${c.name}</div>
+              <div style="font-size:0.75rem; color:var(--text-muted);">${c.company}</div>
+            </td>
+            <td>
+              <a href="https://wa.me/${c.cleanPhone}?text=Hola%20${encodeURIComponent(c.name)}" target="_blank" rel="noopener" style="font-family:var(--font-mono); font-size:0.8rem; color:var(--accent-blue); text-decoration:none;">
+                ${c.phone} ↗
+              </a>
+            </td>
+            <td><strong>${c.product}</strong></td>
+            <td><strong style="color:var(--accent-blue)">${c.closer}</strong></td>
+            <td><span class="badge-status ${badgeClass}">${c.stage}</span></td>
+            <td>
+              ${c.daysInactive >= 14 
+                ? `<span style="color:#ec4899; font-weight:700;">⚠️ ${c.daysInactive} días</span>` 
+                : `<span style="color:var(--text-muted);">${c.daysInactive === 0 ? 'Hoy' : c.daysInactive + 'd'}</span>`}
+            </td>
+            <td><strong style="font-family:var(--font-mono); color:var(--accent-purple);">${c.score} pts</strong></td>
+            <td>
+              <div style="display:flex; gap:6px;">
+                <button class="btn-action" onclick="open360Modal(${c.id})">Ficha 360°</button>
+                <a href="https://wa.me/${c.cleanPhone}?text=Hola%20${encodeURIComponent(c.name)}" target="_blank" rel="noopener" class="btn-action" style="background:#25d366; color:#0e1117; border-color:#25d366; text-decoration:none;">
+                  Chatear
+                </a>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join("");
+
+      document.getElementById("crmPaginationInfo").textContent = `Mostrando ${startIdx + 1}-${Math.min(startIdx + CRM_PAGE_SIZE, filtered.length)} de ${filtered.length} prospectos (Página ${currentCrmPage} de ${totalPages})`;
+    }
+
+    function selectCrmPill(pillName) {
+      currentCrmPill = pillName;
+      currentCrmPage = 1;
+      document.querySelectorAll(".crm-pill").forEach(p => {
+        if (p.dataset.pill === pillName) p.classList.add("active");
+        else p.classList.remove("active");
+      });
+      renderCrmTable();
+    }
+
+    function changeCrmPage(delta) {
+      const filtered = getFilteredCrmLeads();
+      const totalPages = Math.ceil(filtered.length / CRM_PAGE_SIZE);
+      const nextPage = currentCrmPage + delta;
+      if (nextPage >= 1 && nextPage <= totalPages) {
+        currentCrmPage = nextPage;
+        renderCrmTable();
+      }
+    }
+
+    // Buscador y filtros de CRM
+    document.getElementById("inputFilterCrm").addEventListener("input", (e) => {
+      currentCrmQuery = e.target.value.trim();
+      currentCrmPage = 1;
+      renderCrmTable();
+    });
+
+    document.getElementById("selectCloserCrm").addEventListener("change", (e) => {
+      currentCrmCloser = e.target.value;
+      currentCrmPage = 1;
+      renderCrmTable();
+    });
+
+    // =========================================================================
+    // PLAN DE REACTIVACIÓN LOGIC
+    // =========================================================================
+    function renderReactivacionTable() {
+      const reactivables = BASE_LEADS.filter(c => c.daysInactive >= 14 || c.segment === "remarketing");
+      const tbody = document.getElementById("tableReactivacionBody");
+      tbody.innerHTML = reactivables.map(c => `
+        <tr>
+          <td>
+            <strong style="color:#fff;">${c.name}</strong><br/>
+            <span style="font-size:0.75rem; color:var(--text-muted);">${c.product}</span>
+          </td>
+          <td>${c.company}</td>
+          <td><span style="color:#ec4899; font-weight:700;">⚠️ ${c.daysInactive} días sin contacto</span></td>
+          <td><strong style="font-family:var(--font-mono); color:var(--accent-green);">${c.quote}</strong></td>
+          <td>
+            <code style="font-size:0.78rem; background:rgba(255,255,255,0.05); padding:3px 6px; border-radius:4px; color:var(--accent-blue);">
+              [Pre-Cosecha] Bonificación en instalación
+            </code>
+          </td>
+          <td>
+            <a href="https://wa.me/${c.cleanPhone}?text=Hola%20${encodeURIComponent(c.name)}%2C%20te%20escribo%20desde%20Nexo%20para%20acercarte%20la%20actualizaci%C3%B3n%20de%20propuesta%20de%20${encodeURIComponent(c.product)}" target="_blank" rel="noopener" class="btn-action" style="background:#25d366; color:#0e1117; border-color:#25d366; text-decoration:none;">
+              Disparar Recontacto ↗
+            </a>
+          </td>
+        </tr>
+      `).join("");
+    }
+
+    // =========================================================================
+    // FICHA 360 & PIPELINE CRM TABLE (TABLA RÁPIDA)
     // =========================================================================
     const table360Body = document.getElementById("table360Body");
     function renderTable360(list) {
@@ -1239,7 +2249,7 @@
 
     document.getElementById("inputFilter360").addEventListener("input", (e) => {
       const q = e.target.value.toLowerCase().trim();
-      const filtered = CLIENTES_INTERCONECTADOS.filter(c => 
+      const filtered = BASE_LEADS.filter(c => 
         c.name.toLowerCase().includes(q) ||
         c.company.toLowerCase().includes(q) ||
         c.product.toLowerCase().includes(q) ||
@@ -1251,7 +2261,7 @@
     // 360 Modal Logic
     const modal360 = document.getElementById("modal360");
     function open360Modal(id) {
-      const c = CLIENTES_INTERCONECTADOS.find(x => x.id === id);
+      const c = BASE_LEADS.find(x => x.id === id);
       if (!c) return;
       document.getElementById("m360Name").textContent = c.name;
       document.getElementById("m360Company").textContent = c.company + " · " + c.product;
@@ -1259,7 +2269,7 @@
       document.getElementById("m360Closer").textContent = c.closer;
       document.getElementById("m360Quote").textContent = `${c.quote} (Prob. ${c.prob})`;
       document.getElementById("m360Score").textContent = `${c.score} / 100 pts`;
-      document.getElementById("m360Meeting").textContent = c.meeting;
+      document.getElementById("m360Meeting").textContent = c.meeting || "Sin minuta registrada.";
       document.getElementById("m360WaBtn").href = `https://wa.me/${c.cleanPhone}?text=Hola%20${encodeURIComponent(c.name)}`;
       modal360.classList.add("open");
     }
@@ -1272,17 +2282,32 @@
 
     // WhatsApp Switcher
     function switchWaChat(id) {
-      const c = CLIENTES_INTERCONECTADOS.find(x => x.id === id);
+      const c = BASE_LEADS.find(x => x.id === id) || BASE_LEADS[0];
       if (!c) return;
       document.getElementById("waChatHeader").textContent = `Conversación con ${c.name} (${c.phone}) · Closer: ${c.closer}`;
       const msgContainer = document.getElementById("waChatMessages");
-      msgContainer.innerHTML = c.chat.map(m => `
-        <div style="align-self: ${m.fromMe ? 'flex-end' : 'flex-start'}; background: ${m.fromMe ? '#0284c7' : '#1e293b'}; color: #fff; padding: 0.75rem 1rem; border-radius: 10px; max-width: 75%; font-size: 0.85rem; line-height: 1.4;">
-          <div>${m.text}</div>
-          <div style="font-size: 0.65rem; color: rgba(255,255,255,0.6); text-align: right; margin-top: 0.25rem;">${m.time}</div>
-        </div>
-      `).join("");
+      if (c.chat && c.chat.length > 0) {
+        msgContainer.innerHTML = c.chat.map(m => `
+          <div style="align-self: ${m.fromMe ? 'flex-end' : 'flex-start'}; background: ${m.fromMe ? '#0284c7' : '#1e293b'}; color: #fff; padding: 0.75rem 1rem; border-radius: 10px; max-width: 75%; font-size: 0.85rem; line-height: 1.4;">
+            <div>${m.text}</div>
+            <div style="font-size: 0.65rem; color: rgba(255,255,255,0.6); text-align: right; margin-top: 0.25rem;">${m.time}</div>
+          </div>
+        `).join("");
+      } else {
+        msgContainer.innerHTML = `
+          <div style="align-self: center; background: rgba(255,255,255,0.05); color: var(--text-muted); padding: 1rem; border-radius: 8px; font-size: 0.85rem;">
+            Iniciando nuevo hilo de conversación con ${c.name} sobre ${c.product}...
+          </div>
+        `;
+      }
     }
+
+    // Inicialización al cargar la página
+    document.addEventListener("DOMContentLoaded", () => {
+      renderTable360(BASE_LEADS.slice(0, 5));
+      renderCrmTable();
+      renderReactivacionTable();
+    });
   </script>
 </body>
 </html>

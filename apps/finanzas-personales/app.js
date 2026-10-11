@@ -1,6 +1,6 @@
 
 function aiView(){
-  return `<article class="card" style="border: 1px solid rgba(37, 99, 235, 0.35); box-shadow: 0 4px 20px rgba(37, 99, 235, 0.08);">
+  return `<article class="card" style="border: 1px solid rgba(56, 189, 248, 0.3); box-shadow: 0 4px 25px rgba(0, 0, 0, 0.4);">
     <div class="card-head">
       <div>
         <h2>🤖 Pipeline de Extracción con IA (Visión Multimodal & LLM)</h2>
@@ -9,34 +9,36 @@ function aiView(){
       <span class="badge good">Motor IA Listo</span>
     </div>
 
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 20px; margin-bottom: 24px;">
-      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 18px;">
-        <h3 style="font-size: 0.95rem; margin-bottom: 10px; color: #0f172a;">1. Seleccioná un documento de prueba real:</h3>
-        <select id="ai-sample-selector" style="width: 100%; padding: 10px 12px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.88rem; margin-bottom: 14px; background: #fff;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 20px; padding: 22px; margin-bottom: 0;">
+      <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--line); border-radius: 10px; padding: 18px;">
+        <h3 style="font-size: 0.95rem; margin: 0 0 12px; color: #fff;">1. Seleccioná un documento de prueba real:</h3>
+        <select id="ai-sample-selector" style="width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--line); font-size: 0.88rem; margin-bottom: 14px; background: var(--bg-input); color: #fff; color-scheme: dark;">
           <option value="ticket">🧾 Ticket Térmico Bonafide ($4.500 ARS · Foto Arrugada)</option>
           <option value="hosting">📄 Factura PDF Cloudflare Edge Workers ($28.000 ARS)</option>
           <option value="telegram">💬 Audio/Texto Telegram: "32.500 de nafta en la YPF para la camioneta"</option>
           <option value="receipt">📝 Recibo manuscrito: "Alquiler $180.000 departamento"</option>
         </select>
-        <div id="ai-sample-preview" style="background: #ffffff; border: 1px dashed #cbd5e1; border-radius: 6px; padding: 14px; font-size: 0.82rem; color: #475569; min-height: 85px; line-height: 1.5;">
-          <strong>Origen:</strong> Foto capturada con teléfono celular (cámara 12MP).<br>
-          <strong>Contenido visual:</strong> BONAFIDE EXPRESS · SUC. 04 · CAFÉ DOBLE + MEDIALUNAS · TOTAL: $4.500,00 · FECHA: 10/10/2026
+        <div id="ai-sample-preview" style="background: rgba(0, 0, 0, 0.3); border: 1px dashed var(--line); border-radius: 8px; padding: 14px; font-size: 0.82rem; color: var(--muted); min-height: 85px; line-height: 1.5;">
+          <strong style="color: var(--accent-cyan);">Origen:</strong> Foto capturada con teléfono celular (cámara 12MP).<br>
+          <strong style="color: #fff;">Contenido visual:</strong> BONAFIDE EXPRESS · SUC. 04 · CAFÉ DOBLE + MEDIALUNAS · TOTAL: $4.500,00 · FECHA: 10/10/2026
         </div>
-        <button class="primary" id="ai-run-btn" style="width: 100%; margin-top: 14px; background: #2563eb; padding: 10px;">⚡ Ejecutar Extracción & Inferencia IA</button>
+        <button class="primary" id="ai-run-btn" style="width: 100%; margin-top: 14px; padding: 12px;">⚡ Ejecutar Extracción & Inferencia IA</button>
       </div>
 
-      <div style="background: #0f172a; color: #f8fafc; border-radius: 8px; padding: 18px; font-family: monospace; font-size: 0.78rem; display: flex; flex-direction: column;">
-        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; padding-bottom: 8px; margin-bottom: 10px;">
-          <span style="color: #38bdf8; font-weight: bold;">JSON Schema & Inferencia Output</span>
-          <span id="ai-status-badge" style="color: #94a3b8;">Listo para inferir</span>
+      <div style="background: #080d1a; color: #f8fafc; border: 1px solid var(--line); border-radius: 10px; padding: 18px; font-family: var(--font-mono, monospace); font-size: 0.8rem; display: flex; flex-direction: column;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line); padding-bottom: 8px; margin-bottom: 10px;">
+          <span style="color: var(--accent-cyan); font-weight: bold;">JSON Schema & Inferencia Output</span>
+          <span id="ai-status-badge" style="color: var(--muted); font-size: 0.75rem;">Listo para inferir</span>
         </div>
         <pre id="ai-json-output" style="flex: 1; overflow-y: auto; margin: 0; color: #cbd5e1; white-space: pre-wrap; line-height: 1.45;">// Haz clic en "Ejecutar Extracción & Inferencia IA"
 // para procesar el input a través de GPT-4.1 Vision...</pre>
       </div>
     </div>
 
-    <div class="notice" style="background: #eff6ff; border-left: 4px solid #2563eb; color: #1e3a8a;">
-      <strong>Defensa Zero-Hallucination & Prompt Injection:</strong> Los documentos visuales son tratados como datos no confiables. La extracción impone <code>additionalProperties: false</code> para garantizar tipado estricto antes de escribir en la base de datos SQLite / D1.
+    <div style="padding: 0 22px 22px;">
+      <div class="notice" style="margin: 0;">
+        <strong>Defensa Zero-Hallucination & Prompt Injection:</strong> Los documentos visuales son tratados como datos no confiables. La extracción impone <code>additionalProperties: false</code> para garantizar tipado estricto antes de escribir en la base de datos SQLite / D1.
+      </div>
     </div>
   </article>`;
 }

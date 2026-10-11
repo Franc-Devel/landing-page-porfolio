@@ -4,6 +4,8 @@
 [![Filosofía](https://img.shields.io/badge/Filosof%C3%ADa-Menos%20es%20m%C3%A1s-38bdf8?style=for-the-badge)](https://github.com/Franc-Devel)
 [![Status](https://img.shields.io/badge/Status-Producci%C3%B3n-10b981?style=for-the-badge)](https://github.com/Franc-Devel)
 
+![Data Analytics Studio](images/projects/data-analytics-studio.png)
+
 Landing page y portafolio personal de **Francisco Agustín Delgado** (Fullstack Developer). Construido bajo la premisa de que **"la sobreinformación es desinformación"**: diseño descansado, sin fatiga visual ni contaminación de datos superfluos, enfocado exclusivamente en los **6 proyectos fijados en su perfil oficial de GitHub**.
 
 ---
