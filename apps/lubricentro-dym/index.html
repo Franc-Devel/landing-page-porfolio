@@ -9,113 +9,211 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script>
-      // 1. Acceso de Administrador directo con datos ficticios
-      const adminUser = {
-        id: 1,
-        usuario: "admin",
-        nombre: "Administrador General",
-        rol: "Admin",
-        token: "demo_admin_jwt_token_2026"
-      };
+      // Al cargar o recargar, se limpia la sesión para solicitar siempre el rol de inicio en modo demo
       try {
-        localStorage.setItem("lubri_user", JSON.stringify(adminUser));
-        localStorage.setItem("lubri_terminal", "Caja_Admin");
+        localStorage.removeItem("lubri_user");
       } catch (e) {
         console.warn("Storage warning:", e);
       }
 
-      // 2. Interceptor de API ficticia para auditorías, KPIs, caja y stock
-      const realFetch = window.fetch;
-      window.fetch = async function(url, options = {}) {
-        const urlStr = typeof url === "string" ? url : (url && url.url ? url.url : "");
-        if (urlStr.includes("/api/")) {
-          const mockResponses = {
-            "/api/auth/verify-session": {
-              valid: true,
-              success: true
-            },
-            "/api/auth/login": {
-              success: true,
-              user: adminUser
-            },
-            "/api/auth/logout": {
-              success: true
-            },
-            "/api/dashboard/kpis": {
-              ventasHoy: 642800,
-              serviciosRealizados: 18,
-              clientesAtendidos: 24,
-              stockCritico: 4,
-              totalMes: 9850000,
-              ticketPromedio: 35700
-            },
-            "/api/admin/audit-logs": [
-              { id: 101, timestamp: "2026-10-10 21:15:22", usuario: "admin", accion: "CIERRE_CAJA_Z", detalle: "Cierre Z de Caja Principal #1. Total recaudado: $642.800.", ip: "192.168.1.50" },
-              { id: 102, timestamp: "2026-10-10 19:40:10", usuario: "admin", accion: "AUTORIZACION_DESCUENTO", detalle: "Bonificación 10% en cambio de aceite sintético para Cliente Frecuente (Carlos Gómez).", ip: "192.168.1.50" },
-              { id: 103, timestamp: "2026-10-10 17:22:05", usuario: "admin", accion: "INGRESO_MERCADERIA", detalle: "Recepción de remito #8841: 36u Motul 8100 X-cess 5W40 y 24u Filtros Mann W712.", ip: "192.168.1.50" },
-              { id: 104, timestamp: "2026-10-10 14:05:44", usuario: "admin", accion: "AUDITORIA_PRECIOS", detalle: "Actualización de lista de precios de lubricantes y fluidos hidráulicos.", ip: "192.168.1.50" },
-              { id: 105, timestamp: "2026-10-10 11:30:19", usuario: "admin", accion: "APERTURA_TURNO", detalle: "Apertura de turno mañana con fondo fijo de caja: $50.000.", ip: "192.168.1.50" }
-            ],
-            "/api/admin/users": [
-              { id: 1, usuario: "admin", nombre: "Administrador General", rol: "Admin", activo: true, ultimoAcceso: "2026-10-10 21:15" },
-              { id: 2, usuario: "mecanico1", nombre: "Roberto Méndez", rol: "Técnico", activo: true, ultimoAcceso: "2026-10-10 18:30" },
-              { id: 3, usuario: "cajero", nombre: "Martín Suárez", rol: "Cajero", activo: true, ultimoAcceso: "2026-10-10 20:00" }
-            ],
-            "/api/admin/suppliers": [
-              { id: 1, razonSocial: "Distribuidora Shell & Motul Litoral", cuit: "30-71234567-8", contacto: "ventas@distrilub.com.ar", telefono: "+54 9 341 456-7890" },
-              { id: 2, razonSocial: "Filtros Mann & Hummel Argentina", cuit: "30-65432109-4", contacto: "pedidos@mann-hummel.com.ar", telefono: "+54 9 11 4789-0123" }
-            ],
-            "/api/admin/vendors": [
-              { id: 1, nombre: "Distribuidora Shell & Motul Litoral" },
-              { id: 2, nombre: "Filtros Mann & Hummel Argentina" }
-            ],
-            "/api/admin/purchases": [],
-            "/api/cash/summary-by-box": {
-              cajaPrincipal: { efectivo: 310500, transferencia: 215300, tarjetas: 117000, total: 642800 },
-              estado: "Abierta",
-              responsable: "Administrador General"
-            },
-            "/api/cash/sessions": [
-              { id: 1, caja: "Caja_Admin", estado: "Abierta", apertura: "2026-10-10 08:30:00", responsable: "Administrador General", totalRecaudado: 642800 }
-            ],
-            "/api/clients": [
-              { id: 1, nombre: "Juan Pérez (Agro del Sur)", cuit_dni: "20-33445566-9", vehiculo: "Toyota Hilux 2.8 D-4D (2022)", patente: "AF 123 CD", ultimoServicio: "2026-09-15" },
-              { id: 2, nombre: "Elena Gómez (El Trébol)", cuit_dni: "27-28990011-4", vehiculo: "Ford Ranger 3.2 TDCi (2021)", patente: "AE 789 XY", ultimoServicio: "2026-10-02" },
-              { id: 3, nombre: "Carlos Rodríguez (Viñedos Mza)", cuit_dni: "20-25443322-1", vehiculo: "Volkswagen Amarok V6 (2023)", patente: "AG 456 ZW", ultimoServicio: "2026-10-08" }
-            ],
-            "/api/products": [
-              { id: 1, codigo: "MOT-8100-5W40", nombre: "Motul 8100 X-cess 5W40 5L", categoria: "Lubricantes Sintéticos", stock: 24, precioVenta: 78500 },
-              { id: 2, codigo: "CAS-MAG-10W40", nombre: "Castrol Magnatec 10W40 4L", categoria: "Lubricantes Semisintéticos", stock: 18, precioVenta: 54200 },
-              { id: 3, codigo: "MAN-W712", nombre: "Filtro de Aceite Mann W712", categoria: "Filtros", stock: 32, precioVenta: 14800 },
-              { id: 4, codigo: "VAL-80W90", nombre: "Valvoline Gear Oil 80W90 GL-5", categoria: "Fluidos de Transmisión", stock: 12, precioVenta: 32000 }
-            ],
-            "/api/categories": [
-              { id: 1, nombre: "Lubricantes Sintéticos" },
-              { id: 2, nombre: "Lubricantes Semisintéticos" },
-              { id: 3, nombre: "Filtros" },
-              { id: 4, nombre: "Fluidos de Transmisión" }
-            ],
-            "/api/appointments": [],
-            "/api/sales": []
-          };
+      // Interceptor inteligente de API para demostración estática offline con la base de datos completa
+      (function() {
+        let dbCache = null;
+        async function getDb() {
+          if (!dbCache) {
+            try {
+              const res = await realFetch('./db_full.json');
+              dbCache = await res.json();
+            } catch (err) {
+              console.error("Error loading db_full.json:", err);
+              dbCache = { products: [], categories: [], sales: [], clients: [], turnos: [], fichas: [], auditLogs: [], sessions: [] };
+            }
+          }
+          return dbCache;
+        }
 
-          for (const [endpoint, data] of Object.entries(mockResponses)) {
-            if (urlStr.includes(endpoint)) {
-              return new Response(JSON.stringify(data), {
-                status: 200,
+        const realFetch = window.fetch;
+        window.fetch = async function(url, options = {}) {
+          const urlStr = typeof url === "string" ? url : (url && url.url ? url.url : "");
+          
+          if (urlStr.includes("/api/")) {
+            const db = await getDb();
+            const method = (options.method || 'GET').toUpperCase();
+
+            // 1. Auth routes
+            if (urlStr.includes("/api/auth/login")) {
+              let body = {};
+              try { body = JSON.parse(options.body || '{}'); } catch {}
+              const isAdm = body.usuario === 'admin';
+              const userObj = isAdm ? {
+                id: 1,
+                usuario: "admin",
+                nombre: "Administrador General",
+                rol: "Admin",
+                token: "token_admin_" + Date.now(),
+                terminal: body.terminal || "Caja_1"
+              } : {
+                id: 2,
+                usuario: "cajero1",
+                nombre: "Carlos Gómez",
+                rol: "Cajero",
+                token: "token_cajero_" + Date.now(),
+                terminal: body.terminal || "Caja_1"
+              };
+              return new Response(JSON.stringify({ success: true, user: userObj, message: "Acceso concedido" }), {
                 headers: { "Content-Type": "application/json" }
               });
             }
+
+            if (urlStr.includes("/api/auth/logout") || urlStr.includes("/api/auth/verify-session")) {
+              return new Response(JSON.stringify({ valid: true, success: true }), {
+                headers: { "Content-Type": "application/json" }
+              });
+            }
+
+            // 2. Products / Catalog
+            if (urlStr.includes("/api/products")) {
+              let prods = db.products || [];
+              const parsedUrl = new URL(urlStr, window.location.origin);
+              const search = (parsedUrl.searchParams.get("search") || "").toLowerCase().trim();
+              const catId = parsedUrl.searchParams.get("categoryId");
+
+              if (search) {
+                prods = prods.filter(p => 
+                  (p.nombre && p.nombre.toLowerCase().includes(search)) ||
+                  (p.codigo && p.codigo.toLowerCase().includes(search)) ||
+                  (p.descripcion && p.descripcion.toLowerCase().includes(search))
+                );
+              }
+              if (catId) {
+                prods = prods.filter(p => String(p.categoria_id) === String(catId));
+              }
+
+              // Mapear campos para compatibilidad con vistas frontend (PosView y CatalogView)
+              const mapped = prods.map(p => ({
+                id: p.id,
+                code: p.code || p.codigo || "",
+                codigo: p.code || p.codigo || "",
+                name: p.name || p.nombre || "",
+                nombre: p.name || p.nombre || "",
+                presentation: p.presentation || "",
+                descripcion: p.presentation || p.descripcion || "",
+                categoria: p.categoria_nombre || p.categoria || "General",
+                categoria_nombre: p.categoria_nombre || p.categoria || "General",
+                categoria_id: p.categoria_id,
+                stock: p.stock !== undefined ? p.stock : (p.stock_actual || 0),
+                stock_actual: p.stock !== undefined ? p.stock : (p.stock_actual || 0),
+                stock_minimo: p.stock_minimo || 5,
+                cost_price: p.cost_price || p.precio_costo || 0,
+                precio_costo: p.cost_price || p.precio_costo || 0,
+                price: p.price !== undefined ? p.price : (p.precio_venta || 0),
+                precio_venta: p.price !== undefined ? p.price : (p.precio_venta || 0),
+                precio: p.price !== undefined ? p.price : (p.precio_venta || 0),
+                ubicacion: p.ubicacion || "Depósito A",
+                sucursal: p.sucursal || "Sucursal A"
+              }));
+              return new Response(JSON.stringify(mapped), { headers: { "Content-Type": "application/json" } });
+            }
+
+            if (urlStr.includes("/api/categories")) {
+              return new Response(JSON.stringify(db.categories || []), { headers: { "Content-Type": "application/json" } });
+            }
+
+            // 3. Sales & History
+            if (urlStr.includes("/api/sales")) {
+              if (method === 'POST') {
+                return new Response(JSON.stringify({ success: true, id: Date.now(), ticket: "TKT-" + Math.floor(Math.random()*90000+10000) }), {
+                  headers: { "Content-Type": "application/json" }
+                });
+              }
+              return new Response(JSON.stringify(db.sales || []), { headers: { "Content-Type": "application/json" } });
+            }
+
+            // 4. Clients
+            if (urlStr.includes("/api/clients")) {
+              return new Response(JSON.stringify(db.clients || []), { headers: { "Content-Type": "application/json" } });
+            }
+
+            // 5. Turnos / Appointments
+            if (urlStr.includes("/api/appointments")) {
+              return new Response(JSON.stringify(db.turnos || []), { headers: { "Content-Type": "application/json" } });
+            }
+
+            // 6. Vehicles Technical Guide
+            if (urlStr.includes("/api/vehicles/types")) {
+              return new Response(JSON.stringify(["auto", "moto", "Autos y Camionetas", "Motos"]), { headers: { "Content-Type": "application/json" } });
+            }
+            if (urlStr.includes("/api/vehicles/brands")) {
+              return new Response(JSON.stringify(["Toyota", "Ford", "Volkswagen", "Chevrolet", "Renault", "Peugeot", "Fiat", "Honda"]), { headers: { "Content-Type": "application/json" } });
+            }
+            if (urlStr.includes("/api/vehicles")) {
+              return new Response(JSON.stringify(db.fichas || []), { headers: { "Content-Type": "application/json" } });
+            }
+
+            // 7. Cash Status
+            if (urlStr.includes("/api/cash/status") || urlStr.includes("/api/cash/summary-by-box")) {
+              return new Response(JSON.stringify({
+                isOpen: true,
+                cajaId: "Caja_1",
+                apertura: "2026-10-11 08:30:00",
+                responsable: "Carlos Gómez",
+                fondoInicial: 50000,
+                totalRecaudado: 642800,
+                efectivoEsperado: 385000
+              }), { headers: { "Content-Type": "application/json" } });
+            }
+            if (urlStr.includes("/api/cash/sessions")) {
+              return new Response(JSON.stringify(db.sessions || []), { headers: { "Content-Type": "application/json" } });
+            }
+
+            // 8. Dashboard KPIs
+            if (urlStr.includes("/api/dashboard/kpis")) {
+              return new Response(JSON.stringify({
+                ventas_hoy: 642800,
+                cant_ventas_hoy: 14,
+                stock_critico: 4,
+                total_productos: (db.products || []).length || 519,
+                grafico_semanal: {
+                  fechas: ["05/10", "06/10", "07/10", "08/10", "09/10", "10/10", "11/10"],
+                  totales: [512000, 480000, 620000, 715000, 590000, 840000, 642800]
+                },
+                top_productos: [
+                  { name: "Aceite YPF Elaion F50 5W40", total_vendido: 10, recaudacion: 485000 },
+                  { name: "Filtro de Aceite WEGA WO-120", total_vendido: 8, recaudacion: 52000 },
+                  { name: "Filtro de Aire WEGA FAP-3214", total_vendido: 8, recaudacion: 56800 },
+                  { name: "Aceite Castrol GTX 20W50", total_vendido: 7, recaudacion: 245000 },
+                  { name: "Aceite Gulf Formula G 5W40", total_vendido: 7, recaudacion: 287000 }
+                ]
+              }), { headers: { "Content-Type": "application/json" } });
+            }
+
+            // 9. Admin routes
+            if (urlStr.includes("/api/admin/audit-logs")) {
+              return new Response(JSON.stringify(db.auditLogs || []), { headers: { "Content-Type": "application/json" } });
+            }
+            if (urlStr.includes("/api/admin/users")) {
+              return new Response(JSON.stringify([
+                { id: 1, usuario: "admin", nombre_completo: "Administrador General", rol: "Admin", activo: 1 },
+                { id: 2, usuario: "cajero1", nombre_completo: "Carlos Gómez", rol: "Cajero", activo: 1 },
+                { id: 3, usuario: "vendedor", nombre_completo: "Vendedor POS", rol: "Cajero", activo: 1 }
+              ]), { headers: { "Content-Type": "application/json" } });
+            }
+            if (urlStr.includes("/api/admin/vendors")) {
+              return new Response(JSON.stringify(db.vendedores || []), { headers: { "Content-Type": "application/json" } });
+            }
+            if (urlStr.includes("/api/admin/suppliers")) {
+              return new Response(JSON.stringify(db.proveedores || []), { headers: { "Content-Type": "application/json" } });
+            }
+
+            // Default fallback
+            return new Response(JSON.stringify([]), { headers: { "Content-Type": "application/json" } });
           }
-          return new Response(JSON.stringify({ success: true, valid: true, data: [] }), {
-            status: 200,
-            headers: { "Content-Type": "application/json" }
-          });
-        }
-        return realFetch.apply(this, arguments);
-      };
+
+          return realFetch.apply(this, arguments);
+        };
+      })();
     </script>
-    <script type="module" crossorigin src="./assets/index-BTcjl3zQ.js"></script>
+    <script type="module" crossorigin src="./assets/index-B_CfN0iS.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-Bspshcv_.css">
   </head>
   <body>
