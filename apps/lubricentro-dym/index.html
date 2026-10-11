@@ -30,6 +30,17 @@
         const urlStr = typeof url === "string" ? url : (url && url.url ? url.url : "");
         if (urlStr.includes("/api/")) {
           const mockResponses = {
+            "/api/auth/verify-session": {
+              valid: true,
+              success: true
+            },
+            "/api/auth/login": {
+              success: true,
+              user: adminUser
+            },
+            "/api/auth/logout": {
+              success: true
+            },
             "/api/dashboard/kpis": {
               ventasHoy: 642800,
               serviciosRealizados: 18,
@@ -54,11 +65,19 @@
               { id: 1, razonSocial: "Distribuidora Shell & Motul Litoral", cuit: "30-71234567-8", contacto: "ventas@distrilub.com.ar", telefono: "+54 9 341 456-7890" },
               { id: 2, razonSocial: "Filtros Mann & Hummel Argentina", cuit: "30-65432109-4", contacto: "pedidos@mann-hummel.com.ar", telefono: "+54 9 11 4789-0123" }
             ],
+            "/api/admin/vendors": [
+              { id: 1, nombre: "Distribuidora Shell & Motul Litoral" },
+              { id: 2, nombre: "Filtros Mann & Hummel Argentina" }
+            ],
+            "/api/admin/purchases": [],
             "/api/cash/summary-by-box": {
               cajaPrincipal: { efectivo: 310500, transferencia: 215300, tarjetas: 117000, total: 642800 },
               estado: "Abierta",
               responsable: "Administrador General"
             },
+            "/api/cash/sessions": [
+              { id: 1, caja: "Caja_Admin", estado: "Abierta", apertura: "2026-10-10 08:30:00", responsable: "Administrador General", totalRecaudado: 642800 }
+            ],
             "/api/clients": [
               { id: 1, nombre: "Juan Pérez (Agro del Sur)", cuit_dni: "20-33445566-9", vehiculo: "Toyota Hilux 2.8 D-4D (2022)", patente: "AF 123 CD", ultimoServicio: "2026-09-15" },
               { id: 2, nombre: "Elena Gómez (El Trébol)", cuit_dni: "27-28990011-4", vehiculo: "Ford Ranger 3.2 TDCi (2021)", patente: "AE 789 XY", ultimoServicio: "2026-10-02" },
@@ -69,7 +88,15 @@
               { id: 2, codigo: "CAS-MAG-10W40", nombre: "Castrol Magnatec 10W40 4L", categoria: "Lubricantes Semisintéticos", stock: 18, precioVenta: 54200 },
               { id: 3, codigo: "MAN-W712", nombre: "Filtro de Aceite Mann W712", categoria: "Filtros", stock: 32, precioVenta: 14800 },
               { id: 4, codigo: "VAL-80W90", nombre: "Valvoline Gear Oil 80W90 GL-5", categoria: "Fluidos de Transmisión", stock: 12, precioVenta: 32000 }
-            ]
+            ],
+            "/api/categories": [
+              { id: 1, nombre: "Lubricantes Sintéticos" },
+              { id: 2, nombre: "Lubricantes Semisintéticos" },
+              { id: 3, nombre: "Filtros" },
+              { id: 4, nombre: "Fluidos de Transmisión" }
+            ],
+            "/api/appointments": [],
+            "/api/sales": []
           };
 
           for (const [endpoint, data] of Object.entries(mockResponses)) {
@@ -80,7 +107,7 @@
               });
             }
           }
-          return new Response(JSON.stringify({ success: true, data: [] }), {
+          return new Response(JSON.stringify({ success: true, valid: true, data: [] }), {
             status: 200,
             headers: { "Content-Type": "application/json" }
           });
