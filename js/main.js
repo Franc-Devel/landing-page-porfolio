@@ -251,7 +251,8 @@ function initSandboxModal() {
   window.openSandbox = function (url, title) {
     currentSandboxUrl = url;
     modalTitle.textContent = title;
-    iframe.src = url;
+    const cacheBuster = (url.includes("?") ? "&" : "?") + "t=" + Date.now();
+    iframe.src = url + cacheBuster;
     if (externalLink) {
       externalLink.href = url;
       externalLink.setAttribute("target", "_blank");
@@ -282,11 +283,8 @@ function initSandboxModal() {
 
   if (reloadBtn) {
     reloadBtn.addEventListener("click", () => {
-      try {
-        iframe.contentWindow.location.reload();
-      } catch (err) {
-        iframe.src = currentSandboxUrl || iframe.src;
-      }
+      const cacheBuster = (currentSandboxUrl.includes("?") ? "&" : "?") + "t=" + Date.now();
+      iframe.src = (currentSandboxUrl || iframe.src.split("?")[0]) + cacheBuster;
     });
   }
 
