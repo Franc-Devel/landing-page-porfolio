@@ -1,828 +1,1041 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Data Analytics Studio - Suite Integral de Consultoría Comercial, Ingesta de Datos, CRM 360° y Auditoría Analítica" />
-  <title>Data Analytics Studio · Nexo Suite</title>
+  <title>Nexo Analytics · Commercial & CRM Suite</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Chart.js for pixel-perfect dual-axis evolution chart -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <style>
     :root {
-      --bg-base: #070b14;
-      --bg-surface: #0d1527;
-      --bg-card: rgba(18, 28, 50, 0.7);
-      --bg-card-hover: rgba(28, 42, 74, 0.85);
-      --border: rgba(148, 163, 184, 0.12);
-      --border-accent: rgba(56, 189, 248, 0.35);
-      --text: #f1f5f9;
+      --bg-app: #0e1117;
+      --bg-sidebar: #131722;
+      --bg-card: rgba(30, 41, 59, 0.7);
+      --border-card: rgba(255, 255, 255, 0.12);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --text-main: #f1f5f9;
       --text-muted: #94a3b8;
-      --accent: #38bdf8;
-      --accent-glow: rgba(56, 189, 248, 0.2);
-      --emerald: #34d399;
-      --indigo: #818cf8;
-      --amber: #fbbf24;
-      --rose: #fb7185;
-      --radius: 12px;
-      --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
-      --font-display: 'Outfit', sans-serif;
+      --text-dim: #64748b;
+      --accent-blue: #38bdf8;
+      --accent-green: #4ade80;
+      --accent-indigo: #818cf8;
+      --accent-purple: #c084fc;
+      --accent-pink: #f472b6;
+      --accent-red: #ff4b4b;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background: radial-gradient(circle at 50% 0%, #111d38 0%, var(--bg-base) 65%);
-      color: var(--text);
-      font-family: var(--font-sans);
-      min-height: 100vh;
+      background-color: var(--bg-app);
+      color: var(--text-main);
+      font-family: var(--font);
+      height: 100vh;
+      display: flex;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* =========================================================================
+       SIDEBAR (STREAMLIT IDENTICAL)
+       ========================================================================= */
+    aside.sidebar {
+      width: 310px;
+      min-width: 310px;
+      background-color: var(--bg-sidebar);
+      border-right: 1px solid var(--border-subtle);
       display: flex;
       flex-direction: column;
-      overflow-x: hidden;
+      height: 100vh;
+      overflow-y: auto;
+      padding: 1.25rem 1.15rem;
+      z-index: 20;
     }
 
-    header.topbar {
-      border-bottom: 1px solid var(--border);
-      background: rgba(13, 21, 39, 0.85);
-      backdrop-filter: blur(14px);
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      padding: 1rem 1.75rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
+    .brand-header {
+      margin-bottom: 1.25rem;
+    }
+    .brand-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+    .brand-subtitle {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 0.2rem;
     }
 
-    .brand {
+    /* User Profile Card */
+    .user-card {
+      background: #1e2538;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .user-name {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .user-email {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin: 0.15rem 0 0.35rem;
+      word-break: break-all;
+    }
+    .user-role {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent-red);
+      letter-spacing: 0.04em;
+    }
+    .btn-logout-sidebar {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-main);
+      padding: 0.45rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 0.65rem;
       display: flex;
       align-items: center;
-      gap: 0.85rem;
+      justify-content: center;
+      gap: 0.4rem;
+      transition: background 0.15s;
     }
-    .brand-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, #0284c7, #6366f1);
+    .btn-logout-sidebar:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    /* Navigation Radio Items */
+    .nav-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.65rem;
+    }
+    .nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.55rem 0.75rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-main);
+      transition: background 0.15s;
+      user-select: none;
+    }
+    .nav-item:hover {
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .nav-item.active {
+      background: rgba(255, 75, 75, 0.08);
+      font-weight: 600;
+      color: #ffffff;
+    }
+    .radio-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 2px solid #64748b;
       display: grid;
       place-items: center;
-      font-weight: 800;
-      font-family: var(--font-display);
-      font-size: 1.15rem;
-      box-shadow: 0 4px 16px var(--accent-glow);
+      flex-shrink: 0;
     }
-    .brand h1 { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; }
-    .brand p { font-size: 0.75rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
-
-    .search-box {
-      position: relative;
-      flex: 1;
-      max-width: 380px;
+    .nav-item.active .radio-dot {
+      border-color: var(--accent-red);
     }
-    .search-input {
-      width: 100%;
-      background: rgba(15, 23, 42, 0.8);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 0.55rem 1rem 0.55rem 2.25rem;
-      color: #fff;
-      font-size: 0.875rem;
-      outline: none;
-      transition: all 0.2s;
-    }
-    .search-input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px var(--accent-glow);
-    }
-    .search-box svg {
-      position: absolute;
-      left: 0.75rem;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 15px;
-      height: 15px;
-      color: var(--text-muted);
-    }
-
-    .meta-badges {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-    .badge {
-      font-size: 0.75rem;
-      padding: 0.3rem 0.75rem;
-      border-radius: 999px;
-      font-weight: 600;
-      border: 1px solid transparent;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-    }
-    .badge-live {
-      background: rgba(52, 211, 153, 0.1);
-      border-color: rgba(52, 211, 153, 0.3);
-      color: var(--emerald);
-    }
-    .badge-live::before {
+    .nav-item.active .radio-dot::after {
       content: "";
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: var(--emerald);
-      box-shadow: 0 0 8px var(--emerald);
-    }
-    .badge-repo {
-      background: rgba(56, 189, 248, 0.1);
-      border-color: rgba(56, 189, 248, 0.25);
-      color: var(--accent);
-      text-decoration: none;
-      transition: all 0.2s;
-    }
-    .badge-repo:hover {
-      background: rgba(56, 189, 248, 0.2);
+      background: var(--accent-red);
     }
 
-    /* Tabs */
-    .tab-bar {
-      background: rgba(13, 21, 39, 0.6);
-      border-bottom: 1px solid var(--border);
-      padding: 0 1.75rem;
-      display: flex;
-      gap: 0.5rem;
-      overflow-x: auto;
+    .sidebar-divider {
+      height: 1px;
+      background: var(--border-subtle);
+      margin: 1.25rem 0;
     }
-    .tab-btn {
-      background: transparent;
-      border: none;
-      border-bottom: 2px solid transparent;
-      color: var(--text-muted);
-      font-family: var(--font-display);
-      font-size: 0.925rem;
-      font-weight: 600;
-      padding: 1rem 1.25rem;
+
+    /* Collapsible Panels */
+    .collapsible-header {
+      font-size: 0.8rem;
+      color: var(--text-main);
+      cursor: pointer;
+      padding: 0.5rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-weight: 500;
+    }
+    .collapsible-header:hover { color: var(--accent-blue); }
+
+    /* =========================================================================
+       MAIN CONTENT CONTAINER
+       ========================================================================= */
+    main.main-viewport {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow-y: auto;
+      background-color: var(--bg-app);
+      position: relative;
+    }
+
+    /* Top Streamlit Bar */
+    header.st-topbar {
+      padding: 0.75rem 2rem;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 1rem;
+      position: sticky;
+      top: 0;
+      background: rgba(14, 17, 23, 0.95);
+      backdrop-filter: blur(8px);
+      z-index: 10;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .top-user-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--text-main);
+    }
+    .top-user-pill strong { color: var(--accent-red); }
+    .btn-logout-top {
+      background: #1e2538;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text-main);
+      border-radius: 4px;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.75rem;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      transition: all 0.2s;
-      white-space: nowrap;
+      gap: 0.35rem;
     }
-    .tab-btn:hover { color: var(--text); }
-    .tab-btn.active {
-      color: var(--accent);
-      border-bottom-color: var(--accent);
-      background: linear-gradient(180deg, transparent 70%, rgba(56, 189, 248, 0.08) 100%);
+    .deploy-text {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      margin-left: 0.5rem;
     }
 
-    /* Content Area */
-    .content-area {
-      flex: 1;
-      padding: 2rem 1.75rem;
-      max-width: 1400px;
-      margin: 0 auto;
+    .view-container {
+      padding: 1.5rem 2.5rem 3rem;
+      max-width: 1600px;
       width: 100%;
+      margin: 0 auto;
     }
 
-    .tab-content { display: none; }
-    .tab-content.active { display: block; animation: fadeIn 0.25s ease-out; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-
-    /* Cards & Grids */
-    .kpi-row {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.25rem;
-      margin-bottom: 2rem;
-    }
-    .kpi-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.4rem;
-      backdrop-filter: blur(8px);
-      transition: transform 0.2s, border-color 0.2s;
-    }
-    .kpi-card:hover {
-      transform: translateY(-2px);
-      border-color: var(--border-accent);
-    }
-    .kpi-card p { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; letter-spacing: 0.05em; }
-    .kpi-card h3 { font-family: var(--font-display); font-size: 2rem; font-weight: 700; margin: 0.4rem 0; color: #fff; }
-    .kpi-card .trend { font-size: 0.8rem; font-weight: 600; display: flex; align-items: center; gap: 0.3rem; }
-    .trend-up { color: var(--emerald); }
-    .trend-down { color: var(--rose); }
-
-    /* Tables */
-    .table-container {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      margin-top: 1.5rem;
-    }
-    .table-header {
-      padding: 1.25rem 1.5rem;
-      border-bottom: 1px solid var(--border);
+    /* Top Action Row */
+    .top-action-row {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-start;
+      margin-bottom: 1.75rem;
       flex-wrap: wrap;
       gap: 1rem;
     }
-    .table-header h2 { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; }
-    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.875rem; }
-    th {
-      background: rgba(13, 21, 39, 0.95);
-      padding: 0.85rem 1.25rem;
-      color: var(--text-muted);
-      font-size: 0.75rem;
-      text-transform: uppercase;
+    .view-title-block h2 {
+      color: var(--accent-blue);
+      font-size: 1.25rem;
       font-weight: 700;
-      letter-spacing: 0.05em;
-      border-bottom: 1px solid var(--border);
+      margin-bottom: 0.3rem;
     }
-    td {
-      padding: 1rem 1.25rem;
-      border-bottom: 1px solid var(--border);
+    .view-title-block p {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+
+    .btn-download-pdf {
+      background-color: var(--accent-red);
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.925rem;
+      padding: 0.75rem 1.5rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 4px 12px rgba(255, 75, 75, 0.25);
+      transition: opacity 0.15s, transform 0.15s;
+    }
+    .btn-download-pdf:hover {
+      opacity: 0.92;
+      transform: translateY(-1px);
+    }
+
+    /* 5 KPI Cards Row */
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1.15rem;
+      margin-bottom: 1.75rem;
+    }
+    .kpi-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 12px;
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 140px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+    }
+    .kpi-card.c-blue { border-left: 5px solid var(--accent-blue); }
+    .kpi-card.c-green { border-left: 5px solid var(--accent-green); }
+    .kpi-card.c-indigo { border-left: 5px solid var(--accent-indigo); }
+    .kpi-card.c-purple { border-left: 5px solid var(--accent-purple); }
+    .kpi-card.c-pink { border-left: 5px solid var(--accent-pink); }
+
+    .kpi-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+    .kpi-value {
+      font-size: 36px;
+      font-weight: 800;
+      margin: 6px 0;
+      line-height: 1.15;
+    }
+    .kpi-card.c-blue .kpi-value { color: var(--accent-blue); }
+    .kpi-card.c-green .kpi-value { color: var(--accent-green); }
+    .kpi-card.c-indigo .kpi-value { color: var(--accent-indigo); }
+    .kpi-card.c-purple .kpi-value { color: var(--accent-purple); }
+    .kpi-card.c-pink .kpi-value { color: var(--accent-pink); }
+
+    .kpi-detail {
+      font-size: 14px;
+      font-weight: 500;
       color: #cbd5e1;
     }
-    tr:last-child td { border-bottom: none; }
-    tr:hover td { background: var(--bg-card-hover); }
 
-    .lead-name { font-weight: 600; color: #fff; }
-    .lead-comp { font-size: 0.75rem; color: var(--text-muted); }
-    .score-badge {
-      display: inline-block;
-      padding: 0.2rem 0.6rem;
-      border-radius: 6px;
-      font-weight: 700;
-      font-size: 0.75rem;
-      font-family: var(--font-mono);
+    /* Dual Column Layout: Chart & Product Table */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
     }
-    .score-high { background: rgba(52, 211, 153, 0.15); color: var(--emerald); }
-    .score-med { background: rgba(251, 191, 36, 0.15); color: var(--amber); }
+    .chart-panel, .table-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+    }
+    .panel-heading {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 1rem;
+    }
 
-    .btn-wa {
-      background: rgba(37, 211, 102, 0.15);
-      border: 1px solid rgba(37, 211, 102, 0.35);
-      color: #25d366;
-      border-radius: 6px;
-      padding: 0.35rem 0.75rem;
-      font-size: 0.8rem;
+    /* St Dataframe Table */
+    .st-table-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      max-height: 380px;
+    }
+    table.st-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.85rem;
+    }
+    table.st-table th {
+      background: rgba(19, 23, 34, 0.95);
+      color: var(--text-muted);
+      font-weight: 700;
+      padding: 0.65rem 0.85rem;
+      border-bottom: 1px solid var(--border-card);
+      font-size: 0.75rem;
+      white-space: nowrap;
+    }
+    table.st-table td {
+      padding: 0.65rem 0.85rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: #cbd5e1;
+      white-space: nowrap;
+    }
+    table.st-table tr:hover td {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    /* Dynamic View Panes */
+    .view-pane { display: none; }
+    .view-pane.active { display: block; animation: fadeIn 0.15s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    /* Buttons & Badges in tables */
+    .badge-status {
+      display: inline-block;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    .bg-green { background: rgba(74, 222, 128, 0.15); color: var(--accent-green); }
+    .bg-blue { background: rgba(56, 189, 248, 0.15); color: var(--accent-blue); }
+    .bg-yellow { background: rgba(251, 191, 36, 0.15); color: #fbbf24; }
+
+    .btn-action {
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: var(--accent-blue);
+      border-radius: 4px;
+      padding: 0.3rem 0.65rem;
+      font-size: 0.78rem;
       font-weight: 600;
+      cursor: pointer;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 0.35rem;
-      transition: all 0.2s;
+      gap: 0.3rem;
     }
-    .btn-wa:hover {
-      background: #25d366;
-      color: #070b14;
-    }
-
-    .btn-detail {
-      background: rgba(56, 189, 248, 0.1);
-      border: 1px solid rgba(56, 189, 248, 0.25);
-      color: var(--accent);
-      border-radius: 6px;
-      padding: 0.35rem 0.75rem;
-      font-size: 0.8rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .btn-detail:hover {
-      background: var(--accent);
-      color: #070b14;
+    .btn-action:hover {
+      background: var(--accent-blue);
+      color: #0e1117;
     }
 
-    /* Modal Ficha 360 */
-    .modal-overlay {
+    /* Modal for 360 & PDF */
+    .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(7, 11, 20, 0.8);
-      backdrop-filter: blur(8px);
-      z-index: 100;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(6px);
+      z-index: 99;
       display: none;
       place-items: center;
       padding: 1.5rem;
     }
-    .modal-overlay.open { display: grid; }
-    .modal-card {
-      background: #0f182c;
-      border: 1px solid var(--border-accent);
-      border-radius: 16px;
-      max-width: 650px;
+    .modal-backdrop.open { display: grid; }
+    .modal-box {
+      background: #161b26;
+      border: 1px solid var(--border-card);
+      border-radius: 12px;
+      max-width: 680px;
       width: 100%;
       padding: 2rem;
       position: relative;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-      animation: zoomIn 0.2s ease-out;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.7);
     }
-    @keyframes zoomIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-    .modal-close {
+    .modal-close-btn {
       position: absolute;
       top: 1.25rem;
       right: 1.25rem;
-      background: none;
+      background: transparent;
       border: none;
       color: var(--text-muted);
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       cursor: pointer;
     }
-    .modal-close:hover { color: #fff; }
 
-    /* WhatsApp Simulator */
-    .wa-chat-container {
-      display: grid;
-      grid-template-columns: 320px 1fr;
-      height: 580px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
+    @media (max-width: 1280px) {
+      .kpi-row { grid-template-columns: repeat(3, 1fr); }
+      .dashboard-grid { grid-template-columns: 1fr; }
     }
-    .chat-list {
-      border-right: 1px solid var(--border);
-      background: rgba(13, 21, 39, 0.75);
-      overflow-y: auto;
-    }
-    .chat-item {
-      padding: 1rem;
-      border-bottom: 1px solid var(--border);
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .chat-item:hover, .chat-item.active { background: rgba(56, 189, 248, 0.1); }
-    .chat-item h4 { font-size: 0.9rem; color: #fff; margin-bottom: 0.2rem; }
-    .chat-item p { font-size: 0.75rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
-    .chat-view {
-      display: flex;
-      flex-direction: column;
-      background: #0b1120;
-    }
-    .chat-messages {
-      flex: 1;
-      padding: 1.5rem;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .msg-bubble {
-      max-width: 75%;
-      padding: 0.75rem 1rem;
-      border-radius: 12px;
-      font-size: 0.875rem;
-      line-height: 1.4;
-    }
-    .msg-in {
-      align-self: flex-start;
-      background: #1e293b;
-      color: #f1f5f9;
-      border-bottom-left-radius: 2px;
-    }
-    .msg-out {
-      align-self: flex-end;
-      background: #0284c7;
-      color: #fff;
-      border-bottom-right-radius: 2px;
-    }
-    .msg-time {
-      font-size: 0.65rem;
-      color: rgba(255,255,255,0.6);
-      margin-top: 0.3rem;
-      text-align: right;
-    }
-
-    /* Accounting P&L Bars */
-    .pl-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1rem 1.25rem;
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      margin-bottom: 0.75rem;
-    }
-    .pl-positive { border-left: 4px solid var(--emerald); }
-    .pl-negative { border-left: 4px solid var(--rose); }
-    .pl-net { border-left: 4px solid var(--accent); background: rgba(56, 189, 248, 0.08); }
-
-    @media (max-width: 900px) {
-      .wa-chat-container { grid-template-columns: 1fr; height: auto; }
-      .chat-list { max-height: 200px; }
-      .chat-view { height: 400px; }
+    @media (max-width: 768px) {
+      aside.sidebar { display: none; }
+      .kpi-row { grid-template-columns: 1fr; }
+      .view-container { padding: 1rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Top Bar -->
-  <header class="topbar">
-    <div class="brand">
-      <div class="brand-icon">DA</div>
-      <div>
-        <p>Plataforma de Consultoría & BI</p>
-        <h1>Data Analytics Studio</h1>
-      </div>
+  <!-- =========================================================================
+       SIDEBAR: IDENTICAL TO CONSULTORA STREAMLIT
+       ========================================================================= -->
+  <aside class="sidebar">
+    <div class="brand-header">
+      <div class="brand-title">Nexo Analytics</div>
+      <div class="brand-subtitle">Commercial & CRM Suite</div>
     </div>
 
-    <div class="search-box">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-      <input type="text" id="globalSearch" class="search-input" placeholder="Buscar cliente (ej: Juan Pérez, Elena Gómez)..." />
+    <!-- User Profile Card -->
+    <div class="user-card">
+      <div class="user-name">Francisco Delgado</div>
+      <div class="user-email">demo.admin@nexo-analytics.com</div>
+      <div class="user-role">ROL: ADMIN</div>
+      <button class="btn-logout-sidebar" onclick="alert('Sesión administrativa activa en entorno de demostración.')">
+        🚪 Cerrar Sesión
+      </button>
     </div>
 
-    <div class="meta-badges">
-      <span class="badge badge-live">Demo Interconectada Activa</span>
-      <a href="https://github.com/Franc-Devel/Data-Analytics-Studio" target="_blank" rel="noopener" class="badge badge-repo">
-        GitHub Repo ↗
-      </a>
+    <!-- Navigation List -->
+    <div class="nav-label">Navegación</div>
+    <ul class="nav-list" id="navSidebar">
+      <li class="nav-item active" data-view="resumen">
+        <div class="radio-dot"></div>
+        <span>Resumen ejecutivo</span>
+      </li>
+      <li class="nav-item" data-view="ficha360">
+        <div class="radio-dot"></div>
+        <span>Ficha 360° & Pipeline CRM</span>
+      </li>
+      <li class="nav-item" data-view="informes-ia">
+        <div class="radio-dot"></div>
+        <span>Informes IA</span>
+      </li>
+      <li class="nav-item" data-view="crm-explorador">
+        <div class="radio-dot"></div>
+        <span>CRM & Leads (Explorador)</span>
+      </li>
+      <li class="nav-item" data-view="reactivacion">
+        <div class="radio-dot"></div>
+        <span>Plan de Reactivación</span>
+      </li>
+      <li class="nav-item" data-view="reuniones">
+        <div class="radio-dot"></div>
+        <span>Reuniones & Fichas Técnicas</span>
+      </li>
+      <li class="nav-item" data-view="pauta">
+        <div class="radio-dot"></div>
+        <span>Pauta & Conversión</span>
+      </li>
+      <li class="nav-item" data-view="campanas">
+        <div class="radio-dot"></div>
+        <span>Campañas</span>
+      </li>
+      <li class="nav-item" data-view="geografia">
+        <div class="radio-dot"></div>
+        <span>Geografía & Territorio</span>
+      </li>
+      <li class="nav-item" data-view="informes-pdf">
+        <div class="radio-dot"></div>
+        <span>Informes mensuales & PDF</span>
+      </li>
+      <li class="nav-item" data-view="whatsapp">
+        <div class="radio-dot"></div>
+        <span>WhatsApp & Cola de Salida</span>
+      </li>
+      <li class="nav-item" data-view="calidad">
+        <div class="radio-dot"></div>
+        <span>Calidad de datos</span>
+      </li>
+      <li class="nav-item" data-view="admin">
+        <div class="radio-dot"></div>
+        <span>Administración & Auditoría</span>
+      </li>
+    </ul>
+
+    <div class="sidebar-divider"></div>
+
+    <!-- Collapsible Panels -->
+    <div class="collapsible-header" onclick="alert('Coequiper IA disponible: Permite adjuntar facturas y remitos para auditar con OCR.')">
+      <span>› 📄 Coequiper IA: Cargar Documento</span>
     </div>
-  </header>
+    <div class="collapsible-header" onclick="alert('Actualizador dinámico: Permite reemplazar en caliente las bases de datos Leeds orden.xlsx y Comercial.xlsx.')">
+      <span>› 📂 Actualizar Bases de Datos</span>
+    </div>
+  </aside>
 
-  <!-- Navigation Tabs -->
-  <nav class="tab-bar">
-    <button class="tab-btn active" data-tab="crm">📇 CRM & Leads 360°</button>
-    <button class="tab-btn" data-tab="ingesta">📂 Ingesta & Calidad (98%)</button>
-    <button class="tab-btn" data-tab="pauta">📊 Pauta & Conversión (Ads)</button>
-    <button class="tab-btn" data-tab="contabilidad">📈 Estado de Resultados</button>
-    <button class="tab-btn" data-tab="whatsapp">📲 WhatsApp Simulator</button>
-  </nav>
-
-  <!-- Content Container -->
-  <main class="content-area">
-
-    <!-- TAB 1: CRM & LEADS -->
-    <section id="tab-crm" class="tab-content active">
-      <div class="kpi-row">
-        <div class="kpi-card">
-          <p>Leads Totales Activos</p>
-          <h3 id="crmTotalLeads">17</h3>
-          <span class="trend trend-up">↑ 100% Calificados y clasificados</span>
-        </div>
-        <div class="kpi-card">
-          <p>Cotizaciones en Pipeline</p>
-          <h3>$1.645.000</h3>
-          <span class="trend trend-up">↑ Tasa de cierre proyectada 78%</span>
-        </div>
-        <div class="kpi-card">
-          <p>Reuniones Asignadas</p>
-          <h3>6 Agendadas</h3>
-          <span class="trend trend-up">Closers: Jony, Luisa, Sergio, Alon</span>
-        </div>
-        <div class="kpi-card">
-          <p>Recontacto Comercial</p>
-          <h3>🟢 Activo</h3>
-          <span class="trend trend-up">Protección anti-saturación hoy</span>
-        </div>
+  <!-- =========================================================================
+       MAIN VIEWPORT
+       ========================================================================= -->
+  <main class="main-viewport">
+    
+    <!-- Streamlit Top Header -->
+    <header class="st-topbar">
+      <div class="top-user-pill">
+        <span>👤 Francisco Delgado <strong>ADMIN</strong></span>
       </div>
+      <button class="btn-logout-top" onclick="alert('Sesión demo')">
+        🚪 Cerrar Sesión
+      </button>
+      <span class="deploy-text">Deploy ⌄</span>
+    </header>
 
-      <div class="table-container">
-        <div class="table-header">
-          <h2>Prospectos Comerciales Interconectados</h2>
-          <span style="font-size: 0.8rem; color: var(--text-muted);">Filtrado en caliente disponible</span>
-        </div>
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Cliente / Empresa</th>
-              <th>Producto</th>
-              <th>Closer</th>
-              <th>Cotización</th>
-              <th>Score</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody id="crmTableBody">
-            <!-- Dynamically populated -->
-          </tbody>
-        </table>
-      </div>
-    </section>
+    <div class="view-container">
 
-    <!-- TAB 2: INGESTA & CALIDAD -->
-    <section id="tab-ingesta" class="tab-content">
-      <div class="kpi-row">
-        <div class="kpi-card">
-          <p>Data Quality Score</p>
-          <h3 style="color: var(--emerald);">98.4%</h3>
-          <span class="trend trend-up">✓ Completitud óptima validada</span>
-        </div>
-        <div class="kpi-card">
-          <p>Filas Ingestadas</p>
-          <h3>17 Filas</h3>
-          <span class="trend">sample_leads.xlsx & Comercial.xlsx</span>
-        </div>
-        <div class="kpi-card">
-          <p>Detección de Duplicados</p>
-          <h3 style="color: var(--emerald);">0 Filas</h3>
-          <span class="trend trend-up">✓ Deduplicación por teléfono y hash</span>
-        </div>
-        <div class="kpi-card">
-          <p>Formato Canónico E.164</p>
-          <h3 style="color: var(--accent);">100%</h3>
-          <span class="trend trend-up">✓ Códigos de área normalizados</span>
-        </div>
-      </div>
-
-      <div class="table-container">
-        <div class="table-header">
-          <h2>Auditoría de Columnas & Métricas Univariadas</h2>
-          <span class="badge badge-live">Sniffer Automático CSV/XLSX</span>
-        </div>
-        <table>
-          <thead>
-            <tr>
-              <th>Columna</th>
-              <th>Tipo Inferido</th>
-              <th>Valores No Nulos</th>
-              <th>Completitud</th>
-              <th>Observación de Auditoría</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>NUMERO (ID_Lead)</strong></td>
-              <td><code>INTEGER</code></td>
-              <td>17 / 17</td>
-              <td><span style="color: var(--emerald);">100.0%</span></td>
-              <td>Clave primaria unívoca serializada</td>
-            </tr>
-            <tr>
-              <td><strong>NOMBRE (Contacto)</strong></td>
-              <td><code>STRING</code></td>
-              <td>17 / 17</td>
-              <td><span style="color: var(--emerald);">100.0%</span></td>
-              <td>Nombres y razones sociales estructuradas</td>
-            </tr>
-            <tr>
-              <td><strong>PRODUCTO (Telefono)</strong></td>
-              <td><code>PHONE_E164</code></td>
-              <td>17 / 17</td>
-              <td><span style="color: var(--emerald);">100.0%</span></td>
-              <td>Validado para envío automático de WhatsApp</td>
-            </tr>
-            <tr>
-              <td><strong>PRODUCTO.1 (Línea)</strong></td>
-              <td><code>CATEGORY</code></td>
-              <td>17 / 17</td>
-              <td><span style="color: var(--emerald);">100.0%</span></td>
-              <td>Sentek, Davis, Raphael, Galcon, GSI</td>
-            </tr>
-            <tr>
-              <td><strong>FECHA CONTACTO</strong></td>
-              <td><code>DATETIME</code></td>
-              <td>17 / 17</td>
-              <td><span style="color: var(--emerald);">100.0%</span></td>
-              <td>Historial de toques fechados en línea de tiempo</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- TAB 3: PAUTA & CONVERSION -->
-    <section id="tab-pauta" class="tab-content">
-      <div class="kpi-row">
-        <div class="kpi-card">
-          <p>Inversión en Campañas Meta Ads</p>
-          <h3>$1.610.000</h3>
-          <span class="trend trend-up">5 Líneas estratégicas activas</span>
-        </div>
-        <div class="kpi-card">
-          <p>Impresiones Totales</p>
-          <h3>1.330.000</h3>
-          <span class="trend">Alcance agroindustrial específico</span>
-        </div>
-        <div class="kpi-card">
-          <p>Conversaciones Iniciadas</p>
-          <h3>475 Leads</h3>
-          <span class="trend trend-up">Tasa de interacción comercial 3.57%</span>
-        </div>
-        <div class="kpi-card">
-          <p>Costo por Lead (CPL) Promedio</p>
-          <h3>$3.389</h3>
-          <span class="trend trend-up">↓ -12% vs. benchmark agropecuario</span>
-        </div>
-      </div>
-
-      <div class="table-container">
-        <div class="table-header">
-          <h2>Rendimiento de Pauta por Línea de Producto</h2>
-        </div>
-        <table>
-          <thead>
-            <tr>
-              <th>Producto</th>
-              <th>Inversión Total ($)</th>
-              <th>Impresiones</th>
-              <th>Leads / Conversaciones</th>
-              <th>CPL Unitario</th>
-              <th>Volumen Cotizado en CRM</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Sentek (Sondas de Humedad)</strong></td>
-              <td>$450.000</td>
-              <td>320.000</td>
-              <td>120</td>
-              <td>$3.750</td>
-              <td><span style="color: var(--emerald); font-weight:700;">$760.000</span> (Elena Gómez + Sofía Romero)</td>
-            </tr>
-            <tr>
-              <td><strong>Davis (Estaciones Meteorológicas)</strong></td>
-              <td>$380.000</td>
-              <td>290.000</td>
-              <td>95</td>
-              <td>$4.000</td>
-              <td><span style="color: var(--emerald); font-weight:700;">$670.000</span> (Juan Pérez + Lucas Fernández)</td>
-            </tr>
-            <tr>
-              <td><strong>Galcon (Riego Inteligente)</strong></td>
-              <td>$310.000</td>
-              <td>410.000</td>
-              <td>180</td>
-              <td>$1.722</td>
-              <td><span style="color: var(--emerald); font-weight:700;">$235.000</span> (Laura Díaz + Diego Martínez)</td>
-            </tr>
-            <tr>
-              <td><strong>Raphael (Válvulas Hidráulicas)</strong></td>
-              <td>$260.000</td>
-              <td>150.000</td>
-              <td>35</td>
-              <td>$7.428</td>
-              <td><span style="color: var(--emerald); font-weight:700;">$320.000</span> (Carlos Rodríguez)</td>
-            </tr>
-            <tr>
-              <td><strong>GSI (Silos y Almacenamiento)</strong></td>
-              <td>$210.000</td>
-              <td>180.000</td>
-              <td>45</td>
-              <td>$4.666</td>
-              <td><span style="color: var(--emerald); font-weight:700;">$185.000</span> (Martín Álvarez)</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- TAB 4: ESTADO DE RESULTADOS -->
-    <section id="tab-contabilidad" class="tab-content">
-      <div class="kpi-row">
-        <div class="kpi-card">
-          <p>Ingresos Totales</p>
-          <h3 style="color: var(--emerald);">$75.000</h3>
-          <span class="trend">Ventas, Servicios y Otros Ingresos</span>
-        </div>
-        <div class="kpi-card">
-          <p>Costo de Ventas Directo</p>
-          <h3 style="color: var(--rose);">$24.000</h3>
-          <span class="trend">Insumos y Adquisición directa</span>
-        </div>
-        <div class="kpi-card">
-          <p>Gastos Operativos & Impuestos</p>
-          <h3 style="color: var(--amber);">$13.800</h3>
-          <span class="trend">Operación, Logística y Cargas</span>
-        </div>
-        <div class="kpi-card">
-          <p>Utilidad Neta</p>
-          <h3 style="color: var(--accent);">$37.200</h3>
-          <span class="trend trend-up">Margen Neto: 49.6%</span>
-        </div>
-      </div>
-
-      <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;">
-        <h2 style="font-family: var(--font-display); font-size: 1.15rem; margin-bottom: 1.25rem;">Estado de Resultados Simplificado (P&L)</h2>
-        
-        <div class="pl-row pl-positive">
-          <div>
-            <strong>(+) Ingresos Totales por Ventas y Servicios</strong>
-            <p style="font-size: 0.75rem; color: var(--text-muted);">Ventas ($60.000) + Servicios ($12.000) + Otros ($3.000)</p>
+      <!-- =====================================================================
+           VISTA 1: RESUMEN EJECUTIVO (IDÉNTICA AL SCREENSHOT DE LA CONSULTORA)
+           ===================================================================== -->
+      <section id="view-resumen" class="view-pane active">
+        <div class="top-action-row">
+          <div class="view-title-block">
+            <h2>Resumen ejecutivo</h2>
+            <p>Inteligencia de negocios y Data Science comercial - <strong>466 leads seleccionados</strong> de 466 totales</p>
           </div>
-          <span style="font-family: var(--font-mono); font-size: 1.15rem; font-weight: 700; color: var(--emerald);">$75.000</span>
+          <button class="btn-download-pdf" onclick="openPdfModal()">
+            📄 Descargar Informe PDF Completo
+          </button>
         </div>
 
-        <div class="pl-row pl-negative">
-          <div>
-            <strong>(-) Costo de Ventas Directo</strong>
-            <p style="font-size: 0.75rem; color: var(--text-muted);">Costo de equipamiento y reposición</p>
+        <!-- 5 KPI Cards Row -->
+        <div class="kpi-row">
+          <div class="kpi-card c-blue">
+            <div class="kpi-title">Leads Analizados</div>
+            <div class="kpi-value">466</div>
+            <div class="kpi-detail">466 en base total</div>
           </div>
-          <span style="font-family: var(--font-mono); font-size: 1.15rem; font-weight: 700; color: var(--rose);">-$24.000</span>
-        </div>
-
-        <div class="pl-row" style="border-left: 4px solid #60a5fa;">
-          <div>
-            <strong>(=) Utilidad Bruta del Ejercicio</strong>
-            <p style="font-size: 0.75rem; color: var(--text-muted);">Margen Bruto de Operación: 68.0%</p>
+          <div class="kpi-card c-green">
+            <div class="kpi-title">Conversión CRM</div>
+            <div class="kpi-value">41.2%</div>
+            <div class="kpi-detail">192 ganados/derivados</div>
           </div>
-          <span style="font-family: var(--font-mono); font-size: 1.15rem; font-weight: 700; color: #60a5fa;">$51.000</span>
-        </div>
-
-        <div class="pl-row pl-negative">
-          <div>
-            <strong>(-) Gastos Operativos, Logística e Impuestos</strong>
-            <p style="font-size: 0.75rem; color: var(--text-muted);">Gastos ($9.000) + Impuestos ($3.600) + Varios ($1.200)</p>
+          <div class="kpi-card c-indigo">
+            <div class="kpi-title">Pauta Acumulada</div>
+            <div class="kpi-value">$ 1.55 M</div>
+            <div class="kpi-detail">Inversión 7 meses</div>
           </div>
-          <span style="font-family: var(--font-mono); font-size: 1.15rem; font-weight: 700; color: var(--rose);">-$13.800</span>
-        </div>
-
-        <div class="pl-row pl-net">
-          <div>
-            <strong style="color: var(--accent); font-size: 1.05rem;">(=) Utilidad Neta Final</strong>
-            <p style="font-size: 0.75rem; color: var(--text-muted);">Rendimiento disponible después de todos los costos</p>
+          <div class="kpi-card c-purple">
+            <div class="kpi-title">CPL Promedio</div>
+            <div class="kpi-value">$ 3,514</div>
+            <div class="kpi-detail">440 conversaciones</div>
           </div>
-          <span style="font-family: var(--font-mono); font-size: 1.35rem; font-weight: 800; color: var(--accent);">$37.200</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- TAB 5: WHATSAPP SIMULATOR -->
-    <section id="tab-whatsapp" class="tab-content">
-      <div class="wa-chat-container">
-        <!-- Sidebar Chats -->
-        <div class="chat-list" id="chatList">
-          <!-- Populated by JS -->
+          <div class="kpi-card c-pink">
+            <div class="kpi-title">Pipeline Cotizado</div>
+            <div class="kpi-value">$ 1.64 M</div>
+            <div class="kpi-detail">69 cotizaciones</div>
+          </div>
         </div>
 
-        <!-- Chat View Area -->
-        <div class="chat-view">
-          <div style="padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); background: rgba(13, 21, 39, 0.9); display: flex; justify-content: space-between; align-items: center;">
-            <div>
-              <h3 id="currentChatName" style="font-size: 1rem; color: #fff;">Juan Pérez</h3>
-              <p id="currentChatMeta" style="font-size: 0.75rem; color: var(--accent);">Agro del Sur S.A. · Davis Vantage Pro2</p>
+        <!-- Dashboard Grid: Chart & Product Table -->
+        <div class="dashboard-grid">
+          <div class="chart-panel">
+            <div class="panel-heading">Evolución Mensual de Inversión y Conversaciones</div>
+            <div style="position: relative; height: 350px;">
+              <canvas id="evolutionChart"></canvas>
             </div>
-            <a id="btnExternalWA" href="#" target="_blank" rel="noopener" class="btn-wa">Abrir wa.me ↗</a>
           </div>
 
-          <div class="chat-messages" id="chatMessages">
-            <!-- Messages inserted here -->
+          <div class="table-panel">
+            <div class="panel-heading">Rendimiento por Producto</div>
+            <div class="st-table-wrapper">
+              <table class="st-table">
+                <thead>
+                  <tr>
+                    <th>Linea_Producto</th>
+                    <th>Total_Leads</th>
+                    <th>Convertidos</th>
+                    <th>Remarketing</th>
+                    <th>Promedio_Contactos</th>
+                    <th>Score_Promedio</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Sentek</strong></td>
+                    <td>250</td>
+                    <td><span class="badge-status bg-green">118</span></td>
+                    <td>39</td>
+                    <td>46.99</td>
+                    <td><strong style="color:var(--accent-blue)">82.5</strong></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Davis</strong></td>
+                    <td>123</td>
+                    <td><span class="badge-status bg-green">47</span></td>
+                    <td>77</td>
+                    <td>19.70</td>
+                    <td><strong style="color:var(--accent-blue)">78.2</strong></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Jardinería</strong></td>
+                    <td>43</td>
+                    <td><span class="badge-status bg-green">10</span></td>
+                    <td>29</td>
+                    <td>9.65</td>
+                    <td><strong style="color:var(--accent-blue)">71.4</strong></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Raphael</strong></td>
+                    <td>31</td>
+                    <td><span class="badge-status bg-green">8</span></td>
+                    <td>22</td>
+                    <td>21.19</td>
+                    <td><strong style="color:var(--accent-blue)">74.0</strong></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Sin Especificar</strong></td>
+                    <td>8</td>
+                    <td><span class="badge-status bg-yellow">4</span></td>
+                    <td>4</td>
+                    <td>46.75</td>
+                    <td>55.1</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Automatismo</strong></td>
+                    <td>6</td>
+                    <td><span class="badge-status bg-yellow">3</span></td>
+                    <td>0</td>
+                    <td>28.50</td>
+                    <td>68.0</td>
+                  </tr>
+                  <tr>
+                    <td><strong>GSI PRO</strong></td>
+                    <td>3</td>
+                    <td><span class="badge-status bg-green">2</span></td>
+                    <td>1</td>
+                    <td>67.33</td>
+                    <td><strong style="color:var(--accent-blue)">84.1</strong></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
+      <!-- =====================================================================
+           VISTA 2: FICHA 360° & PIPELINE CRM
+           ===================================================================== -->
+      <section id="view-ficha360" class="view-pane">
+        <div class="view-title-block" style="margin-bottom: 1.5rem;">
+          <h2>📇 Ficha 360° & Pipeline CRM</h2>
+          <p>Trazabilidad integral de prospectos, historial de toques, closer asignado y estado comercial.</p>
+        </div>
+
+        <div style="background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;">
+          <input type="text" id="inputFilter360" placeholder="🔍 Buscar por nombre, empresa o teléfono (ej: Juan Pérez, Elena Gómez, 351)..." style="width: 100%; background: #0f1422; border: 1px solid var(--border-card); color: #fff; padding: 0.75rem 1rem; border-radius: 6px; font-size: 0.9rem; outline: none;" />
+        </div>
+
+        <div class="st-table-wrapper" style="background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 12px;">
+          <table class="st-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Cliente / Empresa</th>
+                <th>Teléfono (E.164)</th>
+                <th>Producto</th>
+                <th>Closer</th>
+                <th>Cotización</th>
+                <th>Lead Score</th>
+                <th>Acción 360°</th>
+              </tr>
+            </thead>
+            <tbody id="table360Body">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- =====================================================================
+           VISTA 3: INFORMES IA & COE突きPER
+           ===================================================================== -->
+      <section id="view-informes-ia" class="view-pane">
+        <div class="view-title-block" style="margin-bottom: 1.5rem;">
+          <h2>Informes IA · Coequiper Empresarial Local</h2>
+          <p>Modelos de lenguaje ejecutados en el borde (Ollama / Modelfile) para auditoría de documentos y scoring predictivo.</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+          <div style="background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 12px; padding: 1.5rem;">
+            <h3 style="color: var(--accent-blue); margin-bottom: 0.75rem;">Diagnóstico Predictivo de Conversión</h3>
+            <p style="font-size: 0.85rem; color: #cbd5e1; line-height: 1.6; margin-bottom: 1rem;">
+              El análisis algorítmico identificó <strong>14 leads de alta propensión (Score > 80)</strong> en las provincias de Córdoba y Buenos Aires que no han sido contactados en las últimas 48hs. Se recomienda activar cadencia con Jony y Luisa.
+            </p>
+            <div style="background: rgba(14, 17, 23, 0.8); padding: 1rem; border-radius: 8px; font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent-green);">
+              [IA RECOMMENDATION]: Activar plantilla 'Davis Vantage Vue' para segmento Agro Secano.<br/>
+              Probabilidad de respuesta estimada: 68.4%
+            </div>
+          </div>
+
+          <div style="background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 12px; padding: 1.5rem;">
+            <h3 style="color: var(--accent-indigo); margin-bottom: 0.75rem;">Auditoría Documental de Presupuestos</h3>
+            <p style="font-size: 0.85rem; color: #cbd5e1; line-height: 1.6; margin-bottom: 1rem;">
+              Último documento analizado: <code>Factura_Davis_Vantage_2026.pdf</code>.<br/>
+              Validación de precios de lista: <strong>Sin desvíos detectados</strong>.
+            </p>
+            <button class="btn-action" onclick="alert('Coequiper IA: Listo para procesar nuevos comprobantes.')">
+              ⚡ Ejecutar Nuevo Análisis de Cartera
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================================
+           VISTA 4: REUNIONES & CALENDARIO
+           ===================================================================== -->
+      <section id="view-reuniones" class="view-pane">
+        <div class="view-title-block" style="margin-bottom: 1.5rem;">
+          <h2>📅 Reuniones & Fichas Técnicas</h2>
+          <p>Agenda comercial con closers de venta y minutas técnicas de producto.</p>
+        </div>
+
+        <div class="st-table-wrapper" style="background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 12px;">
+          <table class="st-table">
+            <thead>
+              <tr>
+                <th>Fecha / Hora</th>
+                <th>Prospecto</th>
+                <th>Closer</th>
+                <th>Línea</th>
+                <th>Estado</th>
+                <th>Minuta / Requerimiento Agronómico</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>14/10 10:30 hs</strong></td>
+                <td>Juan Pérez (Agro del Sur)</td>
+                <td><strong style="color:var(--accent-blue)">Jony</strong></td>
+                <td>Davis</td>
+                <td><span class="badge-status bg-green">CONFIRMADA</span></td>
+                <td>Revisión técnica de sensores de viento y radiación solar en Córdoba.</td>
+              </tr>
+              <tr>
+                <td><strong>15/10 15:00 hs</strong></td>
+                <td>Elena Gómez (El Trébol)</td>
+                <td><strong style="color:var(--accent-blue)">Luisa</strong></td>
+                <td>Sentek</td>
+                <td><span class="badge-status bg-green">REALIZADA</span></td>
+                <td>Definición de profundidad de instalación (60cm y 90cm) con agrónomo.</td>
+              </tr>
+              <tr>
+                <td><strong>16/10 11:00 hs</strong></td>
+                <td>Carlos Rodríguez (Viñedos Mendoza)</td>
+                <td><strong style="color:var(--accent-blue)">Sergio</strong></td>
+                <td>Raphael</td>
+                <td><span class="badge-status bg-yellow">PENDIENTE</span></td>
+                <td>Memoria de cálculo de presión y golpe de ariete para riego por goteo.</td>
+              </tr>
+              <tr>
+                <td><strong>17/10 09:30 hs</strong></td>
+                <td>Laura Díaz (Viveros del Litoral)</td>
+                <td><strong style="color:var(--accent-blue)">Alon</strong></td>
+                <td>Galcon</td>
+                <td><span class="badge-status bg-green">CONFIRMADA</span></td>
+                <td>Capacitación de app móvil Galcon Bluetooth para invernáculos florales.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- =====================================================================
+           VISTA 5: WHATSAPP & COLA DE SALIDA
+           ===================================================================== -->
+      <section id="view-whatsapp" class="view-pane">
+        <div class="view-title-block" style="margin-bottom: 1.5rem;">
+          <h2>📲 WhatsApp & Cola de Salida</h2>
+          <p>Microservicio Baileys Node.js activo en segundo plano. Bandeja de entrada en tiempo real.</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 320px 1fr; height: 500px; background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 12px; overflow: hidden;">
+          <div style="background: rgba(19, 23, 34, 0.9); border-right: 1px solid var(--border-card); padding: 1rem; overflow-y: auto;">
+            <div style="font-size: 0.75rem; color: var(--accent-green); font-weight: 700; margin-bottom: 0.75rem;">🟢 BAILYS BRIDGE: CONECTADO</div>
+            <div onclick="switchWaChat(1)" style="padding: 0.75rem; border-radius: 6px; background: rgba(255,255,255,0.06); cursor: pointer; margin-bottom: 0.5rem;">
+              <strong style="color:#fff; font-size:0.85rem;">Juan Pérez (Agro del Sur)</strong>
+              <p style="font-size:0.75rem; color:var(--text-muted);">Davis · ¿El plazo de entrega es de 15 días?</p>
+            </div>
+            <div onclick="switchWaChat(2)" style="padding: 0.75rem; border-radius: 6px; background: rgba(255,255,255,0.02); cursor: pointer; margin-bottom: 0.5rem;">
+              <strong style="color:#fff; font-size:0.85rem;">Elena Gómez (El Trébol)</strong>
+              <p style="font-size:0.75rem; color:var(--text-muted);">Sentek · Transferimos el anticipo...</p>
+            </div>
+            <div onclick="switchWaChat(3)" style="padding: 0.75rem; border-radius: 6px; background: rgba(255,255,255,0.02); cursor: pointer;">
+              <strong style="color:#fff; font-size:0.85rem;">Carlos Rodríguez (Viñedos Mza)</strong>
+              <p style="font-size:0.75rem; color:var(--text-muted);">Raphael · Ficha técnica de válvulas...</p>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; background: #0b0f19;">
+            <div id="waChatHeader" style="padding: 1rem 1.5rem; border-bottom: 1px solid var(--border-card); font-size: 0.9rem; font-weight: 700; color: #fff;">
+              Conversación con Juan Pérez (+54 9 351 777-1234)
+            </div>
+            <div id="waChatMessages" style="flex: 1; padding: 1.5rem; overflow-y: auto; display: flex; flex-direction: column; gap: 0.85rem;">
+              <!-- Chat bubbles -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================================
+           VISTA 6: CALIDAD DE DATOS (AUDITORÍA & SNIFFER)
+           ===================================================================== -->
+      <section id="view-calidad" class="view-pane">
+        <div class="view-title-block" style="margin-bottom: 1.5rem;">
+          <h2>Calidad de Datos & Auditoría Tabular</h2>
+          <p>Métricas de completitud, detección de valores atípicos y normalización E.164.</p>
+        </div>
+
+        <div class="kpi-row" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 1.5rem;">
+          <div class="kpi-card c-green">
+            <div class="kpi-title">Data Quality Score</div>
+            <div class="kpi-value" style="color:var(--accent-green);">98.4%</div>
+            <div class="kpi-detail">Completitud óptima</div>
+          </div>
+          <div class="kpi-card c-blue">
+            <div class="kpi-title">Filas Validadas</div>
+            <div class="kpi-value">466</div>
+            <div class="kpi-detail">Leeds orden.xlsx</div>
+          </div>
+          <div class="kpi-card c-purple">
+            <div class="kpi-title">Duplicados</div>
+            <div class="kpi-value">0</div>
+            <div class="kpi-detail">Deduplicado por teléfono</div>
+          </div>
+          <div class="kpi-card c-pink">
+            <div class="kpi-title">Formato E.164</div>
+            <div class="kpi-value">100%</div>
+            <div class="kpi-detail">Teléfonos normalizados</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================================
+           VISTA 7: ADMINISTRACIÓN & AUDITORÍA
+           ===================================================================== -->
+      <section id="view-admin" class="view-pane">
+        <div class="view-title-block" style="margin-bottom: 1.5rem;">
+          <h2>⚙️ Administración & Auditoría Inmutable</h2>
+          <p>Registro de eventos transaccionales firmado con HMAC SHA-256 (Zero-Trust).</p>
+        </div>
+
+        <div class="st-table-wrapper" style="background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 12px;">
+          <table class="st-table">
+            <thead>
+              <tr>
+                <th>Timestamp</th>
+                <th>Usuario</th>
+                <th>Acción</th>
+                <th>Detalle Transaccional</th>
+                <th>Hash Inmutable (HMAC)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>2026-10-10 21:15</td>
+                <td>admin</td>
+                <td><span class="badge-status bg-blue">EXPORT_EXCEL</span></td>
+                <td>Exportación de cotizaciones mensuales comercial a XLSX</td>
+                <td><code style="font-family:var(--font-mono); font-size:0.75rem;">sha256:7f9a2b8c4d...</code></td>
+              </tr>
+              <tr>
+                <td>2026-10-10 19:40</td>
+                <td>jony</td>
+                <td><span class="badge-status bg-green">UPDATE_LEAD</span></td>
+                <td>Cambio de estado a Cotizado: Juan Pérez ($280.000)</td>
+                <td><code style="font-family:var(--font-mono); font-size:0.75rem;">sha256:3a1c9e4f52...</code></td>
+              </tr>
+              <tr>
+                <td>2026-10-10 18:22</td>
+                <td>luisa</td>
+                <td><span class="badge-status bg-green">CLOSE_DEAL</span></td>
+                <td>Orden cerrada y anticipo registrado: Elena Gómez ($450.000)</td>
+                <td><code style="font-family:var(--font-mono); font-size:0.75rem;">sha256:b8d4f1e09a...</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Fallback container for other tabs -->
+      <section id="view-generic" class="view-pane">
+        <div class="view-title-block" style="margin-bottom: 1.5rem;">
+          <h2 id="genericTitle">Módulo</h2>
+          <p id="genericSubtitle">Panel analítico del sistema.</p>
+        </div>
+        <div style="background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 12px; padding: 2rem;">
+          <p style="color: var(--text-muted);">Módulo sincronizado con la base de datos de Nexo Analytics. Datos filtrados para el perfil actual.</p>
+        </div>
+      </section>
+
+    </div>
   </main>
 
-  <!-- Modal Ficha 360 -->
-  <div class="modal-overlay" id="leadModal">
-    <div class="modal-card">
-      <button class="modal-close" id="closeModal">&times;</button>
-      <div style="display: flex; gap: 0.75rem; align-items: center; margin-bottom: 1.25rem;">
-        <span class="brand-icon" style="width: 36px; height: 36px; font-size: 0.9rem;">360</span>
-        <div>
-          <h2 id="modalLeadName" style="font-family: var(--font-display); font-size: 1.35rem;">Juan Pérez</h2>
-          <p id="modalLeadCompany" style="font-size: 0.8rem; color: var(--accent);">Agro del Sur S.A. (Córdoba)</p>
+  <!-- =========================================================================
+       MODAL FICHA 360°
+       ========================================================================= -->
+  <div class="modal-backdrop" id="modal360">
+    <div class="modal-box">
+      <button class="modal-close-btn" onclick="close360Modal()">&times;</button>
+      <div style="margin-bottom: 1.25rem;">
+        <h2 id="m360Name" style="color: #fff; font-size: 1.4rem;">Juan Pérez</h2>
+        <p id="m360Company" style="color: var(--accent-blue); font-size: 0.85rem;">Agro del Sur S.A. (Córdoba)</p>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.25rem;">
+        <div style="background: rgba(255,255,255,0.03); padding: 0.75rem; border-radius: 8px;">
+          <span style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase;">Teléfono</span>
+          <div id="m360Phone" style="font-family:var(--font-mono); font-size:0.85rem; color:#fff;">+54 9 351 777-1234</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.03); padding: 0.75rem; border-radius: 8px;">
+          <span style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase;">Closer Asignado</span>
+          <div id="m360Closer" style="font-weight:700; color:var(--accent-green);">Jony</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.03); padding: 0.75rem; border-radius: 8px;">
+          <span style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase;">Cotización Registrada</span>
+          <div id="m360Quote" style="font-weight:700; color:var(--accent-blue);">$280.000 (80%)</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.03); padding: 0.75rem; border-radius: 8px;">
+          <span style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase;">Lead Score</span>
+          <div id="m360Score" style="font-weight:700; color:var(--accent-purple);">85 / 100 pts</div>
         </div>
       </div>
-
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
-        <div style="background: rgba(15, 23, 42, 0.8); padding: 0.85rem; border-radius: 8px;">
-          <p style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Teléfono</p>
-          <strong id="modalPhone" style="font-family: var(--font-mono); font-size: 0.85rem;">+54 9 351 777-1234</strong>
-        </div>
-        <div style="background: rgba(15, 23, 42, 0.8); padding: 0.85rem; border-radius: 8px;">
-          <p style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Closer Asignado</p>
-          <strong id="modalCloser" style="color: var(--emerald);">Jony</strong>
-        </div>
-        <div style="background: rgba(15, 23, 42, 0.8); padding: 0.85rem; border-radius: 8px;">
-          <p style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Cotización Registrada</p>
-          <strong id="modalQuote" style="color: var(--accent);">$280.000</strong>
-        </div>
-        <div style="background: rgba(15, 23, 42, 0.8); padding: 0.85rem; border-radius: 8px;">
-          <p style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Lead Score</p>
-          <strong id="modalScore" style="color: var(--emerald);">85 / 100</strong>
-        </div>
+      <div style="background: rgba(255,255,255,0.03); padding: 0.85rem; border-radius: 8px; margin-bottom: 1rem;">
+        <strong style="font-size:0.8rem; color:#fff;">Reunión & Minuta:</strong>
+        <p id="m360Meeting" style="font-size:0.85rem; color:var(--text-muted); margin-top:0.3rem;">Revisión de sensores de viento y radiación solar.</p>
       </div>
-
-      <div style="background: rgba(15, 23, 42, 0.8); padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
-        <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.35rem; font-weight: 600;">Reunión / Minuta Técnica Agendada:</p>
-        <p id="modalMeeting" style="font-size: 0.85rem; color: #cbd5e1;">Revisión técnica de sensores de viento y radiación solar.</p>
-      </div>
-
-      <div style="background: rgba(15, 23, 42, 0.8); padding: 1rem; border-radius: 8px;">
-        <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.35rem; font-weight: 600;">Última Interacción WhatsApp:</p>
-        <p id="modalLastWA" style="font-size: 0.85rem; color: #cbd5e1;">"Stock garantizado y entrega dentro de 15 días hábiles..."</p>
+      <div style="display:flex; justify-content:flex-end; gap:0.75rem;">
+        <a id="m360WaBtn" href="#" target="_blank" rel="noopener" class="btn-action" style="background:#25d366; color:#0e1117; border-color:#25d366;">
+          Abrir en WhatsApp Web ↗
+        </a>
       </div>
     </div>
   </div>
 
+  <!-- PDF Modal -->
+  <div class="modal-backdrop" id="modalPdf">
+    <div class="modal-box" style="text-align: center;">
+      <button class="modal-close-btn" onclick="closePdfModal()">&times;</button>
+      <div style="font-size: 3rem; margin-bottom: 1rem;">📄</div>
+      <h2 style="color: #fff; margin-bottom: 0.5rem;">Informe Ejecutivo Nexo Analytics</h2>
+      <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;">
+        Generación automatizada en PDF de alta fidelidad con ReportLab: portada corporativa, tarjetas KPI, gráficos vectoriales y desglose de closers.
+      </p>
+      <button class="btn-download-pdf" style="margin: 0 auto;" onclick="alert('Generación de informe completada. Descargando informe_ejecutivo_nexo.pdf'); closePdfModal();">
+        Descargar Archivo PDF
+      </button>
+    </div>
+  </div>
+
   <script>
-    // Dataset Interconectado Idéntico a los archivos Excel y Base de Datos
-    const CONNECTED_DATA = [
+    // =========================================================================
+    // DATASET INTERCONECTADO IDÉNTICO AL ORIGINAL
+    // =========================================================================
+    const CLIENTES_INTERCONECTADOS = [
       {
         id: 1,
         name: "Juan Pérez",
-        company: "Agro del Sur S.A.",
-        location: "Córdoba",
+        company: "Agro del Sur S.A. (Córdoba)",
         phone: "+54 9 351 777-1234",
         cleanPhone: "5493517771234",
         product: "Davis Vantage Pro2",
@@ -830,18 +1043,16 @@
         quote: "$280.000",
         prob: "80%",
         score: 85,
-        status: "Cotizado",
-        meeting: "Revisión técnica de sensores de viento y radiación solar en Córdoba.",
+        meeting: "Revisión técnica de sensores de viento y radiación solar en predio Córdoba.",
         chat: [
-          { text: "Hola Jony, recibimos la cotización de las estaciones Davis Vantage. ¿El plazo de entrega es de 15 días?", fromMe: false, time: "10:15" },
-          { text: "Hola Juan! Exacto, stock garantizado y entrega dentro de 15 días hábiles tras confirmación.", fromMe: true, time: "10:22" }
+          { fromMe: false, text: "Hola Jony, recibimos la cotización de las estaciones Davis Vantage. ¿El plazo de entrega es de 15 días?", time: "10:15" },
+          { fromMe: true, text: "Hola Juan! Exacto, stock garantizado y entrega dentro de 15 días hábiles tras confirmación.", time: "10:22" }
         ]
       },
       {
         id: 2,
         name: "Elena Gómez",
-        company: "Establecimiento El Trébol",
-        location: "Buenos Aires",
+        company: "Establecimiento El Trébol (Pergamino)",
         phone: "+54 9 11 5555-4444",
         cleanPhone: "5491155554444",
         product: "Sentek Drill & Drop",
@@ -849,18 +1060,16 @@
         quote: "$450.000",
         prob: "100%",
         score: 95,
-        status: "Ganado / Despacho",
         meeting: "Definición de profundidad de instalación (60cm y 90cm) con agrónomo.",
         chat: [
-          { text: "Buenas tardes Luisa, transferimos el anticipo de las sondas Sentek. Adjunto comprobante.", fromMe: false, time: "14:30" },
-          { text: "Excelente Elena, pago acreditado. Ya coordinamos el despacho para el lunes.", fromMe: true, time: "14:45" }
+          { fromMe: false, text: "Buenas tardes Luisa, transferimos el anticipo de las sondas Sentek. Te adjunto comprobante.", time: "14:30" },
+          { fromMe: true, text: "Excelente Elena, pago acreditado. Ya coordinamos el despacho para el lunes.", time: "14:45" }
         ]
       },
       {
         id: 3,
         name: "Carlos Rodríguez",
         company: "Viñedos & Bodegas Mendoza",
-        location: "Mendoza",
         phone: "+54 9 261 444-3322",
         cleanPhone: "5492614443322",
         product: "Válvulas Raphael",
@@ -868,18 +1077,16 @@
         quote: "$320.000",
         prob: "70%",
         score: 75,
-        status: "Evaluación Técnica",
-        meeting: "Presentación de memoria de cálculo de presión para riego por goteo.",
+        meeting: "Presentación de memoria de cálculo de presión y golpe de ariete para riego por goteo.",
         chat: [
-          { text: "Sergio, revisamos la ficha técnica de las válvulas Raphael. ¿Soportan presión variable?", fromMe: false, time: "11:05" },
-          { text: "Hola Carlos! Si, el diafragma reforzado tolera hasta 16 bar. Te paso las curvas en PDF.", fromMe: true, time: "11:20" }
+          { fromMe: false, text: "Sergio, revisamos la ficha técnica de las válvulas Raphael. ¿Soportan presión variable?", time: "11:05" },
+          { fromMe: true, text: "Hola Carlos! Sí, el diafragma reforzado tolera hasta 16 bar. Te paso las curvas en PDF.", time: "11:20" }
         ]
       },
       {
         id: 4,
         name: "Laura Díaz",
-        company: "Viveros del Litoral",
-        location: "Rosario",
+        company: "Viveros del Litoral (Rosario)",
         phone: "+54 9 341 666-7788",
         cleanPhone: "5493416667788",
         product: "Galcon Riego Inteligente",
@@ -887,18 +1094,16 @@
         quote: "$95.000",
         prob: "90%",
         score: 90,
-        status: "Aceptado",
-        meeting: "Capacitación de uso de app móvil Galcon Bluetooth para encargados de invernáculo.",
+        meeting: "Capacitación de uso de app móvil Galcon Bluetooth para invernáculos florales.",
         chat: [
-          { text: "Alon, confirmamos la compra de los controladores Galcon. Enviamos datos de facturación.", fromMe: false, time: "16:00" },
-          { text: "Perfecto Laura, factura emitida y envío despachado por encomienda.", fromMe: true, time: "16:15" }
+          { fromMe: false, text: "Alon, confirmamos la compra de los controladores Galcon. Enviamos datos de facturación.", time: "16:00" },
+          { fromMe: true, text: "Perfecto Laura, factura emitida y envío despachado por encomienda.", time: "16:15" }
         ]
       },
       {
         id: 5,
         name: "Martín Álvarez",
-        company: "Cereales del Centro",
-        location: "Balcarce",
+        company: "Cereales del Centro (Balcarce)",
         phone: "+54 9 221 777-1122",
         cleanPhone: "5492217771122",
         product: "GSI Termometría Silos",
@@ -906,126 +1111,178 @@
         quote: "$185.000",
         prob: "60%",
         score: 65,
-        status: "En Revisión",
         meeting: "Revisión de planos estructurales de silos de 5.000 toneladas.",
         chat: [
-          { text: "Jony, estamos evaluando los costos de instalación del sistema GSI para la cosecha.", fromMe: false, time: "09:40" },
-          { text: "Hola Martín! Podemos bonificar la mano de obra si confirmamos antes de fin de mes.", fromMe: true, time: "10:00" }
+          { fromMe: false, text: "Jony, estamos evaluando los costos de instalación del sistema GSI para la cosecha.", time: "09:40" },
+          { fromMe: true, text: "Hola Martín! Podemos bonificar la mano de obra si confirmamos antes de fin de mes.", time: "10:00" }
         ]
       }
     ];
 
-    // Navigation Tabs
-    const tabBtns = document.querySelectorAll('.tab-btn');
-    const tabContents = document.querySelectorAll('.tab-content');
-    tabBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        tabBtns.forEach(b => b.classList.remove('active'));
-        tabContents.forEach(c => c.classList.remove('active'));
-        btn.classList.add('active');
-        const target = document.getElementById('tab-' + btn.dataset.tab);
-        if (target) target.classList.add('active');
+    // =========================================================================
+    // DUAL-AXIS CHART (IDENTICAL TO CONSULTORA STREAMLIT CHART)
+    // =========================================================================
+    document.addEventListener("DOMContentLoaded", () => {
+      const ctx = document.getElementById("evolutionChart").getContext("2d");
+      new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Julio", "Agosto"],
+          datasets: [
+            {
+              label: "Inversión ($ ARS)",
+              data: [65000, 210000, 205000, 230000, 440000, 290000, 135000],
+              backgroundColor: "#6366f1",
+              borderRadius: 4,
+              yAxisID: "y"
+            },
+            {
+              label: "Conversaciones",
+              data: [18, 72, 65, 84, 144, 15, 68],
+              type: "line",
+              borderColor: "#10b981",
+              backgroundColor: "#10b981",
+              borderWidth: 3,
+              pointRadius: 5,
+              pointHoverRadius: 7,
+              yAxisID: "y1"
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: "top",
+              align: "end",
+              labels: { color: "#cbd5e1", font: { family: "Inter", size: 12 } }
+            }
+          },
+          scales: {
+            x: {
+              grid: { display: false },
+              ticks: { color: "#94a3b8", font: { family: "Inter" } }
+            },
+            y: {
+              type: "linear",
+              position: "left",
+              grid: { color: "rgba(255, 255, 255, 0.06)" },
+              ticks: {
+                color: "#94a3b8",
+                callback: (val) => val >= 1000 ? (val / 1000) + "k" : val
+              }
+            },
+            y1: {
+              type: "linear",
+              position: "right",
+              grid: { display: false },
+              ticks: { color: "#10b981" }
+            }
+          }
+        }
+      });
+
+      renderTable360(CLIENTES_INTERCONECTADOS);
+      switchWaChat(1);
+    });
+
+    // =========================================================================
+    // SIDEBAR NAVIGATION HANDLER
+    // =========================================================================
+    const navItems = document.querySelectorAll(".nav-item");
+    const viewPanes = document.querySelectorAll(".view-pane");
+
+    navItems.forEach(item => {
+      item.addEventListener("click", () => {
+        navItems.forEach(i => i.classList.remove("active"));
+        item.classList.add("active");
+
+        const targetView = item.dataset.view;
+        viewPanes.forEach(pane => pane.classList.remove("active"));
+
+        const directPane = document.getElementById("view-" + targetView);
+        if (directPane) {
+          directPane.classList.add("active");
+        } else {
+          const generic = document.getElementById("view-generic");
+          document.getElementById("genericTitle").textContent = item.querySelector("span").textContent;
+          document.getElementById("genericSubtitle").textContent = `Módulo ${item.querySelector("span").textContent} de Nexo Analytics.`;
+          generic.classList.add("active");
+        }
       });
     });
 
-    // Populate CRM Table
-    const tableBody = document.getElementById('crmTableBody');
-    function renderCRM(leads) {
-      tableBody.innerHTML = leads.map(l => `
+    // =========================================================================
+    // FICHA 360 & PIPELINE CRM TABLE
+    // =========================================================================
+    const table360Body = document.getElementById("table360Body");
+    function renderTable360(list) {
+      table360Body.innerHTML = list.map(c => `
         <tr>
-          <td><span style="font-family: var(--font-mono); color: var(--text-muted);">#${l.id}</span></td>
+          <td><span style="font-family:var(--font-mono); color:var(--text-muted)">#${c.id}</span></td>
           <td>
-            <div class="lead-name">${l.name}</div>
-            <div class="lead-comp">${l.company} (${l.location})</div>
+            <div style="font-weight:600; color:#fff;">${c.name}</div>
+            <div style="font-size:0.75rem; color:var(--text-muted);">${c.company}</div>
           </td>
-          <td><strong>${l.product}</strong></td>
-          <td><span style="color: var(--emerald); font-weight: 600;">${l.closer}</span></td>
-          <td><span style="font-family: var(--font-mono);">${l.quote}</span> <span style="font-size:0.75rem; color:var(--text-muted);">(${l.prob})</span></td>
-          <td><span class="score-badge ${l.score >= 80 ? 'score-high' : 'score-med'}">${l.score} pts</span></td>
+          <td><code style="font-family:var(--font-mono); font-size:0.8rem;">${c.phone}</code></td>
+          <td><strong>${c.product}</strong></td>
+          <td><strong style="color:var(--accent-blue)">${c.closer}</strong></td>
+          <td><strong style="font-family:var(--font-mono); color:var(--accent-green)">${c.quote}</strong> <span style="font-size:0.75rem; color:var(--text-muted)">(${c.prob})</span></td>
+          <td><span class="badge-status bg-blue">${c.score} pts</span></td>
           <td>
-            <div style="display: flex; gap: 0.4rem;">
-              <button class="btn-detail" onclick="open360Modal(${l.id})">Ficha 360°</button>
-              <a class="btn-wa" href="https://wa.me/${l.cleanPhone}?text=Hola%20${encodeURIComponent(l.name)}%20te%20escribo%20por%20${encodeURIComponent(l.product)}" target="_blank" rel="noopener">WhatsApp</a>
-            </div>
+            <button class="btn-action" onclick="open360Modal(${c.id})">Ver Ficha 360°</button>
           </td>
         </tr>
-      `).join('');
+      `).join("");
     }
-    renderCRM(CONNECTED_DATA);
 
-    // Global Search Across Leads
-    const searchInput = document.getElementById('globalSearch');
-    searchInput.addEventListener('input', (e) => {
+    document.getElementById("inputFilter360").addEventListener("input", (e) => {
       const q = e.target.value.toLowerCase().trim();
-      const filtered = CONNECTED_DATA.filter(l => 
-        l.name.toLowerCase().includes(q) ||
-        l.company.toLowerCase().includes(q) ||
-        l.product.toLowerCase().includes(q) ||
-        l.closer.toLowerCase().includes(q) ||
-        l.location.toLowerCase().includes(q)
+      const filtered = CLIENTES_INTERCONECTADOS.filter(c => 
+        c.name.toLowerCase().includes(q) ||
+        c.company.toLowerCase().includes(q) ||
+        c.product.toLowerCase().includes(q) ||
+        c.phone.includes(q)
       );
-      renderCRM(filtered);
+      renderTable360(filtered);
     });
 
-    // Modal 360
-    const modal = document.getElementById('leadModal');
-    const closeModal = document.getElementById('closeModal');
-    closeModal.addEventListener('click', () => modal.classList.remove('open'));
-    modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('open'); });
-
-    window.open360Modal = function(id) {
-      const lead = CONNECTED_DATA.find(l => l.id === id);
-      if (!lead) return;
-      document.getElementById('modalLeadName').textContent = lead.name;
-      document.getElementById('modalLeadCompany').textContent = `${lead.company} (${lead.location}) · ${lead.product}`;
-      document.getElementById('modalPhone').textContent = lead.phone;
-      document.getElementById('modalCloser').textContent = lead.closer;
-      document.getElementById('modalQuote').textContent = `${lead.quote} (${lead.prob})`;
-      document.getElementById('modalScore').textContent = `${lead.score} / 100`;
-      document.getElementById('modalMeeting').textContent = lead.meeting;
-      document.getElementById('modalLastWA').textContent = lead.chat[lead.chat.length - 1]?.text || 'Sin mensajes';
-      modal.classList.add('open');
-    };
-
-    // WhatsApp Simulator
-    const chatList = document.getElementById('chatList');
-    const chatMessages = document.getElementById('chatMessages');
-    const currentChatName = document.getElementById('currentChatName');
-    const currentChatMeta = document.getElementById('currentChatMeta');
-    const btnExternalWA = document.getElementById('btnExternalWA');
-
-    function selectChat(lead) {
-      currentChatName.textContent = lead.name;
-      currentChatMeta.textContent = `${lead.company} · ${lead.product} · Closer: ${lead.closer}`;
-      btnExternalWA.href = `https://wa.me/${lead.cleanPhone}?text=Hola%20${encodeURIComponent(lead.name)}`;
-      
-      chatMessages.innerHTML = lead.chat.map(m => `
-        <div class="msg-bubble ${m.fromMe ? 'msg-out' : 'msg-in'}">
-          <div>${m.text}</div>
-          <div class="msg-time">${m.time}</div>
-        </div>
-      `).join('');
-
-      document.querySelectorAll('.chat-item').forEach(item => {
-        item.classList.toggle('active', item.dataset.id == lead.id);
-      });
+    // 360 Modal Logic
+    const modal360 = document.getElementById("modal360");
+    function open360Modal(id) {
+      const c = CLIENTES_INTERCONECTADOS.find(x => x.id === id);
+      if (!c) return;
+      document.getElementById("m360Name").textContent = c.name;
+      document.getElementById("m360Company").textContent = c.company + " · " + c.product;
+      document.getElementById("m360Phone").textContent = c.phone;
+      document.getElementById("m360Closer").textContent = c.closer;
+      document.getElementById("m360Quote").textContent = `${c.quote} (Prob. ${c.prob})`;
+      document.getElementById("m360Score").textContent = `${c.score} / 100 pts`;
+      document.getElementById("m360Meeting").textContent = c.meeting;
+      document.getElementById("m360WaBtn").href = `https://wa.me/${c.cleanPhone}?text=Hola%20${encodeURIComponent(c.name)}`;
+      modal360.classList.add("open");
     }
+    function close360Modal() { modal360.classList.remove("open"); }
 
-    chatList.innerHTML = CONNECTED_DATA.map((l, idx) => `
-      <div class="chat-item ${idx === 0 ? 'active' : ''}" data-id="${l.id}">
-        <h4>${l.name}</h4>
-        <p>${l.company} · ${l.product}</p>
-      </div>
-    `).join('');
+    // PDF Modal Logic
+    const modalPdf = document.getElementById("modalPdf");
+    function openPdfModal() { modalPdf.classList.add("open"); }
+    function closePdfModal() { modalPdf.classList.remove("open"); }
 
-    chatList.querySelectorAll('.chat-item').forEach(item => {
-      item.addEventListener('click', () => {
-        const lead = CONNECTED_DATA.find(l => l.id == item.dataset.id);
-        if (lead) selectChat(lead);
-      });
-    });
-
-    selectChat(CONNECTED_DATA[0]);
+    // WhatsApp Switcher
+    function switchWaChat(id) {
+      const c = CLIENTES_INTERCONECTADOS.find(x => x.id === id);
+      if (!c) return;
+      document.getElementById("waChatHeader").textContent = `Conversación con ${c.name} (${c.phone}) · Closer: ${c.closer}`;
+      const msgContainer = document.getElementById("waChatMessages");
+      msgContainer.innerHTML = c.chat.map(m => `
+        <div style="align-self: ${m.fromMe ? 'flex-end' : 'flex-start'}; background: ${m.fromMe ? '#0284c7' : '#1e293b'}; color: #fff; padding: 0.75rem 1rem; border-radius: 10px; max-width: 75%; font-size: 0.85rem; line-height: 1.4;">
+          <div>${m.text}</div>
+          <div style="font-size: 0.65rem; color: rgba(255,255,255,0.6); text-align: right; margin-top: 0.25rem;">${m.time}</div>
+        </div>
+      `).join("");
+    }
   </script>
 </body>
 </html>
