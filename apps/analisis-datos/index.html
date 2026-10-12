@@ -20,11 +20,11 @@
       --text-muted: #786451;
       --text-dim: #786451;
       --accent-blue: #895522;
-      --accent-green: #4ade80;
+      --accent-green: #47664F;
       --accent-indigo: #895522;
       --accent-purple: #895522;
-      --accent-pink: #f472b6;
-      --accent-red: #ff4b4b;
+      --accent-pink: #985A4E;
+      --accent-red: #A34235;
       --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
     }
@@ -412,7 +412,7 @@
     }
     .bg-green { background: rgba(74, 222, 128, 0.15); color: var(--accent-green); }
     .bg-blue { background: rgba(169,111,53,0.15); color: var(--accent-blue); }
-    .bg-yellow { background: rgba(251, 191, 36, 0.15); color: #fbbf24; }
+    .bg-yellow { background: rgba(251, 191, 36, 0.15); color: #9B732A; }
 
     .btn-action {
       background: rgba(169,111,53,0.12);
@@ -507,7 +507,7 @@
     }
     .urgent-banner {
       background: rgba(236, 72, 153, 0.12);
-      border-left: 4px solid #ec4899;
+      border-left: 4px solid #985A4E;
       padding: 12px 18px;
       border-radius: 10px;
       margin-bottom: 1.25rem;
@@ -525,7 +525,7 @@
       color: #2B211A;
     }
     .btn-urgent {
-      background: #ec4899;
+      background: #985A4E;
       color: #2B211A;
       border: none;
       padding: 8px 16px;
@@ -593,7 +593,11 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible { 
 .swal2-popup { background:#FFFAF2!important; color:#2B211A!important; }
 .swal2-confirm { background:#895522!important; color:#FFFAF2!important; }
 </style>
-<style>.fauvor-product-brand{display:flex;align-items:center;gap:10px;color:#4A2A18;font-family:Georgia,serif;font-size:19px;flex-shrink:0;flex-wrap:wrap}.fauvor-product-brand img{object-fit:contain;max-width:100%}.fauvor-product-brand .product-mark{width:24px;height:24px}</style></head>
+<style>.fauvor-product-brand{display:flex;align-items:center;gap:10px;color:#4A2A18;font-family:Georgia,serif;font-size:19px;flex-shrink:0;flex-wrap:wrap}.fauvor-product-brand img{object-fit:contain;max-width:100%}.fauvor-product-brand .product-mark{width:24px;height:24px}</style><style>
+:root{--bg-app:#F7F1E6;--bg-sidebar:#F7F1E6;--bg-card:#FFFAF2;--border-card:#D6C0A3;--text-main:#2B211A;--text-muted:#65503D;--text-dim:#786451;--accent-blue:#895522;--accent-green:#47664F;--accent-indigo:#9B732A;--accent-purple:#80634F;--accent-pink:#985A4E;--accent-red:#A34235}
+header.st-topbar{background:#FFFAF2;border-bottom:1px solid #D6C0A3}.kpi-card,.chart-panel,.table-panel{background:#FFFAF2;border-color:#D6C0A3;box-shadow:0 3px 12px rgba(74,42,24,.07)}
+.kpi-title{color:#65503D}.kpi-detail,.panel-heading{color:#2B211A}table.st-table th{background:#EFE5D6;color:#4A2A18}table.st-table tbody tr:nth-child(even){background:#F7F1E6}.bg-green{background:#E9EFE7;color:#35553C}.bg-yellow{background:#F2E8D2;color:#795616}.bg-blue{background:#EFE5D6;color:#70451F}.btn-export{background:#895522;color:#FFFAF2}.btn-export:hover{background:#4A2A18}
+</style></head>
 <body>
 
   <!-- =========================================================================
@@ -1096,24 +1100,24 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible { 
             <div class="kpi-value" id="kpiCrmEnVista" style="color: #895522;">466</div>
             <div class="kpi-detail">466 en base total</div>
           </div>
-          <div class="kpi-card" style="border-top-color: #4ade80;">
+          <div class="kpi-card" style="border-top-color: #47664F;">
             <div class="kpi-label">Conversión CRM</div>
-            <div class="kpi-value" style="color: #4ade80;">18.2%</div>
+            <div class="kpi-value" style="color: #47664F;">18.2%</div>
             <div class="kpi-detail">85 ganados / derivados</div>
           </div>
-          <div class="kpi-card" style="border-top-color: #10b981;">
+          <div class="kpi-card" style="border-top-color: #47664F;">
             <div class="kpi-label">Hablados Hoy</div>
-            <div class="kpi-value" id="kpiCrmHoy" style="color: #10b981;">42</div>
+            <div class="kpi-value" id="kpiCrmHoy" style="color: #47664F;">42</div>
             <div class="kpi-detail">Contactados hoy (al día)</div>
           </div>
-          <div class="kpi-card" style="border-top-color: #ec4899;">
+          <div class="kpi-card" style="border-top-color: #985A4E;">
             <div class="kpi-label">Urgentes ≥14d</div>
-            <div class="kpi-value" id="kpiCrmUrgentes" style="color: #ec4899;">15</div>
+            <div class="kpi-value" id="kpiCrmUrgentes" style="color: #985A4E;">15</div>
             <div class="kpi-detail">Sin contacto por ≥2 semanas</div>
           </div>
           <div class="kpi-card" style="border-top-color: #D6C0A3;">
             <div class="kpi-label">En Seguimiento</div>
-            <div class="kpi-value" id="kpiCrmSeguimiento" style="color: #f59e0b;">128</div>
+            <div class="kpi-value" id="kpiCrmSeguimiento" style="color: #9B732A;">128</div>
             <div class="kpi-detail">65 Hot | 63 Warm</div>
           </div>
         </div>
@@ -1194,19 +1198,19 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible { 
         </div>
 
         <div class="kpi-row" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 1.5rem;">
-          <div class="kpi-card" style="border-top-color: #ec4899;">
+          <div class="kpi-card" style="border-top-color: #985A4E;">
             <div class="kpi-label">Leads Dormidos (>20d)</div>
-            <div class="kpi-value" style="color: #ec4899;">98</div>
+            <div class="kpi-value" style="color: #985A4E;">98</div>
             <div class="kpi-detail">Candidatos a campaña de recuperación</div>
           </div>
           <div class="kpi-card" style="border-top-color: #D6C0A3;">
             <div class="kpi-label">Valor Estimado en Riesgo</div>
-            <div class="kpi-value" style="color: #f59e0b;">$ 14.850.000</div>
+            <div class="kpi-value" style="color: #9B732A;">$ 14.850.000</div>
             <div class="kpi-detail">Presupuestos cotizados sin cierre</div>
           </div>
-          <div class="kpi-card" style="border-top-color: #10b981;">
+          <div class="kpi-card" style="border-top-color: #47664F;">
             <div class="kpi-label">Tasa de Éxito Histórica</div>
-            <div class="kpi-value" style="color: #10b981;">14.2%</div>
+            <div class="kpi-value" style="color: #47664F;">14.2%</div>
             <div class="kpi-detail">Retorno positivo tras 2do contacto</div>
           </div>
         </div>
@@ -1250,14 +1254,14 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible { 
             <div class="kpi-value" style="color: #895522;">8.420 <span style="font-size: 1rem; color: #895522;">(4.56%)</span></div>
             <div class="kpi-detail">184.500 impresiones totales</div>
           </div>
-          <div class="kpi-card" style="border-top-color: #ec4899;">
+          <div class="kpi-card" style="border-top-color: #985A4E;">
             <div class="kpi-label">CPL Promedio</div>
-            <div class="kpi-value" style="color: #ec4899;">$ 3.186</div>
+            <div class="kpi-value" style="color: #985A4E;">$ 3.186</div>
             <div class="kpi-detail">Costo por conversación iniciada</div>
           </div>
-          <div class="kpi-card" style="border-top-color: #10b981;">
+          <div class="kpi-card" style="border-top-color: #47664F;">
             <div class="kpi-label">ROAS Estimado</div>
-            <div class="kpi-value" style="color: #10b981;">8.4x</div>
+            <div class="kpi-value" style="color: #47664F;">8.4x</div>
             <div class="kpi-detail">Retorno comercial de inversión</div>
           </div>
         </div>
@@ -1276,17 +1280,17 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible { 
           </div>
           <div class="funnel-bar-container">
             <div class="funnel-label">3. Conversaciones / Leads</div>
-            <div class="funnel-progress-wrap"><div class="funnel-progress-fill" style="width: 25%; background: #ec4899;"></div></div>
+            <div class="funnel-progress-wrap"><div class="funnel-progress-fill" style="width: 25%; background: #985A4E;"></div></div>
             <div class="funnel-stat">466 leads (5.5%)</div>
           </div>
           <div class="funnel-bar-container">
             <div class="funnel-label">4. Cotizaciones Emitidas</div>
-            <div class="funnel-progress-wrap"><div class="funnel-progress-fill" style="width: 15%; background: #f59e0b;"></div></div>
+            <div class="funnel-progress-wrap"><div class="funnel-progress-fill" style="width: 15%; background: #9B732A;"></div></div>
             <div class="funnel-stat">142 cotizaciones</div>
           </div>
           <div class="funnel-bar-container">
             <div class="funnel-label">5. Ventas Cerradas</div>
-            <div class="funnel-progress-wrap"><div class="funnel-progress-fill" style="width: 9%; background: #10b981;"></div></div>
+            <div class="funnel-progress-wrap"><div class="funnel-progress-fill" style="width: 9%; background: #47664F;"></div></div>
             <div class="funnel-stat">85 órdenes (18.2%)</div>
           </div>
         </div>
@@ -1396,7 +1400,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible { 
                   <span style="color: var(--accent-blue); font-family: var(--font-mono);">84 leads (18.0%)</span>
                 </div>
                 <div style="height: 8px; background: rgba(169,111,53,0.06); border-radius: 4px; overflow: hidden;">
-                  <div style="width: 18.0%; height: 100%; background: #4ade80;"></div>
+                  <div style="width: 18.0%; height: 100%; background: #47664F;"></div>
                 </div>
               </div>
               <div>
@@ -1405,7 +1409,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible { 
                   <span style="color: var(--accent-blue); font-family: var(--font-mono);">56 leads (12.0%)</span>
                 </div>
                 <div style="height: 8px; background: rgba(169,111,53,0.06); border-radius: 4px; overflow: hidden;">
-                  <div style="width: 12.0%; height: 100%; background: #f59e0b;"></div>
+                  <div style="width: 12.0%; height: 100%; background: #9B732A;"></div>
                 </div>
               </div>
               <div>
@@ -1531,6 +1535,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible { 
   </div>
 
   <script>
+    Chart.defaults.color = "#2B211A";
+    Chart.defaults.borderColor = "#E5D8C6";
     // =========================================================================
     // DATASET INTERCONECTADO IDÉNTICO AL ORIGINAL
     // =========================================================================
@@ -1635,7 +1641,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible { 
             {
               label: "Inversión ($ ARS)",
               data: [65000, 210000, 205000, 230000, 440000, 290000, 135000],
-              backgroundColor: "#6366f1",
+              backgroundColor: "#895522",
               borderRadius: 4,
               yAxisID: "y"
             },
@@ -1643,8 +1649,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible { 
               label: "Conversaciones",
               data: [18, 72, 65, 84, 144, 15, 68],
               type: "line",
-              borderColor: "#10b981",
-              backgroundColor: "#10b981",
+              borderColor: "#47664F",
+              backgroundColor: "#47664F",
               borderWidth: 3,
               pointRadius: 5,
               pointHoverRadius: 7,
@@ -1659,20 +1665,20 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible { 
             legend: {
               position: "top",
               align: "end",
-              labels: { color: "#cbd5e1", font: { family: "Inter", size: 12 } }
+              labels: { color: "#2B211A", font: { family: "Inter", size: 12 } }
             }
           },
           scales: {
             x: {
               grid: { display: false },
-              ticks: { color: "#94a3b8", font: { family: "Inter" } }
+              ticks: { color: "#65503D", font: { family: "Inter" } }
             },
             y: {
               type: "linear",
               position: "left",
-              grid: { color: "rgba(255, 255, 255, 0.06)" },
+              grid: { color: "#E5D8C6" },
               ticks: {
-                color: "#94a3b8",
+                color: "#65503D",
                 callback: (val) => val >= 1000 ? (val / 1000) + "k" : val
               }
             },
@@ -1680,7 +1686,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible { 
               type: "linear",
               position: "right",
               grid: { display: false },
-              ticks: { color: "#10b981" }
+              ticks: { color: "#47664F" }
             }
           }
         }
@@ -2160,7 +2166,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible { 
             <td><span class="badge-status ${badgeClass}">${c.stage}</span></td>
             <td>
               ${c.daysInactive >= 14
-                ? `<span style="color: #ec4899; font-weight: 700;">⚠️ ${c.daysInactive} días</span>`
+                ? `<span style="color: #985A4E; font-weight: 700;">⚠️ ${c.daysInactive} días</span>`
                 : `<span style="color: var(--text-muted);">${c.daysInactive === 0 ? 'Hoy' : c.daysInactive + 'd'}</span>`}
             </td>
             <td><strong style="font-family: var(--font-mono); color: var(--accent-purple);">${c.score} pts</strong></td>
@@ -2225,7 +2231,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible { 
             <span style="font-size: 0.75rem; color: var(--text-muted);">${c.product}</span>
           </td>
           <td>${c.company}</td>
-          <td><span style="color: #ec4899; font-weight: 700;">⚠️ ${c.daysInactive} días sin contacto</span></td>
+          <td><span style="color: #985A4E; font-weight: 700;">⚠️ ${c.daysInactive} días sin contacto</span></td>
           <td><strong style="font-family: var(--font-mono); color: var(--accent-green);">${c.quote}</strong></td>
           <td>
             <code style="font-size: 0.78rem; background: rgba(169,111,53,0.05); padding: 3px 6px; border-radius: 4px; color: var(--accent-blue);">
