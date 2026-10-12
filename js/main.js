@@ -392,3 +392,18 @@ document.addEventListener('DOMContentLoaded', () => {
   });
  });
 });
+
+// Count once on entry; keep final values for screen readers and reduced motion.
+document.addEventListener('DOMContentLoaded', () => {
+ const region=document.querySelector('.impact-grid');
+ if(!region)return;
+ const numbers=[...region.querySelectorAll('[data-count]')];
+ if(matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window))return;
+ numbers.forEach(node=>{node.setAttribute('aria-hidden','true');node.textContent='0';});
+ const observer=new IntersectionObserver(entries=>{
+  if(!entries.some(entry=>entry.isIntersecting))return;
+  observer.disconnect();const start=performance.now();
+  function frame(now){const progress=Math.min(1,(now-start)/1500);const ease=1-Math.pow(1-progress,3);numbers.forEach(node=>{node.textContent=String(Math.round(Number(node.dataset.count)*ease));});if(progress<1)requestAnimationFrame(frame);}
+  requestAnimationFrame(frame);
+ },{threshold:.15});observer.observe(region);
+});
