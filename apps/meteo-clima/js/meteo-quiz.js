@@ -12,7 +12,7 @@ const CLIMATE_QUESTIONS = [
       <svg viewBox="0 0 300 100" width="100%" height="100%">
         <defs>
           <linearGradient id="dbzGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#38bdf8"/>
+            <stop offset="0%" stop-color="#895522"/>
             <stop offset="40%" stop-color="#10b981"/>
             <stop offset="70%" stop-color="#f59e0b"/>
             <stop offset="100%" stop-color="#f43f5e"/>
@@ -38,8 +38,8 @@ const CLIMATE_QUESTIONS = [
     question: "¿Hacia qué sentido giran los vientos alrededor de un centro de Baja Presión (Ciclón) en el Hemisferio Sur?",
     diagramSvg: `
       <svg viewBox="0 0 300 100" width="100%" height="100%">
-        <circle cx="150" cy="50" r="35" fill="none" stroke="#38bdf8" stroke-dasharray="4" stroke-width="1.5"/>
-        <circle cx="150" cy="50" r="20" fill="none" stroke="#38bdf8" stroke-width="1.5"/>
+        <circle cx="150" cy="50" r="35" fill="none" stroke="#895522" stroke-dasharray="4" stroke-width="1.5"/>
+        <circle cx="150" cy="50" r="20" fill="none" stroke="#895522" stroke-width="1.5"/>
         <text x="150" y="55" fill="#f43f5e" font-size="16" font-family="JetBrains Mono" font-weight="bold" text-anchor="middle">B</text>
         <!-- Flecha horaria -->
         <path d="M 150 15 A 35 35 0 0 1 185 50" fill="none" stroke="#10b981" stroke-width="2.5" marker-end="url(#arrow)"/>
@@ -61,8 +61,8 @@ const CLIMATE_QUESTIONS = [
     diagramSvg: `
       <svg viewBox="0 0 300 100" width="100%" height="100%">
         <!-- Cuña de aire frío -->
-        <polygon points="20,80 180,80 120,40" fill="rgba(56,189,248,0.2)" stroke="#38bdf8" stroke-width="1.5"/>
-        <text x="50" y="70" fill="#38bdf8" font-size="11" font-family="JetBrains Mono">Aire Frío denso</text>
+        <polygon points="20,80 180,80 120,40" fill="rgba(56,189,248,0.2)" stroke="#895522" stroke-width="1.5"/>
+        <text x="50" y="70" fill="#895522" font-size="11" font-family="JetBrains Mono">Aire Frío denso</text>
         <!-- Nube Yunque -->
         <path d="M 120 40 Q 150 10 200 15 Q 260 20 280 25 L 210 50 Z" fill="rgba(255,255,255,0.25)" stroke="#fff"/>
         <text x="210" y="30" fill="#f59e0b" font-size="11" font-family="JetBrains Mono">Yunque</text>
@@ -84,8 +84,8 @@ const CLIMATE_QUESTIONS = [
       <svg viewBox="0 0 300 100" width="100%" height="100%">
         <circle cx="70" cy="50" r="30" fill="rgba(148,163,184,0.3)" stroke="#94a3b8"/>
         <text x="70" y="54" fill="#94a3b8" font-size="10" text-anchor="middle">Cabello ~70µm</text>
-        <circle cx="170" cy="50" r="14" fill="rgba(56,189,248,0.4)" stroke="#38bdf8"/>
-        <text x="170" y="54" fill="#38bdf8" font-size="9" text-anchor="middle">PM10</text>
+        <circle cx="170" cy="50" r="14" fill="rgba(56,189,248,0.4)" stroke="#895522"/>
+        <text x="170" y="54" fill="#895522" font-size="9" text-anchor="middle">PM10</text>
         <circle cx="240" cy="50" r="5" fill="#f43f5e"/>
         <text x="240" y="40" fill="#f43f5e" font-size="10" font-weight="bold" text-anchor="middle">PM2.5</text>
       </svg>

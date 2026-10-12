@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Control Central | Lubricentro DYM</title>
+    <title>Control Central | FAUVOR Taller</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -35,7 +35,7 @@
         const realFetch = window.fetch;
         window.fetch = async function(url, options = {}) {
           const urlStr = typeof url === "string" ? url : (url && url.url ? url.url : "");
-          
+
           if (urlStr.includes("/api/")) {
             const db = await getDb();
             const method = (options.method || 'GET').toUpperCase();
@@ -79,7 +79,7 @@
               const catId = parsedUrl.searchParams.get("categoryId");
 
               if (search) {
-                prods = prods.filter(p => 
+                prods = prods.filter(p =>
                   (p.nombre && p.nombre.toLowerCase().includes(search)) ||
                   (p.codigo && p.codigo.toLowerCase().includes(search)) ||
                   (p.descripcion && p.descripcion.toLowerCase().includes(search))
@@ -215,7 +215,7 @@
     </script>
     <script type="module" crossorigin src="./assets/index-B_CfN0iS.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-Bspshcv_.css">
-  </head>
+  <style>.fauvor-product-brand{display:flex;align-items:center;gap:10px;color:#4A2A18;font-family:Georgia,serif;font-size:19px;flex-shrink:0;flex-wrap:wrap}.fauvor-product-brand img{object-fit:contain;max-width:100%}.fauvor-product-brand .product-mark{width:24px;height:24px}</style></head>
   <body>
     <div id="root"></div>
   </body>

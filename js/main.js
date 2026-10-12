@@ -156,62 +156,15 @@ function projectVisual(project, index = 0, total = 6) {
 }
 
 function initProjectGrid() {
-  const gridContainer = document.getElementById("projectsGrid");
-  if (!gridContainer) return;
-
-  gridContainer.innerHTML = PROJECTS_DATA.map((proj, idx) => {
-    // Botón principal
-    const primaryAction = proj.localAppUrl
-      ? `<button class="btn-card btn-card-primary btn-sandbox" data-app-url="${proj.localAppUrl}" data-app-title="${proj.title}" title="Probar app interactiva">
-          ▶ Probar Demo
-        </button>`
-      : proj.liveUrl && !proj.liveUrl.includes("github.com") && !proj.liveUrl.startsWith("#")
-      ? `<a href="${proj.liveUrl}" target="_blank" rel="noopener noreferrer" class="btn-card btn-card-primary" title="Abrir app en vivo">
-          ↗ Ver en Vercel
-        </a>`
-      : `<a href="${proj.repository}" target="_blank" rel="noopener noreferrer" class="btn-card btn-card-primary" title="Ver código en GitHub">
-          🐙 Ver en GitHub
-        </a>`;
-
-    // Botón de repositorio (si no es ya el principal)
-    const repoAction = proj.repository && (proj.localAppUrl || (proj.liveUrl && !proj.liveUrl.includes("github.com")))
-      ? `<a href="${proj.repository}" target="_blank" rel="noopener noreferrer" class="btn-card btn-card-secondary" title="Ver código fuente en GitHub">
-          🐙 GitHub Repo
-        </a>`
-      : "";
-
-    // Botón de ficha técnica / detalles
-    const detailsAction = `<button class="btn-card btn-card-secondary btn-case-study" data-project-id="${proj.id}" title="Ver ficha técnica">
-        ℹ Ficha Técnica
-      </button>`;
-
-    return `
-      <article class="project-card" data-id="${proj.id}" data-category="${proj.category}">
-        ${projectVisual(proj, idx, PROJECTS_DATA.length)}
-        
-        <div class="project-card-header">
-          <span class="pin-badge">Proyecto destacado</span>
-          <span class="project-category-badge">${proj.categoryLabel}</span>
-        </div>
-
-        <h3 class="project-title">${proj.title}</h3>
-        <div class="project-subtitle">${proj.subtitle}</div>
-        <p class="project-description">${proj.description}</p>
-
-        <div class="project-tags">
-          ${proj.tags.map((t) => `<span class="project-tag">${t}</span>`).join("")}
-        </div>
-
-        <div class="project-actions">
-          ${primaryAction}
-          ${repoAction}
-          ${detailsAction}
-        </div>
-      </article>
-    `;
-  }).join("");
-
-  bindCardInteractions();
+ const grid = document.getElementById('projectsGrid');
+ const summaries = ['Finanzas personales y compartidas, comprobantes e IA para ordenar tu día a día.', 'Gestión de stock, productos, turnos e historial para lubricentros y talleres.', 'Exploración de CSV y Excel, calidad de datos y reportes para tomar decisiones.', 'Catálogo de videojuegos con búsqueda, filtros y una experiencia web en React.', 'Diseño web, proyectos y experiencias digitales en un mismo lugar.', 'Clima por ciudad y pronóstico a siete días con datos meteorológicos en vivo.'];
+ grid.innerHTML = PROJECTS_DATA.map((p,i) => `<article class="project-card ${i>3?'extra-project':''}"><img class="project-image" src="${p.image}" alt="Portada conceptual de ${p.title}" loading="lazy"><div class="project-body"><h3><span class="project-icon" aria-hidden="true">${['◇','⚙','▥','◈','✦','☀'][i]}</span>${p.title}</h3><p>${summaries[i]}</p><button class="text-link btn-case-study" data-project-id="${p.id}">Ver detalle <span>⟶</span></button></div></article>`).join('');
+ bindCardInteractions();
+ const all = document.getElementById('allProjects');
+ all.addEventListener('click',()=>{const open=all.getAttribute('aria-expanded')!=='true';all.setAttribute('aria-expanded',String(open));grid.classList.toggle('show-all',open);all.innerHTML=(open?'Ver destacados':'Ver todos los proyectos')+' <span>⟶</span>';});
+ const menu=document.querySelector('.menu-toggle'); const nav=document.querySelector('.site-header nav');
+ menu.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')!=='true';menu.setAttribute('aria-expanded',String(open));nav.classList.toggle('open',open);});
+ nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');menu.setAttribute('aria-expanded','false');}));
 }
 
 function bindCardInteractions() {
@@ -417,3 +370,25 @@ function initCaseStudyModal() {
     }
   });
 }
+
+// Keep keyboard focus inside an open dialog and restore it on close.
+document.addEventListener('DOMContentLoaded', () => {
+ document.querySelectorAll('.modal-overlay').forEach(modal => {
+  let previousFocus;
+  new MutationObserver(() => {
+   if (modal.classList.contains('active')) {
+    previousFocus = document.activeElement;
+    modal.querySelector('button, a[href]')?.focus();
+   } else if (previousFocus) {
+    previousFocus.focus(); previousFocus = null;
+   }
+  }).observe(modal, {attributes:true, attributeFilter:['class']});
+  modal.addEventListener('keydown', event => {
+   if(event.key !== 'Tab') return;
+   const focusable = [...modal.querySelectorAll('button, a[href], iframe')].filter(el => el.getClientRects().length && !el.disabled);
+   const first=focusable[0],last=focusable.at(-1);
+   if(event.shiftKey && document.activeElement===first){event.preventDefault();last?.focus();}
+   else if(!event.shiftKey && document.activeElement===last){event.preventDefault();first?.focus();}
+  });
+ });
+});

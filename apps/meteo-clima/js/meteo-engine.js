@@ -444,7 +444,7 @@ function drawForecastCurve(canvasId, hourlyTemps, precipProbs) {
   }
   ctx.lineTo(points[points.length - 1].x, points[points.length - 1].y);
 
-  ctx.strokeStyle = '#38bdf8';
+  ctx.strokeStyle = '#895522';
   ctx.lineWidth = 3;
   ctx.stroke();
 
@@ -454,7 +454,7 @@ function drawForecastCurve(canvasId, hourlyTemps, precipProbs) {
     ctx.arc(p.x, p.y, 4, 0, Math.PI * 2);
     ctx.fillStyle = '#fff';
     ctx.fill();
-    ctx.strokeStyle = '#38bdf8';
+    ctx.strokeStyle = '#895522';
     ctx.lineWidth = 2;
     ctx.stroke();
 
@@ -469,7 +469,7 @@ function drawForecastCurve(canvasId, hourlyTemps, precipProbs) {
   });
 }
 
-// 5. Controlador Principal de MeteoTrack Pro
+// 5. Controlador Principal de FAUVOR Clima
 class MeteoTrackController {
   constructor() {
     this.currentUnit = "C";

@@ -3,22 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MeteoTrack Pro 2.0 | Cyber Climate Workstation · Francisco Delgado</title>
+    <title>FAUVOR Clima | Cyber Climate Workstation · Francisco Delgado</title>
     <meta name="description" content="Estación meteorológica interactiva de alta fidelidad con simulador de partículas en vivo, radar Doppler táctico, instrumental climático y centro de desafíos atmosféricos." />
     <meta name="author" content="Francisco Agustín Delgado" />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-    
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
-    
+
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-    
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="./css/meteo.css" />
-  </head>
+  <style>#weatherCanvas,.hud-grid-overlay,.hud-vignette{display:none}.brand-title{font-family:Georgia,serif}</style><style>.fauvor-product-brand{display:flex;align-items:center;gap:10px;color:#4A2A18;font-family:Georgia,serif;font-size:19px;flex-shrink:0;flex-wrap:wrap}.fauvor-product-brand img{object-fit:contain;max-width:100%}.fauvor-product-brand .product-mark{width:24px;height:24px}</style></head>
   <body>
     <!-- Live Atmosphere Particle Canvas -->
     <canvas id="weatherCanvas"></canvas>
@@ -27,14 +27,14 @@
 
     <div class="app-container">
       <!-- HUD Header -->
-      <header class="hud-header">
+      <header class="hud-header"><div class="fauvor-product-brand"><img src="./fauvor/symbol.png" alt="FAUVOR" width="30" height="44"><img class="product-mark" src="./fauvor/product.svg" alt="" width="24" height="24"><span>FAUVOR Clima</span></div>
         <div class="brand-section">
           <div class="brand-icon">
             <i class="bi bi-cloud-lightning-rain-fill"></i>
           </div>
           <div>
             <div class="brand-title">
-              MeteoTrack Pro <span class="brand-badge">v2.4 HUD</span>
+              FAUVOR Clima <span class="brand-badge">v2.4 HUD</span>
             </div>
             <div style="font-family: var(--font-hud); font-size: 0.75rem; color: var(--text-dim);">
               Estación Atmosférica Cuántica · Desarrollado por Francisco Delgado
@@ -208,7 +208,7 @@
                 <span class="inst-unit">Cumulonimbus</span>
               </div>
               <div class="inst-gauge">
-                <div class="inst-gauge-fill" style="width: 72%; background: linear-gradient(90deg, #38bdf8, #a855f7);"></div>
+                <div class="inst-gauge-fill" style="width: 72%; background: linear-gradient(90deg, #FFFAF2, #FFFAF2);"></div>
               </div>
             </div>
           </div>

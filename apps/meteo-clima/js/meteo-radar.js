@@ -70,7 +70,7 @@ class DopplerRadar {
     ctx.stroke();
 
     // Compass headings
-    ctx.fillStyle = '#38bdf8';
+    ctx.fillStyle = '#895522';
     ctx.font = '10px "JetBrains Mono", monospace';
     ctx.textAlign = 'center';
     ctx.fillText('N', this.centerX, this.centerY - this.radius - 4);
@@ -129,7 +129,7 @@ class DopplerRadar {
     ctx.fill();
 
     // Leading ray
-    ctx.strokeStyle = '#38bdf8';
+    ctx.strokeStyle = '#895522';
     ctx.lineWidth = 2;
     ctx.beginPath();
     ctx.moveTo(0, 0);
