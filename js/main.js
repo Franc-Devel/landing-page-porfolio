@@ -190,7 +190,7 @@ function initProjectGrid() {
         ${projectVisual(proj, idx, PROJECTS_DATA.length)}
         
         <div class="project-card-header">
-          <span class="pin-badge">Fijado en GitHub</span>
+          <span class="pin-badge">Proyecto destacado</span>
           <span class="project-category-badge">${proj.categoryLabel}</span>
         </div>
 
@@ -319,24 +319,24 @@ function initCaseStudyModal() {
     modalContent.innerHTML = `
       <div style="border-bottom: 1px solid var(--bg-glass-border); padding-bottom: 18px; margin-bottom: 22px;">
         <span class="project-category-badge" style="display: block; margin-bottom: 6px;">${p.categoryLabel}</span>
-        <h2 style="font-family: var(--font-heading); font-size: 1.75rem; color: #fff; margin-bottom: 6px;">${p.title}</h2>
+        <h2 style="font-family: var(--font-heading); font-size: 1.75rem; color: var(--text-primary); margin-bottom: 6px;">${p.title}</h2>
         <p style="color: var(--accent-cyan); font-weight: 500; font-size: 0.95rem;">${p.subtitle}</p>
       </div>
 
       ${p.image ? `
-        <div style="border-radius: 14px; overflow: hidden; margin-bottom: 22px; border: 1px solid var(--bg-glass-border); background: #090e1a;">
+        <div style="border-radius: 14px; overflow: hidden; margin-bottom: 22px; border: 1px solid var(--bg-glass-border); background: var(--bg-card);">
           <img src="${p.image}" alt="${p.title}" class="case-study-hero-image" style="margin-bottom: 0;" />
         </div>
       ` : ""}
 
       <div style="display: flex; flex-direction: column; gap: 22px;">
         <div>
-          <h4 style="font-family: var(--font-heading); font-size: 1.05rem; color: #fff; margin-bottom: 8px;">1. Propósito & Problema Resuelto</h4>
+          <h4 style="font-family: var(--font-heading); font-size: 1.05rem; color: var(--text-primary); margin-bottom: 8px;">1. Propósito & Problema Resuelto</h4>
           <p style="color: var(--text-secondary); line-height: 1.6; font-size: 0.95rem;">${p.description}</p>
         </div>
 
         <div>
-          <h4 style="font-family: var(--font-heading); font-size: 1.05rem; color: #fff; margin-bottom: 10px;">2. Aspectos Destacados de Implementación</h4>
+          <h4 style="font-family: var(--font-heading); font-size: 1.05rem; color: var(--text-primary); margin-bottom: 10px;">2. Aspectos Destacados de Implementación</h4>
           <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px;">
             ${p.highlights
               .map(
@@ -352,8 +352,8 @@ function initCaseStudyModal() {
         </div>
 
         <div>
-          <h4 style="font-family: var(--font-heading); font-size: 1.05rem; color: #fff; margin-bottom: 10px;">3. Decisiones Técnicas & Stack</h4>
-          <div style="background: rgba(10, 15, 25, 0.7); border: 1px solid var(--bg-glass-border); border-radius: 12px; padding: 18px; display: grid; gap: 10px;">
+          <h4 style="font-family: var(--font-heading); font-size: 1.05rem; color: var(--text-primary); margin-bottom: 10px;">3. Decisiones Técnicas & Stack</h4>
+          <div style="background: var(--bg-card); border: 1px solid var(--bg-glass-border); border-radius: 12px; padding: 18px; display: grid; gap: 10px;">
             ${Object.entries(p.architecture)
               .map(
                 ([key, val]) => `
@@ -368,7 +368,7 @@ function initCaseStudyModal() {
         </div>
 
         <div>
-          <h4 style="font-family: var(--font-heading); font-size: 1.05rem; color: #fff; margin-bottom: 12px;">4. Enlaces Directos</h4>
+          <h4 style="font-family: var(--font-heading); font-size: 1.05rem; color: var(--text-primary); margin-bottom: 12px;">4. Enlaces Directos</h4>
           <div style="display: flex; gap: 12px; flex-wrap: wrap;">
             ${
               p.localAppUrl
