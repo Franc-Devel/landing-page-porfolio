@@ -597,6 +597,13 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible { 
 :root{--bg-app:#F7F1E6;--bg-sidebar:#F7F1E6;--bg-card:#FFFAF2;--border-card:#D6C0A3;--text-main:#2B211A;--text-muted:#65503D;--text-dim:#786451;--accent-blue:#895522;--accent-green:#47664F;--accent-indigo:#9B732A;--accent-purple:#80634F;--accent-pink:#985A4E;--accent-red:#A34235}
 header.st-topbar{background:#FFFAF2;border-bottom:1px solid #D6C0A3}.kpi-card,.chart-panel,.table-panel{background:#FFFAF2;border-color:#D6C0A3;box-shadow:0 3px 12px rgba(74,42,24,.07)}
 .kpi-title{color:#65503D}.kpi-detail,.panel-heading{color:#2B211A}table.st-table th{background:#EFE5D6;color:#4A2A18}table.st-table tbody tr:nth-child(even){background:#F7F1E6}.bg-green{background:#E9EFE7;color:#35553C}.bg-yellow{background:#F2E8D2;color:#795616}.bg-blue{background:#EFE5D6;color:#70451F}.btn-export{background:#895522;color:#FFFAF2}.btn-export:hover{background:#4A2A18}
+</style><style>
+.wa-workspace{display:grid;grid-template-columns:280px minmax(0,1fr);min-height:360px;height:clamp(380px,58vh,560px);background:#FFFAF2;border:1px solid #D6C0A3;border-radius:16px;overflow:hidden;box-shadow:0 4px 16px rgba(74,42,24,.06)}
+.wa-contacts{background:#F7F1E6;border-right:1px solid #D6C0A3;padding:20px 14px;overflow:auto}.wa-contacts>div:first-child{color:#786451!important;font-size:10px!important;letter-spacing:1.2px;margin:0 8px 18px!important}
+.wa-contact{display:block;text-align:left;width:100%;padding:15px 13px;margin-bottom:8px;border:1px solid transparent;border-radius:10px;background:transparent;font:inherit;cursor:pointer}.wa-contact:hover{background:#EFE5D6}.wa-contact.selected{background:#FFFAF2;border-color:#D6C0A3;box-shadow:inset 3px 0 #895522}.wa-contact strong{font-size:14px!important;line-height:1.5;color:#2B211A!important}.wa-contact p{font-size:12px!important;line-height:1.5;color:#65503D!important;margin:5px 0 0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wa-thread{display:flex;flex-direction:column;min-width:0;min-height:0;background:#FFFAF2}#waChatHeader{background:#FFFAF2;color:#4A2A18!important;padding:18px 24px!important;font-size:14px!important;line-height:1.6}#waChatMessages{background:#F9F5EE;padding:26px!important;gap:18px!important;min-height:0}
+.wa-message{max-width:min(78%,620px);padding:14px 17px;border-radius:14px;font:14px/1.65 system-ui,sans-serif;overflow-wrap:anywhere;box-shadow:0 2px 6px rgba(74,42,24,.05)}.wa-message.incoming{align-self:flex-start;background:#FFFAF2;color:#2B211A;border:1px solid #D6C0A3;border-top-left-radius:4px}.wa-message.outgoing{align-self:flex-end;background:#895522;color:#FFFAF2;border:1px solid #895522;border-top-right-radius:4px}.wa-time{font-size:11px;margin-top:7px;text-align:right;color:#786451}.outgoing .wa-time{color:#F7E7CE}
+@media(max-width:900px){.wa-workspace{grid-template-columns:minmax(0,1fr);height:auto}.wa-contacts{display:flex;flex-wrap:wrap;gap:8px;border-right:0;border-bottom:1px solid #D6C0A3;padding:14px}.wa-contacts>div:first-child{width:100%;margin-bottom:4px!important}.wa-contact{flex:1 1 180px;margin:0}.wa-thread{min-height:320px;max-height:60vh}#waChatMessages{padding:16px!important}.wa-message{max-width:92%}}
 </style></head>
 <body>
 
@@ -967,28 +974,28 @@ header.st-topbar{background:#FFFAF2;border-bottom:1px solid #D6C0A3}.kpi-card,.c
            ===================================================================== -->
       <section id="view-whatsapp" class="view-pane">
         <div class="view-title-block" style="margin-bottom: 1.5rem;">
-          <h2>📲 WhatsApp & Cola de Salida</h2>
-          <p>Microservicio Baileys Node.js activo en segundo plano. Bandeja de entrada en tiempo real.</p>
+          <h2>WhatsApp y conversaciones</h2>
+          <p>Seguí tus conversaciones y consultá el historial de cada contacto.</p>
         </div>
 
-        <div style="display: grid; grid-template-columns: 320px 1fr; height: 500px; background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 12px; overflow: hidden;">
-          <div style="background: rgba(169,111,53,0.9); border-right: 1px solid var(--border-card); padding: 1rem; overflow-y: auto;">
-            <div style="font-size: 0.75rem; color: var(--accent-green); font-weight: 700; margin-bottom: 0.75rem;">🟢 BAILYS BRIDGE: CONECTADO</div>
-            <div onclick="switchWaChat(1)" style="padding: 0.75rem; border-radius: 6px; background: rgba(169,111,53,0.06); cursor: pointer; margin-bottom: 0.5rem;">
+        <div class="wa-workspace">
+          <aside class="wa-contacts">
+            <div style="font-size: 0.75rem; color: var(--accent-green); font-weight: 700; margin-bottom: 0.75rem;">CONVERSACIONES DE EJEMPLO</div>
+            <button type="button" class="wa-contact" data-chat-id="1" onclick="switchWaChat(1)">
               <strong style="color: #2B211A; font-size: 0.85rem;">Juan Pérez (Agro del Sur)</strong>
               <p style="font-size: 0.75rem; color: var(--text-muted);">Davis · ¿El plazo de entrega es de 15 días?</p>
-            </div>
-            <div onclick="switchWaChat(2)" style="padding: 0.75rem; border-radius: 6px; background: rgba(169,111,53,0.02); cursor: pointer; margin-bottom: 0.5rem;">
+            </button>
+            <button type="button" class="wa-contact" data-chat-id="2" onclick="switchWaChat(2)">
               <strong style="color: #2B211A; font-size: 0.85rem;">Elena Gómez (El Trébol)</strong>
               <p style="font-size: 0.75rem; color: var(--text-muted);">Sentek · Transferimos el anticipo...</p>
-            </div>
-            <div onclick="switchWaChat(3)" style="padding: 0.75rem; border-radius: 6px; background: rgba(169,111,53,0.02); cursor: pointer;">
+            </button>
+            <button type="button" class="wa-contact" data-chat-id="3" onclick="switchWaChat(3)">
               <strong style="color: #2B211A; font-size: 0.85rem;">Carlos Rodríguez (Viñedos Mza)</strong>
               <p style="font-size: 0.75rem; color: var(--text-muted);">Raphael · Ficha técnica de válvulas...</p>
-            </div>
-          </div>
+            </button>
+          </aside>
 
-          <div style="display: flex; flex-direction: column; background: #F7F1E6;">
+          <div class="wa-thread">
             <div id="waChatHeader" style="padding: 1rem 1.5rem; border-bottom: 1px solid var(--border-card); font-size: 0.9rem; font-weight: 700; color: #2B211A;">
               Conversación con Juan Pérez (+54 9 351 777-1234)
             </div>
@@ -2306,15 +2313,16 @@ header.st-topbar{background:#FFFAF2;border-bottom:1px solid #D6C0A3}.kpi-card,.c
 
     // WhatsApp Switcher
     function switchWaChat(id) {
+      document.querySelectorAll(".wa-contact").forEach(button => { const selected = Number(button.dataset.chatId) === id; button.classList.toggle("selected", selected); button.setAttribute("aria-pressed", String(selected)); });
       const c = BASE_LEADS.find(x => x.id === id) || BASE_LEADS[0];
       if (!c) return;
       document.getElementById("waChatHeader").textContent = `Conversación con ${c.name} (${c.phone}) · Closer: ${c.closer}`;
       const msgContainer = document.getElementById("waChatMessages");
       if (c.chat && c.chat.length > 0) {
         msgContainer.innerHTML = c.chat.map(m => `
-          <div style="align-self: ${m.fromMe ? 'flex-end' : 'flex-start'}; background: ${m.fromMe ? '#0284c7' : '#1e293b'}; color: #2B211A; padding: 0.75rem 1rem; border-radius: 10px; max-width: 75%; font-size: 0.85rem; line-height: 1.4;">
+          <div class="wa-message ${m.fromMe ? 'outgoing' : 'incoming'}">
             <div>${m.text}</div>
-            <div style="font-size: 0.65rem; color: rgba(255,255,255,0.6); text-align: right; margin-top: 0.25rem;">${m.time}</div>
+            <div class="wa-time">${m.time}</div>
           </div>
         `).join("");
       } else {
