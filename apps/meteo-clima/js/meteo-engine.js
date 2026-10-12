@@ -490,8 +490,8 @@ class MeteoTrackController {
       const status = document.createElement('p');
       status.setAttribute('role', 'status');
       status.setAttribute('aria-live', 'polite');
-      status.style.cssText = 'font-size:14px;color:#4A2A18;margin:8px 0;flex-basis:100%';
-      searchInput.parentElement.appendChild(status);
+      status.className = 'city-search-status';
+      searchInput.closest('.search-box').appendChild(status);
       searchInput.addEventListener('keydown', async (e) => {
         if (e.key !== 'Enter' || e.isComposing) return;
         e.preventDefault();
