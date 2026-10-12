@@ -157,7 +157,7 @@ function projectVisual(project, index = 0, total = 6) {
 
 function initProjectGrid() {
  const grid = document.getElementById('projectsGrid');
- const summaries = ['Finanzas personales y compartidas, comprobantes e IA para ordenar tu día a día.', 'Gestión de stock, productos, turnos e historial para lubricentros y talleres.', 'Exploración de CSV y Excel, calidad de datos y reportes para tomar decisiones.', 'Catálogo de videojuegos con búsqueda, filtros y una experiencia web en React.', 'Diseño web, proyectos y experiencias digitales en un mismo lugar.', 'Clima por ciudad y pronóstico a siete días con datos meteorológicos en vivo.'];
+ const summaries = ['Finanzas personales y compartidas, comprobantes e IA para ordenar tu día a día.', 'Gestión de stock, productos, turnos e historial para lubricentros y talleres.', 'Exploración de CSV y Excel, calidad de datos y reportes para tomar decisiones.', 'Catálogo de videojuegos con búsqueda, filtros y una experiencia web en React.', 'Consultas, comprobantes y seguimientos convertidos en tareas, con historial y reintentos.', 'Clima por ciudad y pronóstico a siete días con datos meteorológicos en vivo.'];
  grid.innerHTML = PROJECTS_DATA.map((p,i) => `<article class="project-card ${i>3?'extra-project':''}"><img class="project-image" src="${p.image}" alt="Portada conceptual de ${p.title}" loading="lazy"><div class="project-body"><h3><span class="project-icon" aria-hidden="true">${['◇','⚙','▥','◈','✦','☀'][i]}</span>${p.title}</h3><p>${summaries[i]}</p><button class="text-link btn-case-study" data-project-id="${p.id}">Ver detalle <span>⟶</span></button></div></article>`).join('');
  bindCardInteractions();
  const all = document.getElementById('allProjects');

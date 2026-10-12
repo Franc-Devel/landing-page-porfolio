@@ -119,31 +119,33 @@ const PROJECTS_DATA = [
     }
   },
   {
-    id: "landing-page-porfolio",
-    title: "FAUVOR Studio",
-    subtitle: "Proyectos Full Stack, Python, Datos y Automatización",
-    category: "frontend",
-    categoryLabel: "Diseño Web & UX",
-    tags: ["HTML5", "CSS3 Vanilla", "JavaScript ES6+", "Full Stack", "Showcase"],
+    id: "system-flow",
+    title: "FAUVOR Flow",
+    subtitle: "Automatizaciones para negocios, de la entrada al resultado",
+    category: "automation",
+    categoryLabel: "Automatización & Integraciones",
+    tags: ["Node.js", "SQLite", "JavaScript", "Flujos", "IA opcional", "Telegram opcional"],
     status: "pinned",
-    statusLabel: "Repo Fijado en GitHub",
+    statusLabel: "Proyecto FAUVOR",
     pinned: true,
-    image: "images/projects/portfolio-profesional-fauvor.webp",
-    repository: "https://github.com/Franc-Devel/landing-page-porfolio",
-    liveUrl: "#inicio",
-    localAppUrl: null,
-    description: "Landing page y portafolio profesional de Francisco Delgado. Concebido bajo la premisa de que 'menos es más', con alto impacto gráfico, tipografía cuidada, carga instantánea y foco estricto en los 6 proyectos fijados en GitHub.",
+    image: "images/projects/system-flow-fauvor.webp",
+    repository: "https://github.com/Franc-Devel/system-flow",
+    liveUrl: "https://github.com/Franc-Devel/system-flow",
+    localAppUrl: "apps/system-flow/index.html",
+    description: "Motor de automatizaciones con tres flujos: consulta a presupuesto, comprobante a revisión y seguimiento. Crea tareas y avisos, registra el historial y permite reintentar desde el paso fallido. La demo usa reglas locales y almacenamiento del navegador; el servidor local agrega SQLite e integraciones opcionales.",
     highlights: [
-      "Rendimiento nativo 60 FPS sin dependencias superfluas ni sobreinformación",
-      "Diseño editorial marfil y bronce de alto contraste y navegación descansada",
-      "Galería gráfica con banners de alta fidelidad para cada repositorio",
-      "Entorno sandbox integrado para ejecución de demos locales sin salir del sitio"
+      "Tres flujos ejecutables con validación de entradas",
+      "Historial por paso y reintentos sin duplicar tareas",
+      "Tareas con estados y exportación del historial en JSON",
+      "Servidor Node.js con SQLite e IA/Telegram opcionales; demo sin envíos externos"
     ],
     architecture: {
-      core: "Vanilla HTML5 semántico + CSS nativo con variables de diseño",
-      logica: "Vanilla JavaScript (sin frameworks pesados innecesarios)",
-      optimizacion: "Cero dependencias externas en tiempo de ejecución",
-      repositorio: "https://github.com/Franc-Devel/landing-page-porfolio"
+      interfaz: "HTML, CSS y JavaScript modular con identidad FAUVOR",
+      motor: "Motor compartido entre navegador y servidor",
+      persistencia: "SQLite en servidor local; localStorage en la demo",
+      integraciones: "IA y Telegram opcionales, configurados exclusivamente en el servidor",
+      pruebas: "Pruebas del motor y API con Node Test Runner",
+      repositorio: "https://github.com/Franc-Devel/system-flow"
     }
   },
   {
