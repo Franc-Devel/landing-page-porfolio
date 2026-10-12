@@ -487,18 +487,35 @@ class MeteoTrackController {
     // City Search Input
     const searchInput = document.getElementById('citySearch');
     if (searchInput) {
-      searchInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          const query = searchInput.value.toLowerCase().trim();
-          const match = Object.keys(CITY_DATABASE).find(k =>
-            CITY_DATABASE[k].name.toLowerCase().includes(query)
-          );
-          if (match) {
-            this.loadCity(match);
-          } else {
-            alert(`Ciudad "${searchInput.value}" encontrada en simulación con parámetros globales.`);
-          }
-          searchInput.value = '';
+      const status = document.createElement('p');
+      status.setAttribute('role', 'status');
+      status.setAttribute('aria-live', 'polite');
+      status.style.cssText = 'font-size:14px;color:#4A2A18;margin:8px 0;flex-basis:100%';
+      searchInput.parentElement.appendChild(status);
+      searchInput.addEventListener('keydown', async (e) => {
+        if (e.key !== 'Enter' || e.isComposing) return;
+        e.preventDefault();
+        const query = searchInput.value.trim();
+        if (!query) { status.textContent = 'Escribí una ciudad para buscar.'; return; }
+        this.searchAbort?.abort();
+        const controller = new AbortController();
+        this.searchAbort = controller;
+        status.textContent = 'Consultando ciudad y pronóstico…';
+        searchInput.setAttribute('aria-busy', 'true');
+        const timeout = setTimeout(() => controller.abort(), 15000);
+        try {
+          const data = await window.FauvorWeather.search(query, controller.signal);
+          if (this.searchAbort !== controller) return;
+          CITY_DATABASE.search = data;
+          this.loadCity('search');
+          document.querySelectorAll('.preset-chip').forEach(c => c.classList.remove('active'));
+          status.textContent = `Clima actualizado: ${data.name}, ${data.country}. Fuente: Open-Meteo. Radar ilustrativo.`;
+        } catch (error) {
+          if (this.searchAbort === controller) status.textContent = error.name === 'AbortError'
+            ? 'La consulta tardó demasiado. Intentá nuevamente.' : error.message;
+        } finally {
+          clearTimeout(timeout);
+          if (this.searchAbort === controller) searchInput.removeAttribute('aria-busy');
         }
       });
     }
@@ -545,6 +562,7 @@ class MeteoTrackController {
   }
 
   loadCity(cityKey) {
+    this.searchAbort?.abort();
     this.currentCityKey = cityKey;
     const data = CITY_DATABASE[cityKey];
     if (!data) return;
@@ -563,7 +581,7 @@ class MeteoTrackController {
     document.getElementById('humidityVal').textContent = `${data.humidity}%`;
     document.getElementById('pressureVal').textContent = `${data.pressure} hPa`;
     document.getElementById('windVal').textContent = `${data.windSpeed} km/h`;
-    document.getElementById('aqiVal').textContent = `${data.aqi} · ${data.aqiLabel}`;
+    document.getElementById('aqiVal').textContent = data.aqi == null ? "Sin datos disponibles" : `${data.aqi} · ${data.aqiLabel}`;
 
     // Gauges & Instruments
     document.getElementById('humidityGauge').style.width = `${data.humidity}%`;
