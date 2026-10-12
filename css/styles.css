@@ -42,4 +42,4 @@
 
 .impact-outcome{font:clamp(29px,3vw,42px)/1.2 Georgia,serif;color:#4A2A18;margin:24px 0 22px;letter-spacing:-.5px}
 
-.impact-grid img{width:44px;height:44px}.services-grid img[src$="ai-literal.svg"]{width:48px;height:48px;filter:none}
+.impact-grid img{width:44px;height:44px}.services-grid img[src*="ai-literal.svg"]{width:48px;height:48px;filter:none}
