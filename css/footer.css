@@ -1,0 +1,22 @@
+/* Footer uses the original FAUVOR kit symbol on an ivory surface. */
+.fauvor-footer{background:#F7F1E6;color:#2B211A;border-top:3px solid #B78547;padding:56px 0 22px;text-align:left}
+.fauvor-footer .container{width:min(1280px,calc(100% - 64px))}
+.fauvor-footer-main{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr) minmax(0,1fr);gap:56px;align-items:center}
+.fauvor-footer-logo{display:flex;align-items:center;gap:10px;width:fit-content;color:#4A2A18}
+.fauvor-footer-logo img{width:170px;height:190px;object-fit:cover;object-position:center;flex-shrink:0}
+.fauvor-footer-logo>span{font:clamp(42px,4vw,62px)/1.1 Georgia,serif;letter-spacing:-2px}
+.fauvor-footer-tagline{font:32px/1.2 Georgia,serif;margin:8px 0 18px;color:#4A2A18}
+.fauvor-footer-description{font-size:16px;line-height:1.7;color:#65503D}
+.fauvor-footer h2{font:25px/1.3 Georgia,serif;letter-spacing:0;color:#4A2A18;margin:0 0 20px}
+.fauvor-footer nav{display:grid;grid-template-columns:1fr;gap:4px}
+.fauvor-footer nav a,.fauvor-footer-social a{font-size:17px;line-height:1.5;letter-spacing:0;text-transform:none;min-height:44px;display:flex;align-items:center;width:fit-content;color:#4A2A18;padding:8px 0}
+.fauvor-footer nav a:hover,.fauvor-footer-social a:hover{text-decoration:underline;text-underline-offset:6px}
+.fauvor-footer-contact>p{font-size:17px;line-height:1.7;color:#65503D;margin-bottom:22px}
+.fauvor-footer-cta{display:flex;align-items:center;justify-content:space-between;gap:30px;min-height:52px;max-width:250px;padding:12px 24px;border-radius:30px;background:#895522;color:#FFFAF2;font-size:16px}
+.fauvor-footer-cta:hover{background:#4A2A18}.fauvor-footer-cta span{font-size:25px;line-height:1}
+.fauvor-footer-social{display:flex;flex-wrap:wrap;gap:26px;margin-top:18px}.fauvor-footer-social a{gap:10px}
+.fauvor-footer-legal{display:flex;justify-content:space-between;align-items:center;gap:24px;border-top:1px solid #D6C0A3;margin-top:40px;padding-top:20px;color:#65503D;font-size:14px;line-height:1.7}
+.fauvor-footer-legal a{min-height:44px;display:flex;align-items:center;color:#4A2A18;font-size:15px}
+.fauvor-footer a:focus-visible{outline:2px solid #895522;outline-offset:5px}
+@media(max-width:1100px){.fauvor-footer-main{grid-template-columns:1fr 1fr;gap:38px}.fauvor-footer-identity{grid-column:1/-1}.fauvor-footer-logo img{width:160px;height:180px}.fauvor-footer-logo>span{font-size:58px}.fauvor-footer nav{grid-template-columns:1fr 1fr;column-gap:24px}}
+@media(max-width:600px){.fauvor-footer{padding-top:32px}.fauvor-footer .container{width:calc(100% - 40px)}.fauvor-footer-main{grid-template-columns:minmax(0,1fr);gap:32px}.fauvor-footer-identity{grid-column:auto}.fauvor-footer-logo{gap:4px}.fauvor-footer-logo img{width:112px;height:140px}.fauvor-footer-logo>span{font-size:46px}.fauvor-footer-tagline{font-size:29px}.fauvor-footer-description{font-size:16px}.fauvor-footer-legal{flex-direction:column;align-items:flex-start;gap:8px;margin-top:28px}.fauvor-footer h2{font-size:24px}}
