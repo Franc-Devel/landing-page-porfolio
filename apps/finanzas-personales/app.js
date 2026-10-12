@@ -232,7 +232,7 @@ if($('#ai-sample-selector')){
       };
       $('#ai-json-output').textContent=JSON.stringify(result,null,2);
       $('#ai-status-badge').textContent='✓ Extraído en 480ms';
-      $('#ai-status-badge').style.color='#10b981';
+      $('#ai-status-badge').style.color='#47664F';
       state.expenses.unshift({
         id: 'ai-'+Date.now(),
         description: s.desc,

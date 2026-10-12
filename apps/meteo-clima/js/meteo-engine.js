@@ -264,7 +264,7 @@ class WeatherCanvasEngine {
       ctx.lineTo(this.canvas.width, 0);
       ctx.closePath();
 
-      const color = layer === 0 ? 'rgba(16, 185, 129, 0.15)' :
+      const color = layer === 0 ? 'rgba(71,102,79,0.15)' :
                     layer === 1 ? 'rgba(56, 189, 248, 0.12)' : 'rgba(168, 85, 247, 0.1)';
       ctx.fillStyle = color;
       ctx.fill();

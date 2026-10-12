@@ -20,7 +20,7 @@
   --primary: #895522;
   --primary-hover: #895522;
   --accent-cyan: #895522;
-  --accent-emerald: #10b981;
+  --accent-emerald: #47664F;
   --accent-mint: #89e5c0;
   --accent-purple: #895522;
 
@@ -632,7 +632,7 @@ h1 {
 
 .badge.good {
   color: var(--accent-mint);
-  background: rgba(16, 185, 129, 0.15);
+  background: rgba(71,102,79,0.15);
   border: 1px solid rgba(169,111,53,0.3);
 }
 

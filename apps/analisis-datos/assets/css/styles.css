@@ -5,7 +5,7 @@
   --muted: #786451;
   --line: #D6C0A3;
   --panel: #F7F1E6;
-  --green: #2fb884;
+  --green: #47664F;
   --green-dark: #8bd9b9;
   --mint: #173d31;
   --mint-soft: #14241f;
@@ -88,7 +88,7 @@ button:focus-visible, select:focus-visible {
 
 .window-dots span:nth-child(1) { background: #ef7166; }
 .window-dots span:nth-child(2) { background: #edbd54; }
-.window-dots span:nth-child(3) { background: #52be7e; }
+.window-dots span:nth-child(3) { background: #47664F; }
 
 .brand-block {
   display: flex;
@@ -276,7 +276,7 @@ code {
   width: 0;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, var(--green), #36ae81);
+  background: linear-gradient(90deg, var(--green), #47664F);
   transition: width .35s ease;
 }
 
@@ -619,7 +619,7 @@ select {
 }
 
 .primary-button:hover:not(:disabled) {
-  background: #52ca99;
+  background: #47664F;
   transform: translateY(-1px);
   box-shadow: 0 5px 0 #176c50;
 }
@@ -739,7 +739,7 @@ select {
 }
 
 .answer-button.correct {
-  border-color: #4cae82;
+  border-color: #47664F;
   background: var(--mint);
 }
 

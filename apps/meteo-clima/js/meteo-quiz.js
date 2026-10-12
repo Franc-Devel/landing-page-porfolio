@@ -13,7 +13,7 @@ const CLIMATE_QUESTIONS = [
         <defs>
           <linearGradient id="dbzGrad" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stop-color="#895522"/>
-            <stop offset="40%" stop-color="#10b981"/>
+            <stop offset="40%" stop-color="#47664F"/>
             <stop offset="70%" stop-color="#f59e0b"/>
             <stop offset="100%" stop-color="#f43f5e"/>
           </linearGradient>
@@ -42,8 +42,8 @@ const CLIMATE_QUESTIONS = [
         <circle cx="150" cy="50" r="20" fill="none" stroke="#895522" stroke-width="1.5"/>
         <text x="150" y="55" fill="#f43f5e" font-size="16" font-family="JetBrains Mono" font-weight="bold" text-anchor="middle">B</text>
         <!-- Flecha horaria -->
-        <path d="M 150 15 A 35 35 0 0 1 185 50" fill="none" stroke="#10b981" stroke-width="2.5" marker-end="url(#arrow)"/>
-        <text x="210" y="45" fill="#10b981" font-size="11" font-family="JetBrains Mono">Fuerza de Coriolis</text>
+        <path d="M 150 15 A 35 35 0 0 1 185 50" fill="none" stroke="#47664F" stroke-width="2.5" marker-end="url(#arrow)"/>
+        <text x="210" y="45" fill="#47664F" font-size="11" font-family="JetBrains Mono">Fuerza de Coriolis</text>
       </svg>
     `,
     options: [

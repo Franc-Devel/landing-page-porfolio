@@ -93,7 +93,7 @@ class DopplerRadar {
         grad.addColorStop(1, 'transparent');
       } else if (cloud.intensity > 35) {
         // Moderate (Green/Yellow)
-        grad.addColorStop(0, 'rgba(16, 185, 129, 0.55)');
+        grad.addColorStop(0, 'rgba(71,102,79,0.55)');
         grad.addColorStop(0.6, 'rgba(56, 189, 248, 0.3)');
         grad.addColorStop(1, 'transparent');
       } else {
