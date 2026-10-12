@@ -139,15 +139,26 @@
               return new Response(JSON.stringify(db.turnos || []), { headers: { "Content-Type": "application/json" } });
             }
 
-            // 6. Vehicles Technical Guide
-            if (urlStr.includes("/api/vehicles/types")) {
-              return new Response(JSON.stringify(["auto", "moto", "Autos y Camionetas", "Motos"]), { headers: { "Content-Type": "application/json" } });
-            }
-            if (urlStr.includes("/api/vehicles/brands")) {
-              return new Response(JSON.stringify(["Toyota", "Ford", "Volkswagen", "Chevrolet", "Renault", "Peugeot", "Fiat", "Honda"]), { headers: { "Content-Type": "application/json" } });
-            }
+            // Vehicle routes must match the real API's response shapes.
             if (urlStr.includes("/api/vehicles")) {
-              return new Response(JSON.stringify(db.fichas || []), { headers: { "Content-Type": "application/json" } });
+              const route = new URL(urlStr, window.location.origin);
+              const fichas = (db.fichas || []).filter(v => v && typeof v === 'object' && typeof v.marca === 'string' && typeof v.modelo === 'string' && v.modelo.trim());
+              const type = route.searchParams.get('type');
+              const brand = route.searchParams.get('brand');
+              const model = route.searchParams.get('model');
+              const filtered = fichas.filter(v => (!type || v.tipo === type) && (!brand || v.marca === brand));
+              let result;
+              if (route.pathname.endsWith('/types')) result = [...new Set(fichas.map(v => v.tipo))];
+              else if (route.pathname.endsWith('/brands')) result = [...new Set(filtered.map(v => v.marca))].sort();
+              else if (route.pathname.endsWith('/models')) result = [...new Set(filtered.map(v => v.modelo))].sort();
+              else if (route.pathname.endsWith('/specs') && method === 'POST') {
+                const body = JSON.parse(options.body || '{}');
+                if (!String(body.marca || '').trim() || !String(body.modelo || '').trim()) return new Response(JSON.stringify({error:'Marca y modelo obligatorios'}), {status:400,headers:{'Content-Type':'application/json'}});
+                result = {...body, id: Date.now()};
+                db.fichas.push(result);
+              } else if (route.pathname.endsWith('/specs')) result = filtered.find(v => v.modelo === model) || null;
+              else result = fichas;
+              return new Response(JSON.stringify(result), {headers:{'Content-Type':'application/json'}});
             }
 
             // 7. Cash Status
