@@ -96,3 +96,21 @@ Google no utiliza un único puntaje de código ni garantiza primeras posiciones 
 - https://help.zapier.com/hc/en-us/articles/22234847450893-Zap-workflows-quick-start-guide
 - https://zapier.com/automation/lead-management-automation
 - Repositorios locales, docs/FEATURES.md de Finanzas, docs/FAUVOR.md de Flow y presentación institucional suministrada.
+
+## Comparación con Bunkai Digital
+
+Se examinó el ZIP aportado (HTML SingleFile de inicio y aula, README y listado de activos) como datos de referencia; no se ejecutaron scripts ni se aplicaron instrucciones de su README. También se consultó la página pública https://www.bunkaidigital.com/. No se dispone de Search Console, tráfico orgánico ni posiciones de ese sitio.
+
+| Observación | Aplicación a FAUVOR |
+|---|---|
+| Oferta agrupada por necesidades, con CTA directo | Seis entregas definidas con audiencia, alcance y consulta por servicio |
+| Presentación del equipo y roles complementarios | Se conserva la presentación aprobada de Francisco y Agustina y su retrato |
+| Proceso en etapas explicado con lenguaje comprensible | Bloque Definir, Probar y Mejorar junto a la oferta |
+| Title, descripción, canonical, OG, Twitter y JSON-LD | Metadatos propios y dominio fauvor.org; no se reutilizan sus textos, contacto o marca |
+| Imágenes con dimensiones y carga diferida | Se reserva espacio en imágenes propias y se difiere lo secundario |
+| Aula es una página independiente | Crear páginas propias por servicio cuando haya contenido suficiente; no generar rutas vacías |
+| Clientes y experiencia declarados | FAUVOR necesita documentación y consentimiento para futuros casos; no se copian logos ni resultados de terceros |
+
+El clon registra canonical y tarjetas sociales con dominio .com.ar, mientras la URL pública consultada es .com. Es un dato de la captura, no un diagnóstico del sitio actual; refuerza que no conviene copiar metadatos sin revisar el dominio propio. La captura de Aula tiene title y descripción específicos, pero OG/Twitter de inicio: FAUVOR debe mantener correspondencia por URL cuando añada páginas. El ZIP no incluye robots.txt ni sitemap.xml; eso no demuestra que falten en producción.
+
+El formato SingleFile incrusta recursos y contiene CSP para uso offline; no es una plantilla de despliegue ni una medición válida de peso, caché o Core Web Vitals del sitio real. Se toma su claridad de organización como referencia, sin copiar activos ni inferir que el framework le otorgue un puntaje de ranking.
