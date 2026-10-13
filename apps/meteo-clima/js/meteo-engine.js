@@ -573,6 +573,16 @@ class MeteoTrackController {
     document.getElementById('cityName').textContent = data.name;
     document.getElementById('cityCoords').textContent = `${data.country} · ${data.coords}`;
     document.getElementById('mainTemp').textContent = toTemp(data.temp);
+    document.getElementById('tempUnit').textContent = '°' + this.currentUnit;
+    document.getElementById('weatherConditionText').textContent = data.condition;
+    const symbols = {clear:'sun',sunny:'sun',cloudy:'cloud-sun',rain:'cloud-rain',snow:'cloud-snow',thunderstorm:'cloud-lightning-rain'};
+    document.getElementById('weatherSymbol').className = 'bi bi-' + (symbols[data.weatherType] || 'cloud');
+    const rain = data.precipProb.filter(Number.isFinite);
+    document.getElementById('rainChance').textContent = rain.length ? Math.max(...rain) + '%' : 'Sin datos';
+    document.getElementById('weatherSource').textContent = cityKey === 'search'
+      ? 'Datos y pronóstico de Open-Meteo · radar ilustrativo'
+      : 'Vista de ejemplo · buscá una ciudad para consultar Open-Meteo';
+
     document.getElementById('feelsLike').textContent = `${toTemp(data.feelsLike)}°`;
     document.getElementById('hiLo').textContent = `Mín: ${toTemp(data.min)}° · Máx: ${toTemp(data.max)}°`;
     document.getElementById('conditionBadge').textContent = data.condition;
