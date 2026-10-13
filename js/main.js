@@ -269,86 +269,10 @@ function initCaseStudyModal() {
     const p = PROJECTS_DATA.find((item) => item.id === projectId);
     if (!p) return;
 
-    modalContent.innerHTML = `
-      <div style="border-bottom: 1px solid var(--bg-glass-border); padding-bottom: 18px; margin-bottom: 22px;">
-        <span class="project-category-badge" style="display: block; margin-bottom: 6px;">${p.categoryLabel}</span>
-        <h2 style="font-family: var(--font-heading); font-size: 1.75rem; color: var(--text-primary); margin-bottom: 6px;">${p.title}</h2>
-        <p style="color: var(--accent-cyan); font-weight: 500; font-size: 0.95rem;">${p.subtitle}</p>
-      </div>
-
-      ${p.image ? `
-        <div style="border-radius: 14px; overflow: hidden; margin-bottom: 22px; border: 1px solid var(--bg-glass-border); background: var(--bg-card);">
-          <img src="${p.image}" alt="${p.title}" class="case-study-hero-image" style="margin-bottom: 0;" />
-        </div>
-      ` : ""}
-
-      <div style="display: flex; flex-direction: column; gap: 22px;">
-        <div>
-          <h4 style="font-family: var(--font-heading); font-size: 1.05rem; color: var(--text-primary); margin-bottom: 8px;">1. Propósito & Problema Resuelto</h4>
-          <p style="color: var(--text-secondary); line-height: 1.6; font-size: 0.95rem;">${p.description}</p>
-        </div>
-
-        <div>
-          <h4 style="font-family: var(--font-heading); font-size: 1.05rem; color: var(--text-primary); margin-bottom: 10px;">2. Aspectos Destacados de Implementación</h4>
-          <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px;">
-            ${p.highlights
-              .map(
-                (h) => `
-              <li style="color: var(--text-secondary); display: flex; align-items: flex-start; gap: 10px; font-size: 0.92rem;">
-                <span style="color: var(--accent-emerald); font-weight: bold;">✓</span>
-                <span>${h}</span>
-              </li>
-            `
-              )
-              .join("")}
-          </ul>
-        </div>
-
-        <div>
-          <h4 style="font-family: var(--font-heading); font-size: 1.05rem; color: var(--text-primary); margin-bottom: 10px;">3. Decisiones Técnicas & Stack</h4>
-          <div style="background: var(--bg-card); border: 1px solid var(--bg-glass-border); border-radius: 12px; padding: 18px; display: grid; gap: 10px;">
-            ${Object.entries(p.architecture)
-              .map(
-                ([key, val]) => `
-              <div>
-                <span style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent-cyan); text-transform: uppercase;">${key}:</span>
-                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 2px;">${val}</p>
-              </div>
-            `
-              )
-              .join("")}
-          </div>
-        </div>
-
-        <div>
-          <h4 style="font-family: var(--font-heading); font-size: 1.05rem; color: var(--text-primary); margin-bottom: 12px;">4. Enlaces Directos</h4>
-          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-            ${
-              p.localAppUrl
-                ? `<a href="${p.localAppUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding: 10px 18px; font-size: 0.85rem;">
-                    ↗ Abrir Demo en Pestaña Nueva
-                  </a>`
-                : ""
-            }
-            ${
-              p.liveUrl && !p.liveUrl.includes("github.com") && !p.liveUrl.startsWith("#")
-                ? `<a href="${p.liveUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding: 10px 18px; font-size: 0.85rem;">
-                    ⚡ Ver en Vercel
-                  </a>`
-                : ""
-            }
-            ${
-              p.repository
-                ? `<a href="${p.repository}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding: 10px 18px; font-size: 0.85rem;">
-                    🐙 Ver Repositorio en GitHub
-                  </a>`
-                : ""
-            }
-          </div>
-        </div>
-      </div>
-    `;
-
+    modalContent.innerHTML = `<div class="case-heading"><span>${p.categoryLabel}</span><h2>${p.title}</h2><p>${p.subtitle}</p></div><div class="case-tabs" role="tablist" aria-label="Información del proyecto"><button role="tab" id="tab-summary" aria-selected="true" aria-controls="pane-summary" data-pane="summary">Resumen</button><button role="tab" id="tab-features" aria-selected="false" aria-controls="pane-features" data-pane="features" tabindex="-1">Funciones</button><button role="tab" id="tab-tech" aria-selected="false" aria-controls="pane-tech" data-pane="tech" tabindex="-1">Detalles técnicos</button></div><div class="case-panes"><section role="tabpanel" id="pane-summary" aria-labelledby="tab-summary" class="case-summary"><img src="${p.image}" alt="Portada conceptual de ${p.title}"><div><h3>Qué podés explorar</h3><p>${p.description}</p><small>Portada conceptual. Abrí la demo para ver la aplicación.</small></div></section><section role="tabpanel" id="pane-features" aria-labelledby="tab-features" hidden><h3>Funciones destacadas</h3><ul>${p.highlights.map(h=>`<li>${h}</li>`).join('')}</ul></section><section role="tabpanel" id="pane-tech" aria-labelledby="tab-tech" hidden><dl>${Object.entries(p.architecture).filter(([key])=>key!=='repositorio').map(([key,val])=>`<div><dt>${key}</dt><dd>${val}</dd></div>`).join('')}</dl></section></div><div class="case-actions"><a class="button" href="${p.localAppUrl}" target="_blank" rel="noopener noreferrer">Abrir demo ↗</a><a class="case-repo-link" href="${p.repository}" target="_blank" rel="noopener noreferrer">Ver repositorio ↗</a></div>`;
+    const tabs=[...modalContent.querySelectorAll('[role=tab]')];
+    function activate(tab){tabs.forEach(t=>{const active=t===tab;t.setAttribute('aria-selected',String(active));t.tabIndex=active?0:-1;modalContent.querySelector('#pane-'+t.dataset.pane).hidden=!active;});}
+    tabs.forEach((tab,i)=>{tab.onclick=()=>activate(tab);tab.onkeydown=e=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;e.preventDefault();const index=e.key==='Home'?0:e.key==='End'?tabs.length-1:(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;activate(tabs[index]);tabs[index].focus();};});
     modal.classList.add("active");
     document.body.style.overflow = "hidden";
   };
